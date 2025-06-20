@@ -21,6 +21,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { sliderBlock } from '@/blocks/Sliders/config'
+import { HomepageAbout } from '@/blocks/HomepageAbout/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -76,7 +77,15 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, sliderBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                sliderBlock,
+                HomepageAbout,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
