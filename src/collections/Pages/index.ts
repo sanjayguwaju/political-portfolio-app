@@ -23,7 +23,8 @@ import {
 import { sliderBlock } from '@/blocks/Sliders/config'
 import { HomepageAbout } from '@/blocks/HomepageAbout/config'
 import { ArticleSection } from '@/blocks/ArticleSection/config'
-  
+import { ContentSection } from '@/blocks/ContentSection/config'
+
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
   access: {
@@ -87,6 +88,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 sliderBlock,
                 HomepageAbout,
                 ArticleSection,
+                ContentSection,
               ],
               required: true,
               admin: {
