@@ -191,7 +191,7 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SliderBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -729,6 +729,26 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SliderBlock".
+ */
+export interface SliderBlock {
+  type: 'none' | 'sliderType1';
+  slides?:
+    | {
+        image: string | Media;
+        title: string;
+        description?: string | null;
+        alt: string;
+        id?: string | null;
+      }[]
+    | null;
+  autoplaySpeed?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sliderblock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1018,6 +1038,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        sliderblock?: T | SliderBlockSelect<T>;
       };
   meta?:
     | T
@@ -1114,6 +1135,25 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SliderBlock_select".
+ */
+export interface SliderBlockSelect<T extends boolean = true> {
+  type?: T;
+  slides?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        description?: T;
+        alt?: T;
+        id?: T;
+      };
+  autoplaySpeed?: T;
   id?: T;
   blockName?: T;
 }

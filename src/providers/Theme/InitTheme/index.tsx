@@ -32,11 +32,13 @@ export const InitTheme: React.FC = () => {
     if (themeIsValid(preference)) {
       themeToSet = preference
     } else {
-      var implicitPreference = getImplicitPreference()
+      // var implicitPreference = getImplicitPreference()
 
-      if (implicitPreference) {
-        themeToSet = implicitPreference
-      }
+      // if (implicitPreference) {
+      //   themeToSet = implicitPreference
+      // }
+
+      themeToSet = 'light'
     }
 
     document.documentElement.setAttribute('data-theme', themeToSet)
