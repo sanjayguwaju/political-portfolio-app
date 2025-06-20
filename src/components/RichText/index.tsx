@@ -19,6 +19,7 @@ import type {
   MediaBlock as MediaBlockProps,
   SliderBlock as SliderBlockProps,
   HomepageAboutBlock as HomepageAboutBlockProps,
+  ArticleSectionBlock as ArticleSectionBlockProps,
 } from '@/payload-types'
 
 import { BannerBlock } from '@/blocks/Banner/Component'
@@ -36,6 +37,7 @@ type NodeTypes =
       | CodeBlockProps
       | SliderBlockProps
       | HomepageAboutBlockProps
+      | ArticleSectionBlockProps
     >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -66,6 +68,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
     sliderblock: ({ node }: { node: any }) => <SliderBlock {...node.fields} />,
     homepageabout: ({ node }: { node: any }) => <HomepageAboutBlock {...node.fields} />,
+    articleSection: ({ node }: { node: any }) => <ArticleSectionBlock {...node.fields} />,
   },
 })
 

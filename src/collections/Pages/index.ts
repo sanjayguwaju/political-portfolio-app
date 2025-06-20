@@ -22,7 +22,8 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { sliderBlock } from '@/blocks/Sliders/config'
 import { HomepageAbout } from '@/blocks/HomepageAbout/config'
-
+import { ArticleSection } from '@/blocks/ArticleSection/config'
+  
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
   access: {
@@ -85,6 +86,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FormBlock,
                 sliderBlock,
                 HomepageAbout,
+                ArticleSection,
               ],
               required: true,
               admin: {
