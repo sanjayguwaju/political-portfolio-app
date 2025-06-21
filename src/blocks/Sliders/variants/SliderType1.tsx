@@ -3,7 +3,6 @@
 
 import Image from 'next/image'
 import React, { useState, useEffect, useCallback } from 'react'
-// import RichText from '@/components/RichText'
 
 type Slide = {
   image: {
@@ -21,7 +20,7 @@ type SliderProps = {
   autoplaySpeed?: number
 }
 
-const SliderType1 = ({ richText, slides, autoplaySpeed = 3000 }: SliderProps) => {
+const SliderType1 = ({ slides, autoplaySpeed = 3000 }: SliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const prevSlide = useCallback(() => {
@@ -46,12 +45,6 @@ const SliderType1 = ({ richText, slides, autoplaySpeed = 3000 }: SliderProps) =>
 
   return (
     <section className="relative">
-      {richText && (
-        <div className="container mx-auto px-4 py-8">
-          {/* <RichText data={richText} enableGutter={true} enableProse={true} /> */}
-          <div>Rich Text Content (temporarily disabled)</div>
-        </div>
-      )}
       <div className="h-[60vh] md:h-[85vh] w-full overflow-hidden">
         <div className="relative h-full">
           {slides.map((slide, index) => (
