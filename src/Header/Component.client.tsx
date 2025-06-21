@@ -2,7 +2,8 @@
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 import type { Header } from '@/payload-types'
 
@@ -20,10 +21,22 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
-  // Use refs for smooth scroll detection
-  const isScrolledRef = useRef(false)
-  const topHeaderRef = useRef<HTMLDivElement>(null)
-  const stickyNavRef = useRef<HTMLDivElement>(null)
+  // Framer Motion scroll hook
+  const { scrollY } = useScroll()
+
+  // Transform scroll values to animation values
+  const topHeaderOpacity = useTransform(scrollY, [0, 50], [1, 0])
+  const topHeaderY = useTransform(scrollY, [0, 50], [0, -100])
+  const navbarBackground = useTransform(
+    scrollY,
+    [0, 50],
+    ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.95)'],
+  )
+  const navbarShadow = useTransform(
+    scrollY,
+    [0, 50],
+    ['0px 0px 0px rgba(0, 0, 0, 0)', '0px 1px 3px rgba(0, 0, 0, 0.1)'],
+  )
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -35,71 +48,16 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
-  // Handle scroll detection with useRef and requestAnimationFrame
-  useEffect(() => {
-    let ticking = false
-
-    const updateScrollState = () => {
-      const scrollTop = window.scrollY
-      const wasScrolled = isScrolledRef.current
-      const isScrolled = scrollTop > 50
-
-      if (wasScrolled !== isScrolled) {
-        isScrolledRef.current = isScrolled
-
-        // Update top header visibility
-        if (topHeaderRef.current) {
-          if (isScrolled) {
-            topHeaderRef.current.style.opacity = '0'
-            topHeaderRef.current.style.pointerEvents = 'none'
-            topHeaderRef.current.style.transform = 'translateY(-100%)'
-          } else {
-            topHeaderRef.current.style.opacity = '1'
-            topHeaderRef.current.style.pointerEvents = 'auto'
-            topHeaderRef.current.style.transform = 'translateY(0)'
-          }
-        }
-
-        // Update sticky nav styling
-        if (stickyNavRef.current) {
-          if (isScrolled) {
-            stickyNavRef.current.style.position = 'fixed'
-            stickyNavRef.current.style.top = '0'
-            stickyNavRef.current.style.left = '0'
-            stickyNavRef.current.style.right = '0'
-            stickyNavRef.current.style.zIndex = '40'
-            stickyNavRef.current.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'
-            stickyNavRef.current.style.backdropFilter = 'blur(8px)'
-            stickyNavRef.current.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
-          } else {
-            stickyNavRef.current.style.position = 'relative'
-            stickyNavRef.current.style.backgroundColor = ''
-            stickyNavRef.current.style.backdropFilter = ''
-            stickyNavRef.current.style.boxShadow = ''
-          }
-        }
-      }
-
-      ticking = false
-    }
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateScrollState)
-        ticking = true
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
     <>
       {/* Top Header Bar with Logo - Hidden on mobile, shows on desktop and hides on scroll */}
-      <div
-        ref={topHeaderRef}
-        className="container relative z-20 transition-all duration-300 hidden lg:block"
+      <motion.div
+        className="container relative z-30 hidden lg:block"
+        style={{
+          opacity: topHeaderOpacity,
+          y: topHeaderY,
+          pointerEvents: useTransform(scrollY, [0, 50], ['auto', 'none']),
+        }}
         {...(theme ? { 'data-theme': theme } : {})}
       >
         <div className="py-6 flex justify-center items-center">
@@ -107,12 +65,16 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
             <Logo loading="eager" priority="high" className="invert dark:invert-0" />
           </Link>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Sticky Navigation Bar */}
-      <div
-        ref={stickyNavRef}
-        className="w-full transition-all duration-300"
+      {/* Navigation Bar - Sticky with smooth background transition */}
+      <motion.div
+        className="w-full sticky top-0 z-40"
+        style={{
+          backgroundColor: navbarBackground,
+          backdropFilter: useTransform(scrollY, [0, 50], ['none', 'blur(8px)']),
+          boxShadow: navbarShadow,
+        }}
         {...(theme ? { 'data-theme': theme } : {})}
       >
         <div className="container">
@@ -135,7 +97,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }
