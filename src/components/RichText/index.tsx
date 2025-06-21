@@ -27,6 +27,8 @@ import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { SliderBlock } from '@/blocks/Sliders/Component'
 import { HomepageAboutBlock } from '@/blocks/HomepageAbout/Component'
+import { ArticleSectionBlock } from '@/blocks/ArticleSection/Component'
+import { ContentSectionBlock } from '@/blocks/ContentSection/Component'
 import { cn } from '@/utilities/ui'
 
 type NodeTypes =

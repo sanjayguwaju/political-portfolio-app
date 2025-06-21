@@ -1,5 +1,5 @@
 import React from 'react'
-import { SliderType1 } from './variants/SliderType1'
+import SliderType1 from './variants/SliderType1'
 
 const sliderVariants = {
   sliderType1: SliderType1,

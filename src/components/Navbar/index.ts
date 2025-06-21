@@ -1,3 +1,5 @@
+export { ResponsiveNavbar } from './ResponsiveNavbar'
 export { DesktopNavbar } from './DesktopNavbar'
 export { MobileNavbar } from './MobileNavbar'
-export { ResponsiveNavbar } from './ResponsiveNavbar'
+export { navItems } from './navData'
+export type { NavItem } from './navData'
