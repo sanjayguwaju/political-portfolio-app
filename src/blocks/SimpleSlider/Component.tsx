@@ -11,7 +11,7 @@ import Image from 'next/image'
 const dummySlides = [
   {
     backgroundImage:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&h=1080&fit=crop',
+      'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606682/fiddpw5sumypg3kcatsa.jpg',
     alt: 'Political campaign rally',
     title: 'Building a Better Future',
     description:
@@ -21,7 +21,7 @@ const dummySlides = [
   },
   {
     backgroundImage:
-      'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&h=1080&fit=crop',
+      'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606702/fzrx0p7q00xumqrfq3q2.jpg',
     alt: 'Community meeting',
     title: 'Community First',
     description:
@@ -31,7 +31,7 @@ const dummySlides = [
   },
   {
     backgroundImage:
-      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=1080&fit=crop',
+      'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606723/nccnszxj8fitoxewyxrp.jpg',
     alt: 'Policy discussion',
     title: 'Proven Leadership',
     description:
@@ -41,7 +41,7 @@ const dummySlides = [
   },
   {
     backgroundImage:
-      'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&h=1080&fit=crop',
+      'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
     alt: 'Handshake agreement',
     title: 'Transparency & Trust',
     description:
