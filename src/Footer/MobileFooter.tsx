@@ -37,7 +37,7 @@ const MobileFooter: React.FC<MobileFooterProps> = ({
   copyrightText = '© 2024 Political Portfolio. All rights reserved.',
 }) => {
   return (
-    <footer className="md:hidden bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <footer className="md:hidden bg-[#1D40AF] text-white">
       {/* Main Footer Content */}
       <div className="px-4 py-8">
         {/* Company Info */}

@@ -36,7 +36,7 @@ const DesktopFooter: React.FC<DesktopFooterProps> = ({
   copyrightText = '© 2024 Political Portfolio. All rights reserved.',
 }) => {
   return (
-    <footer className="hidden md:block bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+    <footer className="hidden md:block bg-[#1D40AF] text-white">
       <div className="container py-8 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Company Info */}
