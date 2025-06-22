@@ -1,39 +1,44 @@
-import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
   SerializedLinkNode,
   type DefaultTypedEditorState,
 } from '@payloadcms/richtext-lexical'
+
 import {
   JSXConvertersFunction,
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
 
-import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
+import { cn } from '@/utilities/ui'
 
 import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
   SliderBlock as SliderBlockProps,
+  AboutBlock as AboutBlockProps,
   HomepageAboutBlock as HomepageAboutBlockProps,
   ArticleSectionBlock as ArticleSectionBlockProps,
   ContentSectionBlock as ContentSectionBlockProps,
   PhotoGalleryBlock as PhotoGalleryBlockProps,
   VideoGalleryBlock as VideoGalleryBlockProps,
+  NewsMediaBlock as NewsMediaBlockProps,
 } from '@/payload-types'
 
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { SliderBlock } from '@/blocks/Sliders/Component'
+import { AboutBlock } from '@/blocks/About/Component'
 import { HomepageAboutBlock } from '@/blocks/HomepageAbout/Component'
 import { ArticleSectionBlock } from '@/blocks/ArticleSection/Component'
 import { ContentSectionBlock } from '@/blocks/ContentSection/Component'
 import { PhotoGalleryBlock } from '@/blocks/PhotoGallery/Component'
-import { cn } from '@/utilities/ui'
 import { VideoGalleryBlock } from '@/blocks/VideoGallery/Component'
+import { NewsMediaBlock } from '@/blocks/NewsMedia/Component'
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -43,11 +48,13 @@ type NodeTypes =
       | BannerBlockProps
       | CodeBlockProps
       | SliderBlockProps
+      | AboutBlockProps
       | HomepageAboutBlockProps
       | ArticleSectionBlockProps
       | ContentSectionBlockProps
       | PhotoGalleryBlockProps
       | VideoGalleryBlockProps
+      | NewsMediaBlockProps
     >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -77,11 +84,13 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
     sliderblock: ({ node }: { node: any }) => <SliderBlock {...node.fields} />,
+    about: ({ node }: { node: any }) => <AboutBlock {...node.fields} />,
     homepageabout: ({ node }: { node: any }) => <HomepageAboutBlock {...node.fields} />,
     articleSection: ({ node }: { node: any }) => <ArticleSectionBlock {...node.fields} />,
     contentSection: ({ node }: { node: any }) => <ContentSectionBlock {...node.fields} />,
     photoGallery: ({ node }: { node: any }) => <PhotoGalleryBlock {...node.fields} />,
     videoGallery: ({ node }: { node: any }) => <VideoGalleryBlock {...node.fields} />,
+    newsMedia: ({ node }: { node: any }) => <NewsMediaBlock {...node.fields} />,
   },
 })
 

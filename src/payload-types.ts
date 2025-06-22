@@ -198,11 +198,13 @@ export interface Page {
     | ArchiveBlock
     | FormBlock
     | SliderBlock
+    | AboutBlock
     | HomepageAboutBlock
     | ArticleSectionBlock
     | ContentSectionBlock
     | PhotoGalleryBlock
     | VideoGalleryBlock
+    | NewsMediaBlock
   )[];
   meta?: {
     title?: string | null;
@@ -761,6 +763,54 @@ export interface SliderBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock".
+ */
+export interface AboutBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HomepageAboutBlock".
  */
 export interface HomepageAboutBlock {
@@ -998,6 +1048,54 @@ export interface VideoGalleryBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'videoGallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsMediaBlock".
+ */
+export interface NewsMediaBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsMedia';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1291,11 +1389,13 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         sliderblock?: T | SliderBlockSelect<T>;
+        about?: T | AboutBlockSelect<T>;
         homepageabout?: T | HomepageAboutBlockSelect<T>;
         articleSection?: T | ArticleSectionBlockSelect<T>;
         contentSection?: T | ContentSectionBlockSelect<T>;
         photoGallery?: T | PhotoGalleryBlockSelect<T>;
         videoGallery?: T | VideoGalleryBlockSelect<T>;
+        newsMedia?: T | NewsMediaBlockSelect<T>;
       };
   meta?:
     | T
@@ -1416,6 +1516,30 @@ export interface SliderBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock_select".
+ */
+export interface AboutBlockSelect<T extends boolean = true> {
+  richText?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "HomepageAboutBlock_select".
  */
 export interface HomepageAboutBlockSelect<T extends boolean = true> {
@@ -1515,6 +1639,30 @@ export interface PhotoGalleryBlockSelect<T extends boolean = true> {
  * via the `definition` "VideoGalleryBlock_select".
  */
 export interface VideoGalleryBlockSelect<T extends boolean = true> {
+  richText?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsMediaBlock_select".
+ */
+export interface NewsMediaBlockSelect<T extends boolean = true> {
   richText?: T;
   links?:
     | T

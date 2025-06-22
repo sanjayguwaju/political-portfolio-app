@@ -26,6 +26,8 @@ import { ArticleSection } from '@/blocks/ArticleSection/config'
 import { ContentSection } from '@/blocks/ContentSection/config'
 import { PhotoGallery } from '@/blocks/PhotoGallery/config'
 import { VideoGallery } from '@/blocks/VideoGallery/config'
+import { NewsMedia } from '@/blocks/NewsMedia/config'
+import { About } from '@/blocks/About/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -88,11 +90,13 @@ export const Pages: CollectionConfig<'pages'> = {
                 Archive,
                 FormBlock,
                 sliderBlock,
+                About,
                 HomepageAbout,
                 ArticleSection,
                 ContentSection,
                 PhotoGallery,
                 VideoGallery,
+                NewsMedia,
               ],
               required: true,
               admin: {

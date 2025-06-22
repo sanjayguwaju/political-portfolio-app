@@ -13,6 +13,8 @@ import { ArticleSectionBlock } from '@/blocks/ArticleSection/Component'
 import { ContentSectionBlock } from '@/blocks/ContentSection/Component'
 import { PhotoGalleryBlock } from './PhotoGallery/Component'
 import { VideoGalleryBlock } from './VideoGallery/Component'
+import { NewsMediaBlock } from './NewsMedia/Component'
+import { AboutBlock } from './About/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -21,11 +23,13 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   sliderblock: SliderBlock,
+  about: AboutBlock,
   homepageabout: HomepageAboutBlock,
   articleSection: ArticleSectionBlock,
   contentSection: ContentSectionBlock,
   photoGallery: PhotoGalleryBlock,
   videoGallery: VideoGalleryBlock,
+  newsMedia: NewsMediaBlock,
 }
 
 export const RenderBlocks: React.FC<{
