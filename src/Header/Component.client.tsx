@@ -68,17 +68,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
       </motion.div>
 
       {/* Navigation Bar - Sticky with smooth background transition */}
-      <motion.div
-        className="w-full sticky top-0 z-40"
-        style={{
-          backgroundColor: navbarBackground,
-          backdropFilter: useTransform(scrollY, [0, 50], ['none', 'blur(8px)']),
-          boxShadow: navbarShadow,
-        }}
-        {...(theme ? { 'data-theme': theme } : {})}
-      >
+      <motion.div className="w-full sticky top-0 z-40 bg-blue-800">
         <div className="container">
-          <div className="py-4 flex justify-between items-center lg:justify-center">
+          <div className="py-4 flex justify-between items-center">
             {/* Logo - Visible on mobile, hidden on desktop */}
             <div className="lg:hidden">
               <Link href="/">
@@ -87,8 +79,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
             </div>
 
             {/* Desktop Navigation - Hidden on mobile */}
-            <div className="hidden lg:block">
-              <ResponsiveNavbar />
+            <div className="hidden lg:block w-full">
+              <ResponsiveNavbar navData={_data.navItems} />
             </div>
 
             {/* Mobile Navigation - Visible on mobile, hidden on desktop */}

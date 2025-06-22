@@ -3,17 +3,40 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { ChevronDown, ChevronRight, Search } from 'lucide-react'
-import { navItems, NavItem } from './navData'
+import * as LucideIcons from 'lucide-react'
+
+// Updated interface to match the new data structure
+interface NavItem {
+  id: string
+  name: string
+  path?: string
+  icon?: string
+  dropdown?: NavItem[]
+  subDropdown?: NavItem[]
+}
 
 interface DesktopNavbarProps {
   className?: string
+  navData: NavItem[]
 }
 
-export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '' }) => {
+// Helper function to get icon component from string
+const getIconComponent = (iconString?: string) => {
+  if (!iconString) return null
+
+  // Remove 'LucideIcons.' prefix and get the icon name
+  const iconName = iconString.replace('LucideIcons.', '')
+
+  // Get the icon component from LucideIcons
+  return (LucideIcons as any)[iconName] || null
+}
+
+export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', navData }) => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [activeSubDropdown, setActiveSubDropdown] = useState<string | null>(null)
   const [activeSubSubDropdown, setActiveSubSubDropdown] = useState<string | null>(null)
   const navbarRef = useRef<HTMLDivElement>(null)
+  const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -29,69 +52,106 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '' }) 
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const handleDropdownToggle = (itemId: string) => {
-    if (activeDropdown === itemId) {
+  // Clear timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (leaveTimeoutRef.current) {
+        clearTimeout(leaveTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleDropdownEnter = (itemId: string) => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current)
+      leaveTimeoutRef.current = null
+    }
+    setActiveDropdown(itemId)
+    setActiveSubDropdown(null)
+    setActiveSubSubDropdown(null)
+  }
+
+  const handleDropdownLeave = () => {
+    leaveTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null)
       setActiveSubDropdown(null)
       setActiveSubSubDropdown(null)
-    } else {
-      setActiveDropdown(itemId)
-      setActiveSubDropdown(null)
-      setActiveSubSubDropdown(null)
-    }
+    }, 100) // Small delay to allow moving to dropdown
   }
 
-  const handleSubDropdownToggle = (itemId: string) => {
-    if (activeSubDropdown === itemId) {
-      setActiveSubDropdown(null)
-      setActiveSubSubDropdown(null)
-    } else {
-      setActiveSubDropdown(itemId)
-      setActiveSubSubDropdown(null)
+  const handleSubDropdownEnter = (itemId: string) => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current)
+      leaveTimeoutRef.current = null
     }
+    setActiveSubDropdown(itemId)
+    setActiveSubSubDropdown(null)
   }
 
-  const handleSubSubDropdownToggle = (itemId: string) => {
-    if (activeSubSubDropdown === itemId) {
+  const handleSubDropdownLeave = () => {
+    leaveTimeoutRef.current = setTimeout(() => {
+      setActiveSubDropdown(null)
       setActiveSubSubDropdown(null)
-    } else {
-      setActiveSubSubDropdown(itemId)
+    }, 100)
+  }
+
+  const handleSubSubDropdownEnter = (itemId: string) => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current)
+      leaveTimeoutRef.current = null
     }
+    setActiveSubSubDropdown(itemId)
+  }
+
+  const handleSubSubDropdownLeave = () => {
+    leaveTimeoutRef.current = setTimeout(() => {
+      setActiveSubSubDropdown(null)
+    }, 100)
   }
 
   const renderNavItem = (item: NavItem, level: number = 0) => {
-    const hasChildren = item.children && item.children.length > 0
+    const hasChildren = item.dropdown && item.dropdown.length > 0
+    const hasSubChildren = item.subDropdown && item.subDropdown.length > 0
     const isActive = activeDropdown === item.id
     const isSubActive = activeSubDropdown === item.id
     const isSubSubActive = activeSubSubDropdown === item.id
+    const IconComponent = getIconComponent(item.icon)
 
     const baseClasses =
-      'flex items-center justify-between px-4 py-2 text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800'
-    const activeClasses = level === 0 ? 'bg-gray-100 dark:bg-gray-800' : ''
+      level === 0
+        ? 'flex items-center justify-between px-4 py-2 text-sm text-white transition-colors duration-200'
+        : 'flex items-center justify-between px-4 py-2 text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800'
+    const activeClasses = level === 0 ? '' : ''
     const levelClasses = level === 0 ? 'relative' : level === 1 ? 'relative' : 'relative'
 
     return (
-      <div key={item.id} className={`${levelClasses} ${level === 0 ? 'inline-block' : 'w-full'}`}>
+      <div
+        key={item.id}
+        className={`${levelClasses} ${level === 0 ? 'inline-block' : 'w-full'}`}
+        onMouseEnter={() => {
+          if (level === 0 && hasChildren) handleDropdownEnter(item.id)
+          else if (level === 1 && hasSubChildren) handleSubDropdownEnter(item.id)
+          else if (level === 2 && hasSubChildren) handleSubSubDropdownEnter(item.id)
+        }}
+        onMouseLeave={() => {
+          if (level === 0) handleDropdownLeave()
+          else if (level === 1) handleSubDropdownLeave()
+          else if (level === 2) handleSubSubDropdownLeave()
+        }}
+      >
         <div className={`${baseClasses} ${activeClasses} ${level > 0 ? 'w-full' : ''}`}>
-          <div className="flex items-center gap-2">
-            {item.icon && <item.icon className="w-4 h-4" />}
-            {item.href ? (
-              <Link href={item.href} className="flex-1">
-                {item.label}
+          <div className="flex items-center gap-2 flex-1">
+            {IconComponent && <IconComponent className="w-4 h-4" />}
+            {item.path ? (
+              <Link href={item.path} className="flex-1">
+                {item.name}
               </Link>
             ) : (
-              <span className="flex-1">{item.label}</span>
+              <span className="flex-1">{item.name}</span>
             )}
           </div>
-          {hasChildren && (
-            <button
-              onClick={() => {
-                if (level === 0) handleDropdownToggle(item.id)
-                else if (level === 1) handleSubDropdownToggle(item.id)
-                else if (level === 2) handleSubSubDropdownToggle(item.id)
-              }}
-              className="ml-2 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
-            >
+          {(hasChildren || hasSubChildren) && (
+            <div className="ml-2 p-1">
               {level === 0 ? (
                 <ChevronDown
                   className={`w-4 h-4 transition-transform ${isActive ? 'rotate-180' : ''}`}
@@ -101,28 +161,40 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '' }) 
                   className={`w-4 h-4 transition-transform ${isSubActive || isSubSubActive ? 'rotate-90' : ''}`}
                 />
               )}
-            </button>
+            </div>
           )}
         </div>
 
         {/* Level 1 Dropdown */}
         {hasChildren && level === 0 && isActive && (
-          <div className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
-            {item.children!.map((child) => renderNavItem(child, 1))}
+          <div
+            className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
+            onMouseEnter={() => handleDropdownEnter(item.id)}
+            onMouseLeave={() => handleDropdownLeave()}
+          >
+            {item.dropdown!.map((child) => renderNavItem(child, 1))}
           </div>
         )}
 
         {/* Level 2 Dropdown */}
-        {hasChildren && level === 1 && isSubActive && (
-          <div className="absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
-            {item.children!.map((child) => renderNavItem(child, 2))}
+        {hasSubChildren && level === 1 && isSubActive && (
+          <div
+            className="absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
+            onMouseEnter={() => handleSubDropdownEnter(item.id)}
+            onMouseLeave={() => handleSubDropdownLeave()}
+          >
+            {item.subDropdown!.map((child) => renderNavItem(child, 2))}
           </div>
         )}
 
         {/* Level 3 Dropdown */}
-        {hasChildren && level === 2 && isSubSubActive && (
-          <div className="absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
-            {item.children!.map((child) => renderNavItem(child, 3))}
+        {hasSubChildren && level === 2 && isSubSubActive && (
+          <div
+            className="absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
+            onMouseEnter={() => handleSubSubDropdownEnter(item.id)}
+            onMouseLeave={() => handleSubSubDropdownLeave()}
+          >
+            {item.subDropdown!.map((child) => renderNavItem(child, 3))}
           </div>
         )}
       </div>
@@ -131,17 +203,24 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '' }) 
 
   return (
     <div ref={navbarRef} className={`relative ${className}`}>
-      <nav className="flex items-center space-x-1">
-        {navItems.map((item) => renderNavItem(item))}
+      <nav className="flex items-center justify-between">
+        <div className="flex items-center space-x-1">
+          {navData.map((item) => renderNavItem(item))}
+        </div>
 
-        {/* Search button */}
-        <Link
-          href="/search"
-          className="flex items-center gap-2 px-4 py-2 text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
-        >
-          <Search className="w-4 h-4" />
-          <span className="sr-only">Search</span>
-        </Link>
+        <div className="flex items-center">
+          {/* Search Bar */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search"
+              className="py-1 pl-4 pr-10 text-white bg-transparent border border-white rounded-full focus:outline-none focus:ring-1 focus:ring-white"
+            />
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <Search className="w-5 h-5 text-white" />
+            </div>
+          </div>
+        </div>
       </nav>
     </div>
   )

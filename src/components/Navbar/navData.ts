@@ -5,7 +5,7 @@ export interface NavItem {
   id: string
   label: string
   href?: string
-  icon?: React.ComponentType<{ className?: string }>
+  icon?: React.ComponentType<{ className?: string }> | null
   children?: NavItem[]
 }
 
@@ -15,11 +15,12 @@ export const navItems: NavItem[] = [
     id: 'home',
     label: 'Home',
     href: '/',
-    icon: LucideIcons.Home,
+    icon: null,
   },
   {
     id: 'about',
     label: 'About',
+    href: '/about',
     icon: LucideIcons.Info,
     children: [
       {
@@ -70,6 +71,7 @@ export const navItems: NavItem[] = [
   {
     id: 'services',
     label: 'Services',
+    href: '/services',
     icon: LucideIcons.Settings,
     children: [
       {
@@ -114,6 +116,7 @@ export const navItems: NavItem[] = [
   {
     id: 'resources',
     label: 'Resources',
+    href: '/resources',
     icon: LucideIcons.FileText,
     children: [
       {
@@ -158,6 +161,7 @@ export const navItems: NavItem[] = [
   {
     id: 'contact',
     label: 'Contact',
+    href: '/contact',
     icon: LucideIcons.Phone,
     children: [
       {
