@@ -1,10 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import type { NewsMediaBlock as NewsMediaBlockProps } from '@/payload-types'
-import { CMSLink } from '@/components/Link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Users, Newspaper, Mic, Video } from 'lucide-react'
 import Image from 'next/image'
+import { CalendarIcon } from 'lucide-react'
 
 export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
   links: _links,
@@ -13,32 +12,27 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
   const [mediaContent, setMediaContent] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
-  // Load content from admin panel or use default
   useEffect(() => {
-    // Default static content (fallback)
     const defaultContent = [
       {
         id: 1,
-        title: 'Parliamentary Speech Coverage',
-        description: 'Latest coverage of parliamentary speeches and political discussions',
-        icon: Mic,
+        title: 'demo-pdsfsdf',
+        date: 'असाेज ३, २०८१ बिहीबार २०:३५:५८',
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
         featured: true,
       },
       {
         id: 2,
-        title: 'Social Program Highlights',
-        description: 'Media coverage of community outreach and social welfare programs',
-        icon: Users,
+        title: 'demo-pdsfsdf',
+        date: 'असाेज १, २०८१ मंगलबार १३:२४:४८',
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606823/b5cnge3uepaoeoic1dnf.jpg',
       },
       {
         id: 3,
-        title: 'Political Commentary',
-        description: 'Expert analysis and commentary on current political developments',
-        icon: Newspaper,
+        title: 'demo-pdsfsdf',
+        date: 'भदौ १६, २०८१ आइतबार १३:३:०',
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606842/tueh2vcgbdsvnd0tzm98.jpg',
       },
@@ -58,11 +52,7 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
               const convertedContent = newsContent.slice(0, 3).map((item: any, index: number) => ({
                 id: item.id || index + 1,
                 title: item.title,
-                description:
-                  item.body && item.body.length > 150
-                    ? `${item.body.substring(0, 150)}...`
-                    : item.body || item.description,
-                icon: [Mic, Users, Newspaper][index % 3],
+                date: item.date || defaultContent[index]?.date,
                 image: item.image || defaultContent[index]?.image,
                 featured: index === 0,
               }))
@@ -85,7 +75,6 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
 
     loadContent()
 
-    // Listen for content updates
     const handleStorageChange = () => loadContent()
     if (typeof window !== 'undefined') {
       window.addEventListener('storage', handleStorageChange)
@@ -98,197 +87,97 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
     }
   }, [])
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  }
-
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-      },
-    },
-  }
-
-  // Show loading state
   if (loading) {
     return (
       <section id="news-media" className="py-12 lg:py-20">
         <div className="container">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading news content...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading news...</p>
           </div>
         </div>
       </section>
     )
   }
 
-  // Ensure we have articles to display
   if (!mediaContent || mediaContent.length === 0) {
     return null
   }
 
   const featuredArticle = mediaContent[0]
-  const topArticle = mediaContent[1]
-  const bottomArticle = mediaContent[2]
+  const otherArticles = mediaContent.slice(1)
 
   return (
-    <section id="news-media" className="py-2 lg:py-4">
-      <div className="container">
+    <section id="news-media" className="py-8">
+      <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-12 lg:mb-16"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">News Media Coverage</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">News & Media</h2>
           <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
 
-        {/* Article Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full min-h-[550px]"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {/* Featured Article - Left Card with row span 2 */}
-          <motion.div
-            className="col-span-1 md:col-span-1 md:row-span-2 bg-gray-50 overflow-hidden flex justify-between flex-col h-full py-6 lg:py-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
-            variants={cardVariants}
-          >
-            <div className="px-6 lg:px-8">
-              <div className="flex items-center gap-3 mb-4">
-                {featuredArticle?.icon && (
-                  <featuredArticle.icon className="text-blue-600 text-2xl" />
-                )}
-                <h4 className="text-2xl font-semibold text-gray-900">{featuredArticle?.title}</h4>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Featured Article (Left) */}
+          {featuredArticle && (
+            <motion.div
+              className="lg:col-span-2 bg-card p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <div className="relative w-full h-96 mb-4">
+                <Image
+                  src={featuredArticle.image}
+                  alt={featuredArticle.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-md"
+                />
               </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">{featuredArticle?.description}</p>
-              <CMSLink
-                url="/media-interaction"
-                className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
-              >
-                Read More
-                <ArrowRight className="group-hover:ml-1 transition-all duration-200 w-4 h-4" />
-              </CMSLink>
-            </div>
-
-            <div className="flex justify-center items-end">
-              <Image
-                alt={featuredArticle?.title}
-                src={featuredArticle?.image || ''}
-                width={100}
-                height={100}
-                className="w-full max-w-[400px] h-auto object-cover"
-              />
-            </div>
-          </motion.div>
-
-          {/* Right Top Card */}
-          <motion.div
-            className="bg-gray-50 col-span-1 flex justify-between items-center px-6 py-6 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-            variants={cardVariants}
-          >
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3">
-                {topArticle?.icon && <topArticle.icon className="text-blue-600 text-xl" />}
-                <h4 className="text-xl font-semibold text-gray-900">{topArticle?.title}</h4>
+              <div className="flex items-center text-sm text-muted-foreground mb-2">
+                <CalendarIcon className="w-4 h-4 mr-2" />
+                <span>{featuredArticle.date}</span>
               </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                {topArticle?.description}
-              </p>
-              <CMSLink
-                url="/media-interaction"
-                className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
+              <h3 className="text-2xl font-bold text-card-foreground">{featuredArticle.title}</h3>
+            </motion.div>
+          )}
+
+          {/* Other Articles (Right) */}
+          <div className="flex flex-col gap-8">
+            {otherArticles.map((article, index) => (
+              <motion.div
+                key={article.id}
+                className="bg-card p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 * (index + 1) }}
+                viewport={{ once: true }}
               >
-                Read More
-                <ArrowRight className="group-hover:ml-1 transition-all duration-200 w-4 h-4" />
-              </CMSLink>
-            </div>
-
-            <Image
-              alt={topArticle?.title}
-              src={topArticle?.image || ''}
-              width={100}
-              height={100}
-              className="w-24 h-24 object-cover ml-4"
-            />
-          </motion.div>
-
-          {/* Right Bottom Card */}
-          <motion.div
-            className="bg-gray-50 col-span-1 flex justify-between items-center px-6 py-6 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-            variants={cardVariants}
-          >
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3">
-                {bottomArticle?.icon && <bottomArticle.icon className="text-blue-600 text-xl" />}
-                <h4 className="text-xl font-semibold text-gray-900">{bottomArticle?.title}</h4>
-              </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                {bottomArticle?.description}
-              </p>
-              <CMSLink
-                url="/media-interaction"
-                className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
-              >
-                Read More
-                <ArrowRight className="group-hover:ml-1 transition-all duration-200 w-4 h-4" />
-              </CMSLink>
-            </div>
-
-            <Image
-              alt={bottomArticle?.title}
-              src={bottomArticle?.image || ''}
-              width={100}
-              height={100}
-              className="w-24 h-24 object-cover ml-4"
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* View All Media Interactions Button */}
-        <motion.div
-          className="text-center mt-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <CMSLink
-            url="/media-interaction"
-            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
-          >
-            <Video className="mr-2 w-5 h-5" />
-            View All Media Interactions
-          </CMSLink>
-        </motion.div>
+                <div className="relative w-full h-48 mb-4">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-md"
+                  />
+                </div>
+                <div className="flex items-center text-sm text-muted-foreground mb-2">
+                  <CalendarIcon className="w-4 h-4 mr-2" />
+                  <span>{article.date}</span>
+                </div>
+                <h4 className="text-lg font-semibold text-card-foreground">{article.title}</h4>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

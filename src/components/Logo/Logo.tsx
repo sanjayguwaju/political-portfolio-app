@@ -14,16 +14,21 @@ export const Logo = (props: Props) => {
   const priority = priorityFromProps || 'low'
 
   return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
-      alt="Chanda Chaudhary"
-      width={40}
-      height={40}
-      loading={loading}
-      fetchPriority={priority}
-      decoding="async"
-      
-      src="https://res.cloudinary.com/dz3facqgc/image/upload/v1750584011/onhead4hxtcxoig3atrr.jpg"
-    />
+    <div className="flex items-center gap-x-4">
+      {/* eslint-disable @next/next/no-img-element */}
+      <img
+        alt="Chanda Chaudhary"
+        width={40}
+        height={40}
+        loading={loading}
+        fetchPriority={priority}
+        decoding="async"
+        className="rounded-full"
+        src="/media/logo.png"
+      />
+      <div className="flex items-center">
+        <span className="font-vibes text-lg lg:text-xl text-secondary font-bold lg:text-black text-white whitespace-nowrap">Chanda Chaudhary</span>
+      </div>
+    </div>
   )
 }

@@ -12,14 +12,16 @@ interface ResponsiveNavbarProps {
 export const ResponsiveNavbar: React.FC<ResponsiveNavbarProps> = ({ className = '', navData }) => {
   console.log(navData)
   return (
-    <div className={className}>
-      {/* Desktop Navbar - Hidden on mobile */}
-      <div className="hidden lg:block">
+    <div className={`flex items-center ${className}`}>
+      {/* Desktop Navbar - Hidden on mobile, centered */}
+      <div className="hidden lg:flex lg:flex-1 lg:justify-center">
         <DesktopNavbar navData={navData} />
       </div>
 
-      {/* Mobile Navbar - Hidden on desktop */}
-      <MobileNavbar />
+      {/* Mobile Navbar - Hidden on desktop, positioned on the right */}
+      <div className="lg:hidden ml-auto">
+        <MobileNavbar navData={navData} />
+      </div>
     </div>
   )
 }

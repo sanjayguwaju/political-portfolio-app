@@ -5,14 +5,14 @@ import Link from 'next/link'
 import { ChevronDown, ChevronRight, Search } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
 
-// Updated interface to match the new data structure
+// Updated interface to match the Header config structure
 interface NavItem {
-  id: string
   name: string
-  path?: string
-  icon?: string
+  path: string
+  icon?: string | null
   dropdown?: NavItem[]
   subDropdown?: NavItem[]
+  id?: string | null
 }
 
 interface DesktopNavbarProps {
@@ -21,7 +21,7 @@ interface DesktopNavbarProps {
 }
 
 // Helper function to get icon component from string
-const getIconComponent = (iconString?: string) => {
+const getIconComponent = (iconString?: string | null) => {
   if (!iconString) return null
 
   // Remove 'LucideIcons.' prefix and get the icon name
@@ -112,9 +112,9 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
   const renderNavItem = (item: NavItem, level: number = 0) => {
     const hasChildren = item.dropdown && item.dropdown.length > 0
     const hasSubChildren = item.subDropdown && item.subDropdown.length > 0
-    const isActive = activeDropdown === item.id
-    const isSubActive = activeSubDropdown === item.id
-    const isSubSubActive = activeSubSubDropdown === item.id
+    const isActive = activeDropdown === item.name
+    const isSubActive = activeSubDropdown === item.name
+    const isSubSubActive = activeSubSubDropdown === item.name
     const IconComponent = getIconComponent(item.icon)
 
     const baseClasses =
@@ -126,12 +126,12 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
 
     return (
       <div
-        key={item.id}
+        key={item.name}
         className={`${levelClasses} ${level === 0 ? 'inline-block' : 'w-full'}`}
         onMouseEnter={() => {
-          if (level === 0 && hasChildren) handleDropdownEnter(item.id)
-          else if (level === 1 && hasSubChildren) handleSubDropdownEnter(item.id)
-          else if (level === 2 && hasSubChildren) handleSubSubDropdownEnter(item.id)
+          if (level === 0 && hasChildren) handleDropdownEnter(item.name)
+          else if (level === 1 && hasSubChildren) handleSubDropdownEnter(item.name)
+          else if (level === 2 && hasSubChildren) handleSubSubDropdownEnter(item.name)
         }}
         onMouseLeave={() => {
           if (level === 0) handleDropdownLeave()
@@ -169,7 +169,7 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
         {hasChildren && level === 0 && isActive && (
           <div
             className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
-            onMouseEnter={() => handleDropdownEnter(item.id)}
+            onMouseEnter={() => handleDropdownEnter(item.name)}
             onMouseLeave={() => handleDropdownLeave()}
           >
             {item.dropdown!.map((child) => renderNavItem(child, 1))}
@@ -180,7 +180,7 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
         {hasSubChildren && level === 1 && isSubActive && (
           <div
             className="absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
-            onMouseEnter={() => handleSubDropdownEnter(item.id)}
+            onMouseEnter={() => handleSubDropdownEnter(item.name)}
             onMouseLeave={() => handleSubDropdownLeave()}
           >
             {item.subDropdown!.map((child) => renderNavItem(child, 2))}
@@ -191,7 +191,7 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
         {hasSubChildren && level === 2 && isSubSubActive && (
           <div
             className="absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
-            onMouseEnter={() => handleSubSubDropdownEnter(item.id)}
+            onMouseEnter={() => handleSubSubDropdownEnter(item.name)}
             onMouseLeave={() => handleSubSubDropdownLeave()}
           >
             {item.subDropdown!.map((child) => renderNavItem(child, 3))}
