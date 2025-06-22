@@ -21,6 +21,7 @@ import type {
   HomepageAboutBlock as HomepageAboutBlockProps,
   ArticleSectionBlock as ArticleSectionBlockProps,
   ContentSectionBlock as ContentSectionBlockProps,
+  PhotoGalleryBlock as PhotoGalleryBlockProps,
 } from '@/payload-types'
 
 import { BannerBlock } from '@/blocks/Banner/Component'
@@ -29,6 +30,7 @@ import { SliderBlock } from '@/blocks/Sliders/Component'
 import { HomepageAboutBlock } from '@/blocks/HomepageAbout/Component'
 import { ArticleSectionBlock } from '@/blocks/ArticleSection/Component'
 import { ContentSectionBlock } from '@/blocks/ContentSection/Component'
+import { PhotoGalleryBlock } from '@/blocks/PhotoGallery/Component'
 import { cn } from '@/utilities/ui'
 
 type NodeTypes =
@@ -42,6 +44,7 @@ type NodeTypes =
       | HomepageAboutBlockProps
       | ArticleSectionBlockProps
       | ContentSectionBlockProps
+      | PhotoGalleryBlockProps
     >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -74,6 +77,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     homepageabout: ({ node }: { node: any }) => <HomepageAboutBlock {...node.fields} />,
     articleSection: ({ node }: { node: any }) => <ArticleSectionBlock {...node.fields} />,
     contentSection: ({ node }: { node: any }) => <ContentSectionBlock {...node.fields} />,
+    photoGallery: ({ node }: { node: any }) => <PhotoGalleryBlock {...node.fields} />,
   },
 })
 

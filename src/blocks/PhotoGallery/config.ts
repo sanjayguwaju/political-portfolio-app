@@ -9,9 +9,9 @@ import {
 
 import { linkGroup } from '../../fields/linkGroup'
 
-export const HomepageAbout: Block = {
-  slug: 'homepageabout',
-  interfaceName: 'HomepageAboutBlock',
+export const PhotoGallery: Block = {
+  slug: 'photoGallery',
+  interfaceName: 'PhotoGalleryBlock',
   fields: [
     {
       name: 'richText',
@@ -36,7 +36,7 @@ export const HomepageAbout: Block = {
     }),
   ],
   labels: {
-    plural: 'Homepage Abouts',
-    singular: 'Homepage About',
+    plural: 'Photo Galleries',
+    singular: 'Photo Gallery',
   },
 }

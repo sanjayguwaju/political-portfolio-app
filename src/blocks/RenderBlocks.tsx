@@ -11,6 +11,7 @@ import { SliderBlock } from '@/blocks/Sliders/Component'
 import { HomepageAboutBlock } from '@/blocks/HomepageAbout/Component'
 import { ArticleSectionBlock } from '@/blocks/ArticleSection/Component'
 import { ContentSectionBlock } from '@/blocks/ContentSection/Component'
+import { PhotoGalleryBlock } from './PhotoGallery/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -22,6 +23,7 @@ const blockComponents = {
   homepageabout: HomepageAboutBlock,
   articleSection: ArticleSectionBlock,
   contentSection: ContentSectionBlock,
+  photoGallery: PhotoGalleryBlock,
 }
 
 export const RenderBlocks: React.FC<{
