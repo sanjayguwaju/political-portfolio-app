@@ -19,7 +19,6 @@ import type {
   MediaBlock as MediaBlockProps,
   SliderBlock as SliderBlockProps,
   AboutBlock as AboutBlockProps,
-  HomepageAboutBlock as HomepageAboutBlockProps,
   ArticleSectionBlock as ArticleSectionBlockProps,
   ContentSectionBlock as ContentSectionBlockProps,
   PhotoGalleryBlock as PhotoGalleryBlockProps,
@@ -33,7 +32,6 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { SliderBlock } from '@/blocks/Sliders/Component'
 import { AboutBlock } from '@/blocks/About/Component'
-import { HomepageAboutBlock } from '@/blocks/HomepageAbout/Component'
 import { ArticleSectionBlock } from '@/blocks/ArticleSection/Component'
 import { ContentSectionBlock } from '@/blocks/ContentSection/Component'
 import { PhotoGalleryBlock } from '@/blocks/PhotoGallery/Component'
@@ -49,7 +47,6 @@ type NodeTypes =
       | CodeBlockProps
       | SliderBlockProps
       | AboutBlockProps
-      | HomepageAboutBlockProps
       | ArticleSectionBlockProps
       | ContentSectionBlockProps
       | PhotoGalleryBlockProps
@@ -85,7 +82,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
     sliderblock: ({ node }: { node: any }) => <SliderBlock {...node.fields} />,
     about: ({ node }: { node: any }) => <AboutBlock {...node.fields} />,
-    homepageabout: ({ node }: { node: any }) => <HomepageAboutBlock {...node.fields} />,
     articleSection: ({ node }: { node: any }) => <ArticleSectionBlock {...node.fields} />,
     contentSection: ({ node }: { node: any }) => <ContentSectionBlock {...node.fields} />,
     photoGallery: ({ node }: { node: any }) => <PhotoGalleryBlock {...node.fields} />,

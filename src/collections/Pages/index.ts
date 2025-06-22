@@ -91,7 +91,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 FormBlock,
                 sliderBlock,
                 About,
-                HomepageAbout,
                 ArticleSection,
                 ContentSection,
                 PhotoGallery,

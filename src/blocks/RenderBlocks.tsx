@@ -8,7 +8,6 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { SliderBlock } from '@/blocks/Sliders/Component'
-import { HomepageAboutBlock } from '@/blocks/HomepageAbout/Component'
 import { ArticleSectionBlock } from '@/blocks/ArticleSection/Component'
 import { ContentSectionBlock } from '@/blocks/ContentSection/Component'
 import { PhotoGalleryBlock } from './PhotoGallery/Component'
@@ -24,7 +23,6 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   sliderblock: SliderBlock,
   about: AboutBlock,
-  homepageabout: HomepageAboutBlock,
   articleSection: ArticleSectionBlock,
   contentSection: ContentSectionBlock,
   photoGallery: PhotoGalleryBlock,
