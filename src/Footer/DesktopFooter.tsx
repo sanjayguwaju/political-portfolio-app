@@ -37,8 +37,8 @@ const DesktopFooter: React.FC<DesktopFooterProps> = ({
 }) => {
   return (
     <footer className="hidden md:block bg-gradient-to-r from-gray-900 to-gray-800 text-white">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="container py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="mb-6">

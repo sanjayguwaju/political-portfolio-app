@@ -51,11 +51,11 @@ export const AboutBlock: React.FC<CTABlockProps> = ({ links, richText }) => {
   }
 
   return (
-    <section id="about" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="about" className="py-6 lg:py-10">
+      <div className="container">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8 lg:mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -67,7 +67,7 @@ export const AboutBlock: React.FC<CTABlockProps> = ({ links, richText }) => {
 
         {/* Two Column Layout */}
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -76,9 +76,9 @@ export const AboutBlock: React.FC<CTABlockProps> = ({ links, richText }) => {
           {/* Image Column - Full Height */}
           <motion.div className="lg:col-span-1" variants={imageVariants}>
             <motion.img
-              src="https://res.cloudinary.com/dz3facqgc/image/upload/v1750566139/ts2racaqei0y4zhhxw6l.jpg"
+              src="https://res.cloudinary.com/dz3facqgc/image/upload/v1750566131/bdmipa7doxtexyd2jpz4.jpg"
               alt="Chanda Chaudhary"
-              className="w-full h-96 lg:h-[500px] object-cover  shadow-lg"
+              className="w-full h-full object-cover shadow-lg"
               whileHover={{
                 scale: 1.02,
                 transition: { duration: 0.3 },
@@ -88,7 +88,7 @@ export const AboutBlock: React.FC<CTABlockProps> = ({ links, richText }) => {
 
           {/* Content Column - Full Height */}
           <motion.div className="lg:col-span-1" variants={itemVariants}>
-            <div className="about-content h-full flex flex-col justify-center">
+            <div className="about-content h-full flex flex-col">
               <motion.p className="text-lg text-gray-700 mb-6 font-medium" variants={itemVariants}>
                 Chanda Chaudhary stands as a beacon of hope and progress in Nepali politics,
                 dedicating her life to advancing women's rights, social justice, and community
@@ -106,21 +106,13 @@ export const AboutBlock: React.FC<CTABlockProps> = ({ links, richText }) => {
                 development initiatives, she has established herself as a trusted leader who bridges
                 the gap between policy-making and grassroots implementation.
               </motion.p>
-              <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
+              <motion.div className="flex flex-wrap gap-4 mt-auto" variants={itemVariants}>
                 <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                   <CMSLink
                     url="/introduction"
                     className="inline-block px-8 py-4 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors duration-200"
                   >
                     Full Introduction
-                  </CMSLink>
-                </motion.div>
-                <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
-                  <CMSLink
-                    url="/media-interaction"
-                    className="inline-block px-8 py-4 border-2 border-blue-600 text-blue-600 font-medium hover:bg-blue-600 hover:text-white transition-colors duration-200"
-                  >
-                    Contact
                   </CMSLink>
                 </motion.div>
               </motion.div>

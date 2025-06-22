@@ -1,35 +1,92 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import type { NewsMediaBlock as NewsMediaBlockProps } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Users, TrendingUp, Award } from 'lucide-react'
+import { ArrowRight, Users, TrendingUp, Award, Newspaper, Mic, Video } from 'lucide-react'
 
 export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText }) => {
-  const articles = [
+  const [mediaContent, setMediaContent] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  // Default static content (fallback)
+  const defaultContent = [
     {
-      title: "Women's Rights Advocacy",
-      excerpt:
-        "Leading the charge for gender equality and women's empowerment in Nepal through legislative reforms and community initiatives.",
-      icon: Users,
+      id: 1,
+      title: "Parliamentary Speech Coverage",
+      description: "Latest coverage of parliamentary speeches and political discussions",
+      icon: Mic,
       image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&h=400&fit=crop',
       featured: true,
     },
     {
-      title: 'Community Development',
-      excerpt:
-        'Building stronger communities through grassroots initiatives and sustainable development programs.',
-      icon: TrendingUp,
+      id: 2,
+      title: "Social Program Highlights",
+      description: "Media coverage of community outreach and social welfare programs",
+      icon: Users,
       image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&h=200&fit=crop',
     },
     {
-      title: 'Parliamentary Reforms',
-      excerpt:
-        'Advocating for transparent governance and democratic reforms in the legislative process.',
-      icon: Award,
+      id: 3,
+      title: "Political Commentary",
+      description: "Expert analysis and commentary on current political developments",
+      icon: Newspaper,
       image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop',
     },
   ]
+
+  // Load content from admin panel or use default
+  useEffect(() => {
+    const loadContent = () => {
+      if (typeof window !== 'undefined') {
+        const savedContent = localStorage.getItem('websiteContent')
+        if (savedContent) {
+          try {
+            const allContent = JSON.parse(savedContent)
+            const newsContent = allContent.filter((item: any) => 
+              item.status === 'published' && item.category === 'news'
+            )
+            
+            if (newsContent.length > 0) {
+              const convertedContent = newsContent.slice(0, 3).map((item: any, index: number) => ({
+                id: item.id || index + 1,
+                title: item.title,
+                description: item.body && item.body.length > 150 ? `${item.body.substring(0, 150)}...` : item.body || item.description,
+                icon: [Mic, Users, Newspaper][index % 3],
+                image: item.image || defaultContent[index]?.image,
+                featured: index === 0,
+              }))
+              setMediaContent(convertedContent)
+            } else {
+              setMediaContent(defaultContent)
+            }
+          } catch (error) {
+            console.error('Error loading news content:', error)
+            setMediaContent(defaultContent)
+          }
+        } else {
+          setMediaContent(defaultContent)
+        }
+      } else {
+        setMediaContent(defaultContent)
+      }
+      setLoading(false)
+    }
+
+    loadContent()
+
+    // Listen for content updates
+    const handleStorageChange = () => loadContent()
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', handleStorageChange)
+      window.addEventListener('contentUpdated', handleStorageChange)
+
+      return () => {
+        window.removeEventListener('storage', handleStorageChange)
+        window.removeEventListener('contentUpdated', handleStorageChange)
+      }
+    }
+  }, [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -64,33 +121,47 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
     },
   }
 
+  // Show loading state
+  if (loading) {
+    return (
+      <section id="news-media" className="py-12 lg:py-20">
+        <div className="container">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading news content...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   // Ensure we have articles to display
-  if (!articles || articles.length === 0) {
+  if (!mediaContent || mediaContent.length === 0) {
     return null
   }
 
-  const featuredArticle = articles[0]
-  const topArticle = articles[1]
-  const bottomArticle = articles[2]
+  const featuredArticle = mediaContent[0]
+  const topArticle = mediaContent[1]
+  const bottomArticle = mediaContent[2]
 
   return (
-    <section id="latest-articles" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="news-media" className="py-2 lg:py-4">
+      <div className="container">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Latest Articles</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">News Media Coverage</h2>
           <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
 
         {/* Article Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-6xl mx-auto min-h-[550px]"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full min-h-[550px]"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -98,17 +169,17 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
         >
           {/* Featured Article - Left Card with row span 2 */}
           <motion.div
-            className="col-span-1 md:col-span-1 md:row-span-2 bg-gray-50 overflow-hidden flex justify-between flex-col h-full py-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+            className="col-span-1 md:col-span-1 md:row-span-2 bg-gray-50 overflow-hidden flex justify-between flex-col h-full py-6 lg:py-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
             variants={cardVariants}
           >
-            <div className="px-8">
+            <div className="px-6 lg:px-8">
               <div className="flex items-center gap-3 mb-4">
-                <Users className="text-blue-600 text-2xl" />
+                {featuredArticle?.icon && <featuredArticle.icon className="text-blue-600 text-2xl" />}
                 <h4 className="text-2xl font-semibold text-gray-900">{featuredArticle?.title}</h4>
               </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">{featuredArticle?.excerpt}</p>
+              <p className="text-gray-600 mb-6 leading-relaxed">{featuredArticle?.description}</p>
               <CMSLink
-                url="/articles/womens-rights"
+                url="/media-interaction"
                 className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
               >
                 Read More
@@ -118,7 +189,7 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
 
             <div className="flex justify-center items-end">
               <img
-                alt="Women's Rights Advocacy"
+                alt={featuredArticle?.title}
                 src={featuredArticle?.image}
                 className="w-full max-w-[400px] h-auto object-cover"
               />
@@ -132,12 +203,12 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
           >
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
-                <TrendingUp className="text-blue-600 text-xl" />
+                {topArticle?.icon && <topArticle.icon className="text-blue-600 text-xl" />}
                 <h4 className="text-xl font-semibold text-gray-900">{topArticle?.title}</h4>
               </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{topArticle?.excerpt}</p>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{topArticle?.description}</p>
               <CMSLink
-                url="/articles/community-development"
+                url="/media-interaction"
                 className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
               >
                 Read More
@@ -146,7 +217,7 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
             </div>
 
             <img
-              alt="Community Development"
+              alt={topArticle?.title}
               src={topArticle?.image}
               className="w-24 h-24 object-cover ml-4"
             />
@@ -159,12 +230,12 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
           >
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
-                <Award className="text-blue-600 text-xl" />
+                {bottomArticle?.icon && <bottomArticle.icon className="text-blue-600 text-xl" />}
                 <h4 className="text-xl font-semibold text-gray-900">{bottomArticle?.title}</h4>
               </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{bottomArticle?.excerpt}</p>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{bottomArticle?.description}</p>
               <CMSLink
-                url="/articles/parliamentary-reforms"
+                url="/media-interaction"
                 className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
               >
                 Read More
@@ -173,11 +244,28 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
             </div>
 
             <img
-              alt="Parliamentary Reforms"
+              alt={bottomArticle?.title}
               src={bottomArticle?.image}
               className="w-24 h-24 object-cover ml-4"
             />
           </motion.div>
+        </motion.div>
+
+        {/* View All Media Interactions Button */}
+        <motion.div
+          className="text-center mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <CMSLink
+            url="/media-interaction"
+            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
+          >
+            <Video className="mr-2 w-5 h-5" />
+            View All Media Interactions
+          </CMSLink>
         </motion.div>
       </div>
     </section>

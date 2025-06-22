@@ -4,17 +4,17 @@ import { CMSLink } from '@/components/Link'
 
 export const ContentSectionBlock: React.FC<ContentSectionBlockProps> = ({ links, richText }) => {
   return (
-    <section id="constituency" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="constituency" className="py-12 lg:py-20">
+      <div className="container">
         <div className="grid grid-cols-1">
           <div className="col-span-1">
-            <div className="section-header text-center mb-12">
+            <div className="section-header text-center mb-8 lg:mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">About Our Constituency</h2>
               <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           <div className="lg:col-span-8 mb-4 lg:mb-0">
             <div className="constituency-content">
               <p className="text-lg text-gray-700 mb-4 leading-relaxed">
@@ -32,7 +32,7 @@ export const ContentSectionBlock: React.FC<ContentSectionBlockProps> = ({ links,
             </div>
           </div>
           <div className="lg:col-span-4 text-center">
-            <div className="constituency-image-placeholder bg-gray-100 p-8 rounded-lg">
+            <div className="constituency-image-placeholder bg-gray-100 p-6 lg:p-8 rounded-lg">
               <i className="fas fa-map-marked-alt text-6xl text-blue-600 mb-4"></i>
               <p className="text-gray-600">Demo Constituency Map</p>
             </div>

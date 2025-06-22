@@ -21,13 +21,13 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { sliderBlock } from '@/blocks/Sliders/config'
-import { HomepageAbout } from '@/blocks/HomepageAbout/config'
 import { ArticleSection } from '@/blocks/ArticleSection/config'
 import { ContentSection } from '@/blocks/ContentSection/config'
 import { PhotoGallery } from '@/blocks/PhotoGallery/config'
 import { VideoGallery } from '@/blocks/VideoGallery/config'
 import { NewsMedia } from '@/blocks/NewsMedia/config'
 import { About } from '@/blocks/About/config'
+import { Social } from '@/blocks/social/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -96,6 +96,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PhotoGallery,
                 VideoGallery,
                 NewsMedia,
+                Social,
               ],
               required: true,
               admin: {

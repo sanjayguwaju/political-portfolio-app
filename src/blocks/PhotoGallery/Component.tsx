@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import type { PhotoGalleryBlock as PhotoGalleryBlockProps } from '@/payload-types'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Images } from 'lucide-react'
 
 export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, richText }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
@@ -117,6 +117,13 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
     setIsModalOpen(false)
   }
 
+  const showAllImages = () => {
+    console.log('Show all images clicked')
+    setSelectedImageIndex(0)
+    setCurrentSlideIndex(0)
+    setIsModalOpen(true)
+  }
+
   const nextSlide = () => {
     setCurrentSlideIndex((prev) => (prev + 1) % images.length)
   }
@@ -142,7 +149,7 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
 
   return (
     <>
-      <section id="photo-gallery" className="py-20">
+      <section id="photo-gallery" className="py-10">
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <motion.div
@@ -158,7 +165,7 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
 
           {/* Image Grid */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 w-full"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -183,7 +190,7 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
 
                 {/* Overlay with description */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 text-white">
                     <h3 className="text-lg font-semibold mb-2">{image.alt}</h3>
                     <p className="text-sm text-gray-200 line-clamp-2">{image.description}</p>
                   </div>
@@ -214,6 +221,25 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
                 />
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* Show All Images Button */}
+          <motion.div
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <motion.button
+              onClick={showAllImages}
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Images size={20} />
+              Show All Images ({images.length})
+            </motion.button>
           </motion.div>
         </div>
       </section>

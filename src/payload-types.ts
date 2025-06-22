@@ -204,6 +204,7 @@ export interface Page {
     | PhotoGalleryBlock
     | VideoGalleryBlock
     | NewsMediaBlock
+    | SocialBlock
   )[];
   meta?: {
     title?: string | null;
@@ -957,6 +958,18 @@ export interface PhotoGalleryBlock {
  * via the `definition` "VideoGalleryBlock".
  */
 export interface VideoGalleryBlock {
+  title?: string | null;
+  description?: string | null;
+  videos?:
+    | {
+        title: string;
+        /**
+         * Enter a YouTube URL (e.g., https://www.youtube.com/watch?v=VIDEO_ID)
+         */
+        embedUrl: string;
+        id?: string | null;
+      }[]
+    | null;
   richText?: {
     root: {
       type: string;
@@ -1047,6 +1060,78 @@ export interface NewsMediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsMedia';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialBlock".
+ */
+export interface SocialBlock {
+  title?: string | null;
+  description?: string | null;
+  facebook?: {
+    enabled?: boolean | null;
+    pageUrl?: string | null;
+    title?: string | null;
+    height?: number | null;
+    showHeader?: boolean | null;
+    showCover?: boolean | null;
+    showFacepile?: boolean | null;
+    tabs?: ('timeline' | 'events' | 'messages') | null;
+  };
+  twitter?: {
+    enabled?: boolean | null;
+    username?: string | null;
+    title?: string | null;
+    height?: number | null;
+    width?: number | null;
+    placeholderText?: string | null;
+  };
+  youtube?: {
+    enabled?: boolean | null;
+    title?: string | null;
+    videos?:
+      | {
+          title: string;
+          /**
+           * The full YouTube embed URL (e.g., https://www.youtube.com/embed/dQw4w9WgXcQ) or regular YouTube URL (e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+           */
+          embedUrl?: string | null;
+          description?: string | null;
+          thumbnail?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  layout?: {
+    columns?: ('1' | '2' | '3') | null;
+    spacing?: ('4' | '8' | '12') | null;
+    backgroundColor?: ('gray-50' | 'white' | 'blue-50' | 'green-50') | null;
+  };
+  /**
+   * Optional media to display below the social widgets
+   */
+  media?: (string | null) | Media;
+  /**
+   * Optional rich text caption to display below the social widgets
+   */
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'social';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1346,6 +1431,7 @@ export interface PagesSelect<T extends boolean = true> {
         photoGallery?: T | PhotoGalleryBlockSelect<T>;
         videoGallery?: T | VideoGalleryBlockSelect<T>;
         newsMedia?: T | NewsMediaBlockSelect<T>;
+        social?: T | SocialBlockSelect<T>;
       };
   meta?:
     | T
@@ -1565,6 +1651,15 @@ export interface PhotoGalleryBlockSelect<T extends boolean = true> {
  * via the `definition` "VideoGalleryBlock_select".
  */
 export interface VideoGalleryBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  videos?:
+    | T
+    | {
+        title?: T;
+        embedUrl?: T;
+        id?: T;
+      };
   richText?: T;
   links?:
     | T
@@ -1605,6 +1700,62 @@ export interface NewsMediaBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialBlock_select".
+ */
+export interface SocialBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  facebook?:
+    | T
+    | {
+        enabled?: T;
+        pageUrl?: T;
+        title?: T;
+        height?: T;
+        showHeader?: T;
+        showCover?: T;
+        showFacepile?: T;
+        tabs?: T;
+      };
+  twitter?:
+    | T
+    | {
+        enabled?: T;
+        username?: T;
+        title?: T;
+        height?: T;
+        width?: T;
+        placeholderText?: T;
+      };
+  youtube?:
+    | T
+    | {
+        enabled?: T;
+        title?: T;
+        videos?:
+          | T
+          | {
+              title?: T;
+              embedUrl?: T;
+              description?: T;
+              thumbnail?: T;
+              id?: T;
+            };
+      };
+  layout?:
+    | T
+    | {
+        columns?: T;
+        spacing?: T;
+        backgroundColor?: T;
+      };
+  media?: T;
+  caption?: T;
   id?: T;
   blockName?: T;
 }

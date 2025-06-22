@@ -74,11 +74,11 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({ links,
   const bottomArticle = articles[2]
 
   return (
-    <section id="latest-articles" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="latest-articles" className="py-2 lg:py-4">
+      <div className="container">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -90,7 +90,7 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({ links,
 
         {/* Article Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-6xl mx-auto min-h-[550px]"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full min-h-[550px]"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -98,10 +98,10 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({ links,
         >
           {/* Featured Article - Left Card with row span 2 */}
           <motion.div
-            className="col-span-1 md:col-span-1 md:row-span-2 bg-gray-50 overflow-hidden flex justify-between flex-col h-full py-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+            className="col-span-1 md:col-span-1 md:row-span-2 bg-gray-50 overflow-hidden flex justify-between flex-col h-full py-6 lg:py-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
             variants={cardVariants}
           >
-            <div className="px-8">
+            <div className="px-6 lg:px-8">
               <div className="flex items-center gap-3 mb-4">
                 <Users className="text-blue-600 text-2xl" />
                 <h4 className="text-2xl font-semibold text-gray-900">{featuredArticle?.title}</h4>
@@ -178,6 +178,23 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({ links,
               className="w-24 h-24 object-cover ml-4"
             />
           </motion.div>
+        </motion.div>
+
+        {/* View More Articles Button */}
+        <motion.div
+          className="text-center mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <CMSLink
+            url="/posts"
+            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
+          >
+            <Newspaper className="mr-2 w-5 h-5" />
+            View More Articles
+          </CMSLink>
         </motion.div>
       </div>
     </section>

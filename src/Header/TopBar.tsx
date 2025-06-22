@@ -23,7 +23,7 @@ export const TopBar: React.FC<TopBarProps> = ({ opacity, y, pointerEvents, theme
       }}
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="py-6 flex justify-center items-center">
+      <div className="py-4 lg:py-6 flex justify-center items-center">
         <Link href="/">
           <Logo loading="eager" priority="high" className="invert dark:invert-0" />
         </Link>
