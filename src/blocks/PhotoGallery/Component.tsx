@@ -1,35 +1,65 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import type { PhotoGalleryBlock as PhotoGalleryBlockProps } from '@/payload-types'
-import { CMSLink } from '@/components/Link'
-import { motion } from 'framer-motion'
-import { ArrowRight, Users, TrendingUp, Award } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, richText }) => {
-  const articles = [
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const images = [
     {
-      title: "Women's Rights Advocacy",
-      excerpt:
+      src: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&h=600&fit=crop',
+      alt: "Women's Rights Advocacy",
+      description:
         "Leading the charge for gender equality and women's empowerment in Nepal through legislative reforms and community initiatives.",
-      icon: Users,
-      image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&h=400&fit=crop',
-      featured: true,
     },
     {
-      title: 'Community Development',
-      excerpt:
+      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=600&fit=crop',
+      alt: 'Community Development',
+      description:
         'Building stronger communities through grassroots initiatives and sustainable development programs.',
-      icon: TrendingUp,
-      image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&h=200&fit=crop',
     },
     {
-      title: 'Parliamentary Reforms',
-      excerpt:
+      src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+      alt: 'Parliamentary Reforms',
+      description:
         'Advocating for transparent governance and democratic reforms in the legislative process.',
-      icon: Award,
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+      alt: 'Youth Empowerment',
+      description:
+        'Empowering the next generation through education, leadership training, and civic engagement programs.',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=600&fit=crop',
+      alt: 'Healthcare Initiatives',
+      description:
+        'Improving healthcare access and quality through policy reforms and community health programs.',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+      alt: 'Environmental Protection',
+      description:
+        'Promoting sustainable development and environmental conservation through legislative action.',
     },
   ]
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isModalOpen])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,18 +67,7 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
       opacity: 1,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
+        staggerChildren: 0.1,
       },
     },
   }
@@ -64,122 +83,254 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
     },
   }
 
-  // Ensure we have articles to display
-  if (!articles || articles.length === 0) {
+  const modalVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 },
+  }
+
+  const slideVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -100 },
+  }
+
+  const handleImageClick = (index: number, e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log('Image clicked! Index:', index)
+    setSelectedImageIndex(index)
+    setCurrentSlideIndex(index)
+    setIsModalOpen(true)
+  }
+
+  const openGallery = (index: number) => {
+    console.log('Opening gallery with index:', index)
+    setSelectedImageIndex(index)
+    setCurrentSlideIndex(index)
+    setIsModalOpen(true)
+  }
+
+  const closeGallery = () => {
+    console.log('Closing gallery')
+    setSelectedImageIndex(null)
+    setIsModalOpen(false)
+  }
+
+  const nextSlide = () => {
+    setCurrentSlideIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlideIndex((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      closeGallery()
+    } else if (e.key === 'ArrowRight') {
+      nextSlide()
+    } else if (e.key === 'ArrowLeft') {
+      prevSlide()
+    }
+  }
+
+  // Ensure we have images to display
+  if (!images || images.length === 0) {
     return null
   }
 
-  const featuredArticle = articles[0]
-  const topArticle = articles[1]
-  const bottomArticle = articles[2]
-
   return (
-    <section id="latest-articles" className="py-20">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Latest Articles</h2>
-          <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
-        </motion.div>
-
-        {/* Article Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-6xl mx-auto min-h-[550px]"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {/* Featured Article - Left Card with row span 2 */}
+    <>
+      <section id="photo-gallery" className="py-20">
+        <div className="container mx-auto px-4">
+          {/* Section Header */}
           <motion.div
-            className="col-span-1 md:col-span-1 md:row-span-2 bg-gray-50 overflow-hidden flex justify-between flex-col h-full py-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
-            variants={cardVariants}
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
           >
-            <div className="px-8">
-              <div className="flex items-center gap-3 mb-4">
-                <Users className="text-blue-600 text-2xl" />
-                <h4 className="text-2xl font-semibold text-gray-900">{featuredArticle?.title}</h4>
-              </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">{featuredArticle?.excerpt}</p>
-              <CMSLink
-                url="/articles/womens-rights"
-                className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
-              >
-                Read More
-                <ArrowRight className="group-hover:ml-1 transition-all duration-200 w-4 h-4" />
-              </CMSLink>
-            </div>
-
-            <div className="flex justify-center items-end">
-              <img
-                alt="Women's Rights Advocacy"
-                src={featuredArticle?.image}
-                className="w-full max-w-[400px] h-auto object-cover"
-              />
-            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Photo Gallery</h2>
+            <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
           </motion.div>
 
-          {/* Right Top Card */}
+          {/* Image Grid */}
           <motion.div
-            className="bg-gray-50 col-span-1 flex justify-between items-center px-6 py-6 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-            variants={cardVariants}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mx-auto"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
           >
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3">
-                <TrendingUp className="text-blue-600 text-xl" />
-                <h4 className="text-xl font-semibold text-gray-900">{topArticle?.title}</h4>
-              </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{topArticle?.excerpt}</p>
-              <CMSLink
-                url="/articles/community-development"
-                className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
+            {images.map((image, index) => (
+              <motion.div
+                key={index}
+                className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                variants={cardVariants}
+                onClick={(e) => handleImageClick(index, e)}
+                style={{ cursor: 'pointer' }}
               >
-                Read More
-                <ArrowRight className="group-hover:ml-1 transition-all duration-200 w-4 h-4" />
-              </CMSLink>
-            </div>
+                <motion.img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-64 object-cover transition-transform duration-300 pointer-events-none"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  draggable={false}
+                />
 
-            <img
-              alt="Community Development"
-              src={topArticle?.image}
-              className="w-24 h-24 object-cover ml-4"
-            />
+                {/* Overlay with description */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-lg font-semibold mb-2">{image.alt}</h3>
+                    <p className="text-sm text-gray-200 line-clamp-2">{image.description}</p>
+                  </div>
+                </div>
+
+                {/* Click indicator */}
+                <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <svg
+                    className="w-5 h-5 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                    />
+                  </svg>
+                </div>
+
+                {/* Clickable overlay for better touch targets */}
+                <div
+                  className="absolute inset-0 z-10 cursor-pointer"
+                  onClick={(e) => handleImageClick(index, e)}
+                  style={{ cursor: 'pointer' }}
+                />
+              </motion.div>
+            ))}
           </motion.div>
+        </div>
+      </section>
 
-          {/* Right Bottom Card */}
+      {/* Image Gallery Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
           <motion.div
-            className="bg-gray-50 col-span-1 flex justify-between items-center px-6 py-6 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-            variants={cardVariants}
+            className="fixed inset-0 bg-black bg-opacity-95 z-[9999] flex items-center justify-center p-4"
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={closeGallery}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 9999,
+            }}
           >
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3">
-                <Award className="text-blue-600 text-xl" />
-                <h4 className="text-xl font-semibold text-gray-900">{bottomArticle?.title}</h4>
-              </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{bottomArticle?.excerpt}</p>
-              <CMSLink
-                url="/articles/parliamentary-reforms"
-                className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
-              >
-                Read More
-                <ArrowRight className="group-hover:ml-1 transition-all duration-200 w-4 h-4" />
-              </CMSLink>
-            </div>
+            {/* Close Button */}
+            <motion.button
+              className="absolute top-4 right-4 text-white hover:text-gray-300 z-10 bg-black/50 backdrop-blur-sm rounded-full p-3"
+              onClick={closeGallery}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <X size={24} />
+            </motion.button>
 
-            <img
-              alt="Parliamentary Reforms"
-              src={bottomArticle?.image}
-              className="w-24 h-24 object-cover ml-4"
-            />
+            {/* Navigation Buttons */}
+            <motion.button
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/50 backdrop-blur-sm rounded-full p-3"
+              onClick={(e) => {
+                e.stopPropagation()
+                prevSlide()
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft size={24} />
+            </motion.button>
+
+            <motion.button
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/50 backdrop-blur-sm rounded-full p-3"
+              onClick={(e) => {
+                e.stopPropagation()
+                nextSlide()
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight size={24} />
+            </motion.button>
+
+            {/* Image Container */}
+            <div className="relative max-w-5xl max-h-full" onClick={(e) => e.stopPropagation()}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlideIndex}
+                  variants={slideVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  transition={{ duration: 0.3 }}
+                  className="relative"
+                >
+                  <img
+                    src={images[currentSlideIndex]?.src}
+                    alt={images[currentSlideIndex]?.alt}
+                    className="max-w-full max-h-[80vh] object-contain rounded-lg"
+                  />
+
+                  {/* Image Info */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <h3 className="text-2xl font-bold mb-2">{images[currentSlideIndex]?.alt}</h3>
+                    <p className="text-gray-200">{images[currentSlideIndex]?.description}</p>
+                  </motion.div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Slide Indicators */}
+              <div className="flex justify-center mt-6 space-x-3">
+                {images.map((_, index) => (
+                  <motion.button
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                      index === currentSlideIndex ? 'bg-white' : 'bg-gray-500 hover:bg-gray-400'
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setCurrentSlideIndex(index)
+                    }}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  />
+                ))}
+              </div>
+
+              {/* Image Counter */}
+              <div className="absolute top-4 left-4 text-white bg-black/50 backdrop-blur-sm rounded-full px-3 py-1 text-sm">
+                {currentSlideIndex + 1} / {images.length}
+              </div>
+            </div>
           </motion.div>
-        </motion.div>
-      </div>
-    </section>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
