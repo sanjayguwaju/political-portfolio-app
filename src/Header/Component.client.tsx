@@ -9,7 +9,6 @@ import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
 import { ResponsiveNavbar } from '@/components/Navbar'
-import { MobileNavbar } from '@/components/Navbar/MobileNavbar'
 import { TopBar } from './TopBar'
 
 interface HeaderClientProps {
@@ -61,14 +60,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
               </Link>
             </div>
 
-            {/* Desktop Navigation - Hidden on mobile */}
-            <div className="hidden lg:block w-full">
+            {/* Responsive Navigation - Handles both desktop and mobile */}
+            <div className="w-full">
               <ResponsiveNavbar navData={_data.navItems} />
-            </div>
-
-            {/* Mobile Navigation - Visible on mobile, hidden on desktop */}
-            <div className="lg:hidden">
-              <MobileNavbar />
             </div>
           </div>
         </div>

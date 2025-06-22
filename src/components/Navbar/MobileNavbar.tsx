@@ -3,13 +3,35 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, ChevronDown, ChevronRight, Search } from 'lucide-react'
-import { navItems, NavItem } from './navData'
+import * as LucideIcons from 'lucide-react'
+
+// Updated interface to match the Header config structure
+interface NavItem {
+  name: string
+  path: string
+  icon?: string | null
+  dropdown?: NavItem[]
+  subDropdown?: NavItem[]
+  id?: string | null
+}
 
 interface MobileNavbarProps {
   className?: string
+  navData: NavItem[]
 }
 
-export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '' }) => {
+// Helper function to get icon component from string
+const getIconComponent = (iconString?: string | null) => {
+  if (!iconString) return null
+
+  // Remove 'LucideIcons.' prefix and get the icon name
+  const iconName = iconString.replace('LucideIcons.', '')
+
+  // Get the icon component from LucideIcons
+  return (LucideIcons as any)[iconName] || null
+}
+
+export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '', navData }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set())
   const [expandedSubItems, setExpandedSubItems] = useState<Set<string>>(new Set())
@@ -75,15 +97,17 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '' }) =>
   }
 
   const renderMobileNavItem = (item: NavItem, level: number = 0) => {
-    const hasChildren = item.children && item.children.length > 0
-    const isExpanded = expandedItems.has(item.id)
-    const isSubExpanded = expandedSubItems.has(item.id)
-    const isSubSubExpanded = expandedSubSubItems.has(item.id)
+    const hasChildren = item.dropdown && item.dropdown.length > 0
+    const hasSubChildren = item.subDropdown && item.subDropdown.length > 0
+    const isExpanded = expandedItems.has(item.name)
+    const isSubExpanded = expandedSubItems.has(item.name)
+    const isSubSubExpanded = expandedSubSubItems.has(item.name)
+    const IconComponent = getIconComponent(item.icon)
 
     const levelPadding = level * 16 // 16px per level
 
     return (
-      <div key={item.id} className="w-full">
+      <div key={item.name} className="w-full">
         <div
           className={`flex items-center justify-between w-full px-4 py-3 text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 ${
             level > 0 ? 'border-l-2 border-gray-200 dark:border-gray-700' : ''
@@ -91,21 +115,21 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '' }) =>
           style={{ paddingLeft: `${16 + levelPadding}px` }}
         >
           <div className="flex items-center gap-3 flex-1">
-            {item.icon && <item.icon className="w-4 h-4 flex-shrink-0" />}
-            {item.href ? (
-              <Link href={item.href} className="flex-1" onClick={() => setIsOpen(false)}>
-                {item.label}
+            {IconComponent && <IconComponent className="w-4 h-4 flex-shrink-0" />}
+            {item.path ? (
+              <Link href={item.path} className="flex-1" onClick={() => setIsOpen(false)}>
+                {item.name}
               </Link>
             ) : (
-              <span className="flex-1">{item.label}</span>
+              <span className="flex-1">{item.name}</span>
             )}
           </div>
-          {hasChildren && (
+          {(hasChildren || hasSubChildren) && (
             <button
               onClick={() => {
-                if (level === 0) toggleItem(item.id)
-                else if (level === 1) toggleSubItem(item.id)
-                else if (level === 2) toggleSubSubItem(item.id)
+                if (level === 0) toggleItem(item.name)
+                else if (level === 1) toggleSubItem(item.name)
+                else if (level === 2) toggleSubSubItem(item.name)
               }}
               className="ml-2 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
             >
@@ -122,24 +146,24 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '' }) =>
           )}
         </div>
 
-        {/* Level 1 Children */}
+        {/* Level 1 Dropdown */}
         {hasChildren && level === 0 && isExpanded && (
           <div className="w-full">
-            {item.children!.map((child) => renderMobileNavItem(child, 1))}
+            {item.dropdown!.map((child) => renderMobileNavItem(child, 1))}
           </div>
         )}
 
-        {/* Level 2 Children */}
-        {hasChildren && level === 1 && isSubExpanded && (
+        {/* Level 2 Dropdown */}
+        {hasSubChildren && level === 1 && isSubExpanded && (
           <div className="w-full">
-            {item.children!.map((child) => renderMobileNavItem(child, 2))}
+            {item.subDropdown!.map((child) => renderMobileNavItem(child, 2))}
           </div>
         )}
 
-        {/* Level 3 Children */}
-        {hasChildren && level === 2 && isSubSubExpanded && (
+        {/* Level 3 Dropdown */}
+        {hasSubChildren && level === 2 && isSubSubExpanded && (
           <div className="w-full">
-            {item.children!.map((child) => renderMobileNavItem(child, 3))}
+            {item.subDropdown!.map((child) => renderMobileNavItem(child, 3))}
           </div>
         )}
       </div>
@@ -182,7 +206,7 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '' }) =>
 
               {/* Menu Items */}
               <div className="flex-1 overflow-y-auto">
-                <nav className="py-2">{navItems.map((item) => renderMobileNavItem(item))}</nav>
+                <nav className="py-2">{navData.map((item) => renderMobileNavItem(item))}</nav>
               </div>
 
               {/* Footer */}

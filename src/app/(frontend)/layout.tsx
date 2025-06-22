@@ -4,6 +4,7 @@ import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import React from 'react'
+import { Great_Vibes } from 'next/font/google'
 
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
@@ -16,11 +17,21 @@ import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 import { AdminBar } from '@/components/AdminBar'
 
+const greatVibes = Great_Vibes({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-vibes',
+})
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistMono.variable, GeistSans.variable)} lang="en" suppressHydrationWarning>
+    <html
+      className={cn(GeistMono.variable, GeistSans.variable, greatVibes.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />

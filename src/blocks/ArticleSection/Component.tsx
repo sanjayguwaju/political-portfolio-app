@@ -221,7 +221,7 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
         >
           <CMSLink
             url="/posts"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             <Newspaper className="mr-3 w-5 h-5" />
             View All Articles

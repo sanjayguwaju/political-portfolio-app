@@ -287,31 +287,6 @@ const SimpleSliderBlock: React.FC<HeroSliderProps> = ({
           </div>
         </div>
       )}
-
-      {/* Desktop Numbered Indicators */}
-      {slides.length > 1 && (
-        <div className="hidden sm:block absolute bottom-4 sm:bottom-8 right-4 sm:right-8 z-30">
-          <div className="flex space-x-2 sm:space-x-3">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  console.log(`Numbered indicator ${index + 1} clicked`)
-                  goToSlide(index)
-                }}
-                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 cursor-pointer text-xs sm:text-sm font-bold border-2 ${
-                  index === currentSlide
-                    ? 'bg-white text-gray-900 scale-110 shadow-lg border-white'
-                    : 'bg-black/40 text-white hover:bg-black/60 hover:scale-105 border-white/30'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   )
 }
