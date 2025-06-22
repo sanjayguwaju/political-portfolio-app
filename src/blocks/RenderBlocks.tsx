@@ -15,7 +15,7 @@ import { VideoGalleryBlock } from './VideoGallery/Component'
 import { NewsMediaBlock } from './NewsMedia/Component'
 import { AboutBlock } from './About/Component'
 import { SimpleSliderBlock } from './SimpleSlider/Component'
-import { SocialBlock } from './social/Component'
+import { SocialBlock } from './Socials/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,

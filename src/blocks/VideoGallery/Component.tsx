@@ -43,8 +43,7 @@ const VideoGallery: React.FC<VideoGalleryBlockProps> = ({ title, description, vi
       <div className="container">
         <div className="text-center mb-4 lg:mb-5">
           <h2 className="text-4xl font-bold mb-4 text-primary">{title}</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">{description}</p>
-          <div className="section-divider"></div>
+          <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">

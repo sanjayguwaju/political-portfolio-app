@@ -132,9 +132,7 @@ export const SocialBlock: React.FC<Props> = (props) => {
         {(title || description) && (
           <div className="text-center mb-8 lg:mb-12">
             {title && <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>}
-            {description && (
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">{description}</p>
-            )}
+            <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
           </div>
         )}
 
