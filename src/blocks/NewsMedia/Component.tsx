@@ -22,7 +22,8 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
         title: 'Parliamentary Speech Coverage',
         description: 'Latest coverage of parliamentary speeches and political discussions',
         icon: Mic,
-        image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&h=400&fit=crop',
+        image:
+          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
         featured: true,
       },
       {
@@ -30,14 +31,16 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
         title: 'Social Program Highlights',
         description: 'Media coverage of community outreach and social welfare programs',
         icon: Users,
-        image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&h=200&fit=crop',
+        image:
+          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606823/b5cnge3uepaoeoic1dnf.jpg',
       },
       {
         id: 3,
         title: 'Political Commentary',
         description: 'Expert analysis and commentary on current political developments',
         icon: Newspaper,
-        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop',
+        image:
+          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606842/tueh2vcgbdsvnd0tzm98.jpg',
       },
     ]
 

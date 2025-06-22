@@ -12,37 +12,37 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
 
   const images = [
     {
-      src: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&h=600&fit=crop',
+      src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606682/fiddpw5sumypg3kcatsa.jpg',
       alt: "Women's Rights Advocacy",
       description:
         "Leading the charge for gender equality and women's empowerment in Nepal through legislative reforms and community initiatives.",
     },
     {
-      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=600&fit=crop',
+      src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606702/fzrx0p7q00xumqrfq3q2.jpg',
       alt: 'Community Development',
       description:
         'Building stronger communities through grassroots initiatives and sustainable development programs.',
     },
     {
-      src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+      src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
       alt: 'Parliamentary Reforms',
       description:
         'Advocating for transparent governance and democratic reforms in the legislative process.',
     },
     {
-      src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+      src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
       alt: 'Youth Empowerment',
       description:
         'Empowering the next generation through education, leadership training, and civic engagement programs.',
     },
     {
-      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=600&fit=crop',
+      src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606823/b5cnge3uepaoeoic1dnf.jpg',
       alt: 'Healthcare Initiatives',
       description:
         'Improving healthcare access and quality through policy reforms and community health programs.',
     },
     {
-      src: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+      src: 'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
       alt: 'Environmental Protection',
       description:
         'Promoting sustainable development and environmental conservation through legislative action.',
