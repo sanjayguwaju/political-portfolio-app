@@ -110,30 +110,31 @@ const SimpleSliderBlock: React.FC<HeroSliderProps> = ({
   }
 
   const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
+    enter: {
       opacity: 0,
-    }),
+    },
     center: {
       zIndex: 1,
-      x: 0,
       opacity: 1,
     },
-    exit: (direction: number) => ({
+    exit: {
       zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
       opacity: 0,
-    }),
+      transition: {
+        duration: 0.3,
+      },
+    },
   }
 
   const textVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 1.0,
         ease: 'easeOut' as const,
+        delay: 0.2,
       },
     },
   }
@@ -173,7 +174,7 @@ const SimpleSliderBlock: React.FC<HeroSliderProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-[60vh] sm:h-[80vh] overflow-hidden bg-transparent ${className}`}
+      className={`relative w-full h-[60vh] sm:h-[80vh] overflow-hidden bg-gray-900 ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onTouchStart={onTouchStart}
@@ -183,17 +184,15 @@ const SimpleSliderBlock: React.FC<HeroSliderProps> = ({
       aria-label="Hero image carousel"
     >
       {/* Background Images */}
-      <AnimatePresence mode="wait" custom={0}>
+      <AnimatePresence mode="sync">
         <motion.div
           key={currentSlide}
-          custom={0}
           variants={slideVariants}
           initial="enter"
           animate="center"
           exit="exit"
           transition={{
-            x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.6 },
+            opacity: { duration: 0.6, ease: 'easeInOut' },
           }}
           className="absolute inset-0 z-10"
         >
