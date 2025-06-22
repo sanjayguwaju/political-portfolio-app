@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import type { PhotoGalleryBlock as PhotoGalleryBlockProps } from '@/payload-types'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight, Images } from 'lucide-react'
+import Image from 'next/image'
 
 export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, richText }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
@@ -312,9 +313,11 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
                   transition={{ duration: 0.3 }}
                   className="relative"
                 >
-                  <img
-                    src={images[currentSlideIndex]?.src}
-                    alt={images[currentSlideIndex]?.alt}
+                  <Image
+                    src={images[currentSlideIndex]?.src || ''}
+                    alt={images[currentSlideIndex]?.alt || ''}
+                    width={1000}
+                    height={1000}
                     className="max-w-full max-h-[80vh] object-contain"
                   />
 

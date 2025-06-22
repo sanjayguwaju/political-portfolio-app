@@ -3,7 +3,7 @@ import React from 'react'
 import type { ArticleSectionBlock as ArticleSectionBlockProps } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Newspaper, FileText, Users, TrendingUp, Award } from 'lucide-react'
+import { ArrowRight, Newspaper, Users, TrendingUp, Award } from 'lucide-react'
 import Image from 'next/image'
 
 export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
@@ -42,17 +42,6 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
       transition: {
         duration: 0.6,
         staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
       },
     },
   }
@@ -121,9 +110,11 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
             </div>
 
             <div className="flex justify-center items-end">
-              <img
+              <Image
                 alt="Women's Rights Advocacy"
-                src={featuredArticle?.image}
+                src={featuredArticle?.image || ''}
+                width={100}
+                height={100}
                 className="w-full max-w-[400px] h-auto object-cover"
               />
             </div>
@@ -149,7 +140,7 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
               </CMSLink>
             </div>
 
-            <img
+            <Image
               alt="Community Development"
               src={topArticle?.image || ''}
               width={100}

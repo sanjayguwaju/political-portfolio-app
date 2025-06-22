@@ -3,55 +3,62 @@ import React, { useState, useEffect } from 'react'
 import type { NewsMediaBlock as NewsMediaBlockProps } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Users, TrendingUp, Award, Newspaper, Mic, Video } from 'lucide-react'
+import { ArrowRight, Users, Newspaper, Mic, Video } from 'lucide-react'
+import Image from 'next/image'
 
-export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText }) => {
+export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
+  links: _links,
+  richText: _richText,
+}) => {
   const [mediaContent, setMediaContent] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
-  // Default static content (fallback)
-  const defaultContent = [
-    {
-      id: 1,
-      title: "Parliamentary Speech Coverage",
-      description: "Latest coverage of parliamentary speeches and political discussions",
-      icon: Mic,
-      image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&h=400&fit=crop',
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Social Program Highlights",
-      description: "Media coverage of community outreach and social welfare programs",
-      icon: Users,
-      image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&h=200&fit=crop',
-    },
-    {
-      id: 3,
-      title: "Political Commentary",
-      description: "Expert analysis and commentary on current political developments",
-      icon: Newspaper,
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop',
-    },
-  ]
-
   // Load content from admin panel or use default
   useEffect(() => {
+    // Default static content (fallback)
+    const defaultContent = [
+      {
+        id: 1,
+        title: 'Parliamentary Speech Coverage',
+        description: 'Latest coverage of parliamentary speeches and political discussions',
+        icon: Mic,
+        image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&h=400&fit=crop',
+        featured: true,
+      },
+      {
+        id: 2,
+        title: 'Social Program Highlights',
+        description: 'Media coverage of community outreach and social welfare programs',
+        icon: Users,
+        image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&h=200&fit=crop',
+      },
+      {
+        id: 3,
+        title: 'Political Commentary',
+        description: 'Expert analysis and commentary on current political developments',
+        icon: Newspaper,
+        image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop',
+      },
+    ]
+
     const loadContent = () => {
       if (typeof window !== 'undefined') {
         const savedContent = localStorage.getItem('websiteContent')
         if (savedContent) {
           try {
             const allContent = JSON.parse(savedContent)
-            const newsContent = allContent.filter((item: any) => 
-              item.status === 'published' && item.category === 'news'
+            const newsContent = allContent.filter(
+              (item: any) => item.status === 'published' && item.category === 'news',
             )
-            
+
             if (newsContent.length > 0) {
               const convertedContent = newsContent.slice(0, 3).map((item: any, index: number) => ({
                 id: item.id || index + 1,
                 title: item.title,
-                description: item.body && item.body.length > 150 ? `${item.body.substring(0, 150)}...` : item.body || item.description,
+                description:
+                  item.body && item.body.length > 150
+                    ? `${item.body.substring(0, 150)}...`
+                    : item.body || item.description,
                 icon: [Mic, Users, Newspaper][index % 3],
                 image: item.image || defaultContent[index]?.image,
                 featured: index === 0,
@@ -174,7 +181,9 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
           >
             <div className="px-6 lg:px-8">
               <div className="flex items-center gap-3 mb-4">
-                {featuredArticle?.icon && <featuredArticle.icon className="text-blue-600 text-2xl" />}
+                {featuredArticle?.icon && (
+                  <featuredArticle.icon className="text-blue-600 text-2xl" />
+                )}
                 <h4 className="text-2xl font-semibold text-gray-900">{featuredArticle?.title}</h4>
               </div>
               <p className="text-gray-600 mb-6 leading-relaxed">{featuredArticle?.description}</p>
@@ -188,9 +197,11 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
             </div>
 
             <div className="flex justify-center items-end">
-              <img
+              <Image
                 alt={featuredArticle?.title}
-                src={featuredArticle?.image}
+                src={featuredArticle?.image || ''}
+                width={100}
+                height={100}
                 className="w-full max-w-[400px] h-auto object-cover"
               />
             </div>
@@ -206,7 +217,9 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
                 {topArticle?.icon && <topArticle.icon className="text-blue-600 text-xl" />}
                 <h4 className="text-xl font-semibold text-gray-900">{topArticle?.title}</h4>
               </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{topArticle?.description}</p>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                {topArticle?.description}
+              </p>
               <CMSLink
                 url="/media-interaction"
                 className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
@@ -216,9 +229,11 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
               </CMSLink>
             </div>
 
-            <img
+            <Image
               alt={topArticle?.title}
-              src={topArticle?.image}
+              src={topArticle?.image || ''}
+              width={100}
+              height={100}
               className="w-24 h-24 object-cover ml-4"
             />
           </motion.div>
@@ -233,7 +248,9 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
                 {bottomArticle?.icon && <bottomArticle.icon className="text-blue-600 text-xl" />}
                 <h4 className="text-xl font-semibold text-gray-900">{bottomArticle?.title}</h4>
               </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{bottomArticle?.description}</p>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                {bottomArticle?.description}
+              </p>
               <CMSLink
                 url="/media-interaction"
                 className="flex w-max items-center hover:text-blue-600 hover:border-blue-600 transition-all duration-300 gap-2 border-gray-900 text-sm font-medium group border-b"
@@ -243,9 +260,11 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ links, richText 
               </CMSLink>
             </div>
 
-            <img
+            <Image
               alt={bottomArticle?.title}
-              src={bottomArticle?.image}
+              src={bottomArticle?.image || ''}
+              width={100}
+              height={100}
               className="w-24 h-24 object-cover ml-4"
             />
           </motion.div>

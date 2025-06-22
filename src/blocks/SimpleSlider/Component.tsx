@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
 import { useAutoSlider } from '../../hooks/useAutoSlider'
 import { HeroSliderProps } from '../../types/slider'
+import Image from 'next/image'
 
 // Dummy data for testing - remove when you have real data
 const dummySlides = [
@@ -197,9 +198,11 @@ const SimpleSliderBlock: React.FC<HeroSliderProps> = ({
           className="absolute inset-0 z-10"
         >
           <div className="relative w-full h-full">
-            <img
-              src={currentSlideData.backgroundImage}
-              alt={currentSlideData.alt}
+            <Image
+              src={currentSlideData.backgroundImage || ''}
+              alt={currentSlideData.alt || ''}
+              width={1000}
+              height={1000}
               className="w-full h-full object-cover"
               loading="lazy"
             />

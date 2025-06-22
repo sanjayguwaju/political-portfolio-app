@@ -15,9 +15,7 @@ import { Media } from '../../components/Media'
 const extractYouTubeVideoId = (url: string | undefined): string | null => {
   if (!url) return null
 
-  const patterns = [
-    /(?:youtube\.com\/(?:embed\/|watch\?v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
-  ]
+  const patterns = [/(?:youtube\.com\/(?:embed\/|watch\?v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/]
 
   for (const pattern of patterns) {
     const match = url.match(pattern)
@@ -107,7 +105,7 @@ export const SocialBlock: React.FC<Props> = (props) => {
   // Build Facebook iframe URL
   const buildFacebookUrl = () => {
     if (!facebook?.pageUrl) return ''
-    
+
     const params = new URLSearchParams({
       href: facebook.pageUrl,
       tabs: facebook.tabs || 'timeline',
@@ -117,33 +115,30 @@ export const SocialBlock: React.FC<Props> = (props) => {
       adapt_container_width: 'true',
       hide_cover: (!facebook.showCover).toString(),
       show_facepile: (facebook.showFacepile || true).toString(),
-      appId: '555639014960254'
+      appId: '555639014960254',
     })
-    
+
     return `https://www.facebook.com/plugins/page.php?${params.toString()}`
   }
 
   return (
-    <section id="social-updates" className={cn("py-8 lg:py-12", getBackgroundClasses(), className)}>
-      <div className={cn(
-        "container",
-        {
+    <section id="social-updates" className={cn('py-8 lg:py-12', getBackgroundClasses(), className)}>
+      <div
+        className={cn('container', {
           container: enableGutter,
-        }
-      )}>
+        })}
+      >
         {/* Section Header */}
         {(title || description) && (
           <div className="text-center mb-8 lg:mb-12">
-            {title && (
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
-            )}
+            {title && <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>}
             {description && (
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">{description}</p>
             )}
           </div>
         )}
 
-        <div className={cn("grid", getGridClasses(), getSpacingClasses())}>
+        <div className={cn('grid', getGridClasses(), getSpacingClasses())}>
           {/* Facebook Widget */}
           {facebook?.enabled && (
             <div className="social-widget">
@@ -182,7 +177,7 @@ export const SocialBlock: React.FC<Props> = (props) => {
                   </svg>
                   <p className="text-gray-600 mb-2 text-center">
                     {twitter.placeholderText ||
-                      "Here is detailed information about Chanda Chaudhary's political journey and social contributions."}
+                      'Here is detailed information about Chanda Chaudhary&apos;s political journey and social contributions.'}
                   </p>
                   <small className="text-gray-500">Social Networks</small>
                 </div>
@@ -199,10 +194,7 @@ export const SocialBlock: React.FC<Props> = (props) => {
                     const videoId = extractYouTubeVideoId(video.embedUrl ?? undefined)
 
                     return (
-                      <div
-                        key={index}
-                        className="bg-white rounded-xl shadow-lg overflow-hidden"
-                      >
+                      <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden">
                         {videoId ? (
                           <div className="aspect-video">
                             <iframe
@@ -242,22 +234,32 @@ export const SocialBlock: React.FC<Props> = (props) => {
                     <div className="bg-white rounded-xl shadow-lg p-6">
                       <h6 className="font-semibold mb-3 text-gray-800">Demo Video 1</h6>
                       <div className="flex flex-col items-center justify-center h-32 text-center">
-                        <svg className="w-12 h-12 text-gray-400 mb-2" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        <svg
+                          className="w-12 h-12 text-gray-400 mb-2"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                         </svg>
                         <p className="text-sm text-gray-600">
-                          Here is detailed information about Chanda Chaudhary's political journey and social contributions.
+                          Here is detailed information about Chanda Chaudhary&apos;s political
+                          journey and social contributions.
                         </p>
                       </div>
                     </div>
                     <div className="bg-white rounded-xl shadow-lg p-6">
                       <h6 className="font-semibold mb-3 text-gray-800">Demo Video 2</h6>
                       <div className="flex flex-col items-center justify-center h-32 text-center">
-                        <svg className="w-12 h-12 text-gray-400 mb-2" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        <svg
+                          className="w-12 h-12 text-gray-400 mb-2"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                         </svg>
                         <p className="text-sm text-gray-600">
-                          Here is detailed information about Chanda Chaudhary's political journey and social contributions.
+                          Here is detailed information about Chanda Chaudhary&apos;s political
+                          journey and social contributions.
                         </p>
                       </div>
                     </div>
