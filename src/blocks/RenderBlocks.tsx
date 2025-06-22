@@ -15,6 +15,7 @@ import { VideoGalleryBlock } from './VideoGallery/Component'
 import { NewsMediaBlock } from './NewsMedia/Component'
 import { AboutBlock } from './About/Component'
 import { SocialBlock } from './Social/Component'
+import { SimpleSliderBlock } from './SimpleSlider/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -30,6 +31,7 @@ const blockComponents = {
   videoGallery: VideoGalleryBlock,
   newsMedia: NewsMediaBlock,
   social: SocialBlock,
+  simpleSlider: SimpleSliderBlock,
 }
 
 export const RenderBlocks: React.FC<{

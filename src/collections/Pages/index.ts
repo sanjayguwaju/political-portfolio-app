@@ -28,6 +28,7 @@ import { VideoGallery } from '@/blocks/VideoGallery/config'
 import { NewsMedia } from '@/blocks/NewsMedia/config'
 import { About } from '@/blocks/About/config'
 import { Social } from '@/blocks/Social/config'
+import { SimpleSlider } from '@/blocks/SimpleSlider/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -97,6 +98,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 VideoGallery,
                 NewsMedia,
                 Social,
+                SimpleSlider,
               ],
               required: true,
               admin: {

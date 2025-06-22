@@ -205,6 +205,7 @@ export interface Page {
     | VideoGalleryBlock
     | NewsMediaBlock
     | SocialBlock
+    | SimpleSliderBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1135,6 +1136,31 @@ export interface SocialBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SimpleSliderBlock".
+ */
+export interface SimpleSliderBlock {
+  style: 'info' | 'warning' | 'error' | 'success';
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'simpleSlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1432,6 +1458,7 @@ export interface PagesSelect<T extends boolean = true> {
         videoGallery?: T | VideoGalleryBlockSelect<T>;
         newsMedia?: T | NewsMediaBlockSelect<T>;
         social?: T | SocialBlockSelect<T>;
+        simpleSlider?: T | SimpleSliderBlockSelect<T>;
       };
   meta?:
     | T
@@ -1756,6 +1783,16 @@ export interface SocialBlockSelect<T extends boolean = true> {
       };
   media?: T;
   caption?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SimpleSliderBlock_select".
+ */
+export interface SimpleSliderBlockSelect<T extends boolean = true> {
+  style?: T;
+  content?: T;
   id?: T;
   blockName?: T;
 }
