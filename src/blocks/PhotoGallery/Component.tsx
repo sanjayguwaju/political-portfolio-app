@@ -174,7 +174,7 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
             {images.map((image, index) => (
               <motion.div
                 key={index}
-                className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                className="group relative overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
                 variants={cardVariants}
                 onClick={(e) => handleImageClick(index, e)}
                 style={{ cursor: 'pointer' }}
@@ -315,7 +315,7 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
                   <img
                     src={images[currentSlideIndex]?.src}
                     alt={images[currentSlideIndex]?.alt}
-                    className="max-w-full max-h-[80vh] object-contain rounded-lg"
+                    className="max-w-full max-h-[80vh] object-contain"
                   />
 
                   {/* Image Info */}

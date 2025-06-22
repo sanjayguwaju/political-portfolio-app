@@ -14,7 +14,7 @@ import { PhotoGalleryBlock } from './PhotoGallery/Component'
 import { VideoGalleryBlock } from './VideoGallery/Component'
 import { NewsMediaBlock } from './NewsMedia/Component'
 import { AboutBlock } from './About/Component'
-import { SocialBlock } from './social/Component'
+import { SocialBlock } from './Social/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,

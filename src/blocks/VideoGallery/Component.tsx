@@ -17,12 +17,7 @@ const extractYouTubeVideoId = (url: string | undefined): string | null => {
   return null
 }
 
-const VideoGallery: React.FC<VideoGalleryBlockProps> = ({
-  title,
-  description,
-  videos,
-  links,
-}) => {
+const VideoGallery: React.FC<VideoGalleryBlockProps> = ({ title, description, videos, links }) => {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
 
   const openVideo = (embedUrl: string) => {
@@ -43,31 +38,12 @@ const VideoGallery: React.FC<VideoGalleryBlockProps> = ({
   return (
     <section
       id="video-gallery"
-      className="py-4 lg:py-5"
-      style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)' }}
+      className="py-4 lg:py-5 bg-gradient-to-br from-slate-50 to-slate-100"
     >
       <div className="container">
         <div className="text-center mb-4 lg:mb-5">
-          <h2
-            style={{
-              fontSize: '2.5rem',
-              fontWeight: '700',
-              marginBottom: '1rem',
-              color: 'var(--primary-color)',
-            }}
-          >
-            {title}
-          </h2>
-          <p
-            style={{
-              fontSize: '1.1rem',
-              color: 'var(--text-light)',
-              maxWidth: '600px',
-              margin: '0 auto',
-            }}
-          >
-            {description}
-          </p>
+          <h2 className="text-4xl font-bold mb-4 text-primary">{title}</h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">{description}</p>
           <div className="section-divider"></div>
         </div>
 
@@ -82,45 +58,19 @@ const VideoGallery: React.FC<VideoGalleryBlockProps> = ({
               return (
                 <div
                   key={index}
-                  className="video-card h-full cursor-pointer group"
-                  style={{
-                    border: 'none',
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s ease',
-                    backgroundColor: 'white',
-                  }}
+                  className="video-card h-full cursor-pointer group bg-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                   onClick={() => openVideo(video.embedUrl)}
                 >
                   <div
-                    className="video-thumbnail"
+                    className="video-thumbnail h-56 bg-cover bg-center relative flex items-center justify-center"
                     style={{
-                      height: '220px',
                       backgroundImage: thumbnailUrl
                         ? `url(${thumbnailUrl})`
                         : 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'relative',
                     }}
                   >
                     <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
-                      <div
-                        className="transform group-hover:scale-110 transition-transform duration-300"
-                        style={{
-                          width: '80px',
-                          height: '80px',
-                          background: 'rgba(255, 255, 255, 0.9)',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
+                      <div className="w-20 h-20 bg-white bg-opacity-90 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                         <svg
                           width="32"
                           height="32"
@@ -130,23 +80,15 @@ const VideoGallery: React.FC<VideoGalleryBlockProps> = ({
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          style={{ marginLeft: '4px' }}
+                          className="ml-1"
                         >
                           <polygon points="5,3 19,12 5,21"></polygon>
                         </svg>
                       </div>
                     </div>
                   </div>
-                  <div style={{ padding: '1.5rem' }}>
-                    <h3
-                      style={{
-                        fontSize: '1.1rem',
-                        fontWeight: '700',
-                        color: 'var(--primary-color)',
-                        marginBottom: '0.8rem',
-                        lineHeight: '1.3',
-                      }}
-                    >
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-primary mb-3 leading-tight">
                       {video.title}
                     </h3>
                   </div>
@@ -178,14 +120,14 @@ const VideoGallery: React.FC<VideoGalleryBlockProps> = ({
           <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={closeVideo}
-              className="absolute -top-10 right-0 text-white hover:text-gray-300"
+              className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
             >
               <X size={32} />
             </button>
             <div className="aspect-video">
               <iframe
                 src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
-                className="w-full h-full"
+                className="w-full h-full rounded-lg"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
