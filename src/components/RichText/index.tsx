@@ -22,6 +22,7 @@ import type {
   ArticleSectionBlock as ArticleSectionBlockProps,
   ContentSectionBlock as ContentSectionBlockProps,
   PhotoGalleryBlock as PhotoGalleryBlockProps,
+  VideoGalleryBlock as VideoGalleryBlockProps,
 } from '@/payload-types'
 
 import { BannerBlock } from '@/blocks/Banner/Component'
@@ -32,6 +33,7 @@ import { ArticleSectionBlock } from '@/blocks/ArticleSection/Component'
 import { ContentSectionBlock } from '@/blocks/ContentSection/Component'
 import { PhotoGalleryBlock } from '@/blocks/PhotoGallery/Component'
 import { cn } from '@/utilities/ui'
+import { VideoGalleryBlock } from '@/blocks/VideoGallery/Component'
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -45,6 +47,7 @@ type NodeTypes =
       | ArticleSectionBlockProps
       | ContentSectionBlockProps
       | PhotoGalleryBlockProps
+      | VideoGalleryBlockProps
     >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -78,6 +81,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     articleSection: ({ node }: { node: any }) => <ArticleSectionBlock {...node.fields} />,
     contentSection: ({ node }: { node: any }) => <ContentSectionBlock {...node.fields} />,
     photoGallery: ({ node }: { node: any }) => <PhotoGalleryBlock {...node.fields} />,
+    videoGallery: ({ node }: { node: any }) => <VideoGalleryBlock {...node.fields} />,
   },
 })
 
