@@ -18,6 +18,14 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        hostname: 'res.cloudinary.com',
+        protocol: 'https',
+      },
+      {
+        hostname: 'images.unsplash.com',
+        protocol: 'https',
+      },
     ],
   },
   reactStrictMode: true,

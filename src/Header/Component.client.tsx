@@ -29,16 +29,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
   const topHeaderOpacity = useTransform(scrollY, [0, 50], [1, 0])
   const topHeaderY = useTransform(scrollY, [0, 50], [0, -100])
   const pointerEvents = useTransform(scrollY, [0, 50], ['auto', 'none'])
-  const navbarBackground = useTransform(
-    scrollY,
-    [0, 50],
-    ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.95)'],
-  )
-  const navbarShadow = useTransform(
-    scrollY,
-    [0, 50],
-    ['0px 0px 0px rgba(0, 0, 0, 0)', '0px 1px 3px rgba(0, 0, 0, 0.1)'],
-  )
 
   useEffect(() => {
     setHeaderTheme(null)

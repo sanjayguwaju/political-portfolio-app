@@ -4,8 +4,12 @@ import type { ArticleSectionBlock as ArticleSectionBlockProps } from '@/payload-
 import { CMSLink } from '@/components/Link'
 import { motion } from 'framer-motion'
 import { ArrowRight, Newspaper, FileText, Users, TrendingUp, Award } from 'lucide-react'
+import Image from 'next/image'
 
-export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({ links, richText }) => {
+export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
+  links: _links,
+  richText: _richText,
+}) => {
   const articles = [
     {
       title: "Women's Rights Advocacy",
@@ -147,7 +151,9 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({ links,
 
             <img
               alt="Community Development"
-              src={topArticle?.image}
+              src={topArticle?.image || ''}
+              width={100}
+              height={100}
               className="w-24 h-24 object-cover ml-4"
             />
           </motion.div>
@@ -172,9 +178,11 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({ links,
               </CMSLink>
             </div>
 
-            <img
+            <Image
               alt="Parliamentary Reforms"
-              src={bottomArticle?.image}
+              src={bottomArticle?.image || ''}
+              width={100}
+              height={100}
               className="w-24 h-24 object-cover ml-4"
             />
           </motion.div>
