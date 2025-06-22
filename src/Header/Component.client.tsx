@@ -10,6 +10,7 @@ import type { Header } from '@/payload-types'
 import { Logo } from '@/components/Logo/Logo'
 import { ResponsiveNavbar } from '@/components/Navbar'
 import { MobileNavbar } from '@/components/Navbar/MobileNavbar'
+import { TopBar } from './TopBar'
 
 interface HeaderClientProps {
   data: Header
@@ -27,6 +28,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
   // Transform scroll values to animation values
   const topHeaderOpacity = useTransform(scrollY, [0, 50], [1, 0])
   const topHeaderY = useTransform(scrollY, [0, 50], [0, -100])
+  const pointerEvents = useTransform(scrollY, [0, 50], ['auto', 'none'])
   const navbarBackground = useTransform(
     scrollY,
     [0, 50],
@@ -51,21 +53,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
   return (
     <>
       {/* Top Header Bar with Logo - Hidden on mobile, shows on desktop and hides on scroll */}
-      <motion.div
-        className="container relative z-30 hidden lg:block"
-        style={{
-          opacity: topHeaderOpacity,
-          y: topHeaderY,
-          pointerEvents: useTransform(scrollY, [0, 50], ['auto', 'none']),
-        }}
-        {...(theme ? { 'data-theme': theme } : {})}
-      >
-        <div className="py-6 flex justify-center items-center">
-          <Link href="/">
-            <Logo loading="eager" priority="high" className="invert dark:invert-0" />
-          </Link>
-        </div>
-      </motion.div>
+      <TopBar
+        opacity={topHeaderOpacity}
+        y={topHeaderY}
+        pointerEvents={pointerEvents}
+        theme={theme}
+      />
 
       {/* Navigation Bar - Sticky with smooth background transition */}
       <motion.div className="w-full sticky top-0 z-40 bg-blue-800">
