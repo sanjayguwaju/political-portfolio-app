@@ -14,6 +14,7 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { GoogleTranslate } from '@/components/GoogleTranslate'
+import { BackToTop } from '@/components/BackToTop'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -54,6 +55,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Header />
             {children}
             <Footer />
+            <BackToTop />
           </LanguageProvider>
         </Providers>
       </body>
