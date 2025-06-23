@@ -147,7 +147,7 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
   return (
     <>
       <section id="photo-gallery" className="py-10">
-        <div className="container mx-auto px-4">
+        <div className="container">
           {/* Section Header */}
           <motion.div
             className="text-center mb-16"
@@ -272,27 +272,43 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
               <X size={24} />
             </motion.button>
 
-            {/* Navigation Buttons */}
+            {/* Navigation Buttons - Fixed positioning to prevent layout shifts */}
             <motion.button
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/50 backdrop-blur-sm rounded-full p-3"
+              className="text-white hover:text-gray-300 z-10 bg-black/50 backdrop-blur-sm rounded-full p-3 transition-all duration-200"
               onClick={(e) => {
                 e.stopPropagation()
                 prevSlide()
               }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              style={{
+                position: 'fixed',
+                left: '1rem',
+                top: '50%',
+                zIndex: 10,
+              }}
+              initial={{ y: '-50%' }}
+              animate={{ y: '-50%' }}
+              whileHover={{ y: '-50%', scale: 1.1 }}
+              whileTap={{ y: '-50%', scale: 0.9 }}
             >
               <ChevronLeft size={24} />
             </motion.button>
 
             <motion.button
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 z-10 bg-black/50 backdrop-blur-sm rounded-full p-3"
+              className="text-white hover:text-gray-300 z-10 bg-black/50 backdrop-blur-sm rounded-full p-3 transition-all duration-200"
               onClick={(e) => {
                 e.stopPropagation()
                 nextSlide()
               }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              style={{
+                position: 'fixed',
+                right: '1rem',
+                top: '50%',
+                zIndex: 10,
+              }}
+              initial={{ y: '-50%' }}
+              animate={{ y: '-50%' }}
+              whileHover={{ y: '-50%', scale: 1.1 }}
+              whileTap={{ y: '-50%', scale: 0.9 }}
             >
               <ChevronRight size={24} />
             </motion.button>

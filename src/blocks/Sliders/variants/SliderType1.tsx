@@ -64,7 +64,7 @@ const SliderType1 = ({ slides, autoplaySpeed = 3000 }: SliderProps) => {
 
   return (
     <section className="relative">
-      <div className="h-[60vh] md:h-[85vh] w-full overflow-hidden">
+      <div className="h-[50vh] md:h-[90vh] w-full overflow-hidden">
         <div className="relative h-full">
           {slides.map((slide, index) => (
             <div

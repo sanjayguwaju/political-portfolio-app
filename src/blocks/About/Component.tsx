@@ -89,19 +89,19 @@ export const AboutBlock: React.FC<CTABlockProps> = ({ links: _links, richText: _
           {/* Content Column - Full Height */}
           <motion.div className="lg:col-span-1" variants={itemVariants}>
             <div className="about-content h-full flex flex-col">
-              <motion.p className="text-lg text-gray-700 mb-6 font-medium" variants={itemVariants}>
+              <motion.p className="text-lg text-gray-700 mb-6 font-medium text-justify" variants={itemVariants}>
                 Chanda Chaudhary stands as a beacon of hope and progress in Nepali politics,
                 dedicating her life to advancing women&apos;s rights, social justice, and community
                 development. With years of parliamentary experience and grassroots activism, she
                 continues to champion the causes that matter most to the people of Nepal.
               </motion.p>
-              <motion.p className="text-gray-600 mb-6" variants={itemVariants}>
+              <motion.p className="text-gray-600 mb-6 text-justify" variants={itemVariants}>
                 Her remarkable journey in politics has been marked by unwavering commitment to
                 gender equality, social welfare programs, and parliamentary reforms. As a leading
                 advocate for women&apos;s empowerment, she has consistently worked to create
                 opportunities and platforms for marginalized communities.
               </motion.p>
-              <motion.p className="text-gray-600 mb-8" variants={itemVariants}>
+              <motion.p className="text-gray-600 mb-8 text-justify" variants={itemVariants}>
                 Through her dedicated service in parliament and active participation in community
                 development initiatives, she has established herself as a trusted leader who bridges
                 the gap between policy-making and grassroots implementation.

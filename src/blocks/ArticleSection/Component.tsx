@@ -86,7 +86,7 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
 
   return (
     <section id="latest-articles" className="py-16 lg:py-8 bg-gradient-to-br from-gray-50 to-white">
-      <div className="container mx-auto px-4 lg:px-4">
+      <div className="container">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"

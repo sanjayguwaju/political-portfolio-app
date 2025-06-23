@@ -12,6 +12,8 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
+import { LanguageProvider } from '@/contexts/LanguageContext'
+import { GoogleTranslate } from '@/components/GoogleTranslate'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -39,14 +41,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
-          <Header />
-          {children}
-          <Footer />
+          <LanguageProvider>
+            {/* Google Translate Widget - hidden */}
+            <div className="google-translate-widget-hidden">
+              <GoogleTranslate />
+            </div>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
+            <Header />
+            {children}
+            <Footer />
+          </LanguageProvider>
         </Providers>
       </body>
     </html>

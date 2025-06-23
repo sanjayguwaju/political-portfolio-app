@@ -159,6 +159,12 @@ export const navItems: NavItem[] = [
     ],
   },
   {
+    id: 'translator',
+    label: 'Translator',
+    href: '/translator',
+    icon: LucideIcons.Languages,
+  },
+  {
     id: 'contact',
     label: 'Contact',
     href: '/contact',

@@ -31,9 +31,9 @@ const DesktopFooter: React.FC<DesktopFooterProps> = ({
   socialLinks = [],
   quickLinks = [],
   contactInfo = [],
-  companyName = 'Political Portfolio',
+  companyName = 'Chanda Chaudhary',
   companyDescription = 'Empowering political leaders and organizations with comprehensive portfolio management and strategic consulting services. We help shape the future of governance through innovative solutions and expert guidance.',
-  copyrightText = '© 2024 Political Portfolio. All rights reserved.',
+  copyrightText = '© 2025 Chanda Chaudhary. All rights reserved.',
 }) => {
   return (
     <footer className="hidden md:block bg-[#1D40AF] text-white">
@@ -42,7 +42,9 @@ const DesktopFooter: React.FC<DesktopFooterProps> = ({
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="mb-6">
-              <h3 className="text-2xl font-bold mb-4">{companyName}</h3>
+              <h3 className="text-3xl font-extrabold mb-4 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent drop-shadow-lg">
+                {companyName}
+              </h3>
               <p className="text-gray-300 leading-relaxed">{companyDescription}</p>
             </div>
 

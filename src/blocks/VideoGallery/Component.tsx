@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import type { VideoGalleryBlock as VideoGalleryBlockProps } from '@/payload-types'
 import { motion } from 'framer-motion'
-import { X, Video } from 'lucide-react'
+import { X, Video, Play } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 
 const extractYouTubeVideoId = (url: string | undefined): string | null => {
@@ -95,6 +95,24 @@ const VideoGallery: React.FC<VideoGalleryBlockProps> = ({ title, description, vi
               )
             })}
         </div>
+
+        {/* Show More Videos Button */}
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <CMSLink
+            url="/videos"
+            className="inline-flex items-center px-8 py-4 bg-red-600 text-white hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-semibold"
+          >
+            <Play className="mr-3 w-5 h-5" />
+            Show More Videos
+          </CMSLink>
+        </motion.div>
+
         {button && (
           <div className="text-center mt-8">
             <CMSLink
