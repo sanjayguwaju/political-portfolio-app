@@ -25,8 +25,6 @@ export const ResponsiveNavbar: React.FC<ResponsiveNavbarProps> = ({ className = 
       {/* Language Translator - Hidden on mobile, positioned on the right */}
       <div className="hidden lg:flex lg:items-center">
         <LanguageTranslator 
-          currentLanguage={currentLanguage}
-          onLanguageChange={setLanguage}
           className="ml-8"
         />
       </div>

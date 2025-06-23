@@ -5,7 +5,7 @@ import ContactPageClient from './page.client'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
-  description: 'Get in touch with us. We\'d love to hear from you.',
+  description: 'Get in touch with us. We&apos;d love to hear from you.',
 }
 
 export default function ContactPage() {
@@ -21,7 +21,7 @@ export default function ContactPage() {
                 Contact Us
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Have a question or want to get in touch? Fill out the form below and we'll get back to you as soon as possible.
+                Have a question or want to get in touch? Fill out the form below and we&apos;ll get back to you as soon as possible.
               </p>
             </div>
 
