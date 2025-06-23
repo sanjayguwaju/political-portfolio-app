@@ -64,7 +64,7 @@ const SliderType1 = ({ slides, autoplaySpeed = 3000 }: SliderProps) => {
 
   return (
     <section className="relative">
-      <div className="h-[60vh] md:h-[85vh] w-full overflow-hidden">
+      <div className="h-[22vh] md:h-[90vh] w-full overflow-hidden">
         <div className="relative h-full">
           {slides.map((slide, index) => (
             <div
@@ -109,10 +109,10 @@ const SliderType1 = ({ slides, autoplaySpeed = 3000 }: SliderProps) => {
                         : 'translateY(20px) translateX(-20px)',
                   }}
                 >
-                  <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
+                  <h2 className="text-2xl md:text-6xl font-bold text-white mb-4 md:mb-6 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
                     {slide.title}
                   </h2>
-                  <p className="text-xl md:text-2xl text-white/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] leading-relaxed">
+                  <p className="text-lg md:text-2xl text-white/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] leading-relaxed">
                     {slide.description}
                   </p>
                 </div>

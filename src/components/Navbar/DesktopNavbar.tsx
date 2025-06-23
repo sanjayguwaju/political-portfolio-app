@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { ChevronDown, ChevronRight, Search } from 'lucide-react'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
 
 // Updated interface to match the Header config structure
@@ -119,8 +119,8 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
 
     const baseClasses =
       level === 0
-        ? 'flex items-center justify-between px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-white/20 hover:backdrop-blur-sm'
-        : 'flex items-center justify-between px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-white/25 w-full'
+        ? 'flex items-center justify-between px-4 py-2 text-sm text-white transition-colors duration-200 hover:bg-white/10 rounded-md'
+        : 'flex items-center justify-between px-4 py-2 text-sm text-white transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-800'
     const activeClasses = level === 0 ? '' : ''
     const levelClasses = level === 0 ? 'relative' : level === 1 ? 'relative' : 'relative'
 
@@ -154,11 +154,15 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
             <div className="ml-2 p-1">
               {level === 0 ? (
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform ${isActive ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 transition-transform ${
+                    isActive ? 'rotate-180' : ''
+                  }`}
                 />
               ) : (
                 <ChevronRight
-                  className={`w-4 h-4 transition-transform ${isSubActive || isSubSubActive ? 'rotate-90' : ''}`}
+                  className={`w-4 h-4 transition-transform ${
+                    isSubActive || isSubSubActive ? 'rotate-90' : ''
+                  }`}
                 />
               )}
             </div>
@@ -203,23 +207,9 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
 
   return (
     <div ref={navbarRef} className={`relative ${className}`}>
-      <nav className="flex items-center justify-between">
+      <nav className="flex items-center justify-start">
         <div className="flex items-center space-x-1">
           {navData.map((item) => renderNavItem(item))}
-        </div>
-
-        <div className="flex items-center">
-          {/* Search Bar */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search"
-              className="py-1 pl-4 pr-8 text-white bg-transparent border border-white rounded-full focus:outline-none focus:ring-1 focus:ring-white"
-            />
-            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-              <Search className="w-5 h-5 text-white" />
-            </div>
-          </div>
         </div>
       </nav>
     </div>

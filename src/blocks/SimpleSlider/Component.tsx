@@ -173,7 +173,7 @@ const SimpleSliderBlock: React.FC<HeroSliderProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-[60vh] sm:h-[82.5vh] overflow-hidden bg-gray-900 ${className}`}
+      className={`relative w-full h-[40vh] sm:h-[90vh] overflow-hidden bg-gray-900 ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onTouchStart={onTouchStart}

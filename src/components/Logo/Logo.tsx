@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import React from 'react'
 
 interface Props {
@@ -18,16 +17,21 @@ export const Logo = (props: Props) => {
       {/* eslint-disable @next/next/no-img-element */}
       <img
         alt="Chanda Chaudhary"
-        width={40}
-        height={40}
+        width={60}
+        height={50}
         loading={loading}
         fetchPriority={priority}
         decoding="async"
         className="rounded-full"
-        src="/media/logo.png"
+        src="https://nepalvani.com/wp-content/uploads/2025/06/chanda3.png"
       />
       <div className="flex items-center">
-        <span className="font-vibes text-lg lg:text-xl text-secondary font-bold lg:text-black text-white whitespace-nowrap">Chanda Chaudhary</span>
+        <span data-no-translate="true"
+          className="text-2xl lg:text-4xl text-secondary font-bold lg:text-black text-white whitespace-nowrap italic"
+          style={{ fontFamily: "'Arizonia', cursive" }}
+        >
+          Chanda Chaudhary
+        </span>
       </div>
     </div>
   )

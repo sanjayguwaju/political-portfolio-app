@@ -31,19 +31,19 @@ export async function Footer() {
   ]
 
   const contactInfo = [
-    { icon: Mail, text: 'info@politicalportfolio.com', href: 'mailto:info@politicalportfolio.com' },
-    { icon: Phone, text: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-    { icon: MapPin, text: '123 Political Ave, Washington DC', href: '#' },
+    { icon: Mail, text: 'info@chandachaudhary.com.np', href: 'mailto:info@chandachaudhary.com.np' },
+    { icon: Phone, text: '+977 9808000000', href: 'tel:+9779808000000' },
+    { icon: MapPin, text: 'Kathmandu, Nepal', href: 'https://maps.app.goo.gl/1234567890' },
   ]
 
   const footerData = {
     socialLinks,
     quickLinks,
     contactInfo,
-    companyName: 'Political Portfolio',
+    companyName: 'Chanda Chaudhary',
     companyDescription:
       'Empowering political leaders and organizations with comprehensive portfolio management and strategic consulting services. We help shape the future of governance through innovative solutions and expert guidance.',
-    copyrightText: '© 2024 Political Portfolio. All rights reserved.',
+    copyrightText: '© 2025 Chanda Chaudhary. All rights reserved.',
   }
 
   return <NewFooter {...footerData} />

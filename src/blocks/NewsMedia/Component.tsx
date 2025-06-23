@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import type { NewsMediaBlock as NewsMediaBlockProps } from '@/payload-types'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { CalendarIcon } from 'lucide-react'
+import { CalendarIcon, Newspaper } from 'lucide-react'
+import { CMSLink } from '@/components/Link'
 
 export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
   links: _links,
@@ -16,23 +17,30 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
     const defaultContent = [
       {
         id: 1,
-        title: "Parliamentary Session on Women's Rights Legislation",
-        date: 'March 15, 2024 - 2:35 PM',
+
+        title: 'demo-pdsfsdf',
+        date: 'June 23, 2025',
+
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
         featured: true,
       },
       {
         id: 2,
-        title: 'Community Development Project Launch in Rural Areas',
-        date: 'March 12, 2024 - 1:24 PM',
+
+        title: 'demo-pdsfsdf',
+        date: 'June 23, 2025',
+
+        
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606823/b5cnge3uepaoeoic1dnf.jpg',
       },
       {
         id: 3,
-        title: 'Education Policy Reform Committee Meeting',
-        date: 'March 10, 2024 - 1:03 PM',
+
+        title: 'demo-pdsfsdf',
+        date: 'June 23, 2025',
+
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606842/tueh2vcgbdsvnd0tzm98.jpg',
       },
@@ -123,7 +131,7 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
 
   return (
     <section id="news-media" className="py-8">
-      <div className="container mx-auto px-4">
+      <div className="container">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"
@@ -132,7 +140,7 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
           transition={{ duration: 0.6 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">News & Media</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">News & Media Coverage</h2>
           <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
 
@@ -191,6 +199,23 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
             ))}
           </div>
         </div>
+
+        {/* View All News and Media Button */}
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <CMSLink
+            url="/news"
+            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-semibold"
+          >
+            <Newspaper className="mr-3 w-5 h-5" />
+            View All News and Media
+          </CMSLink>
+        </motion.div>
       </div>
     </section>
   )
