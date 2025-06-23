@@ -17,25 +17,46 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
     const defaultContent = [
       {
         id: 1,
+
         title: 'demo-pdsfsdf',
         date: 'June 23, 2025',
+
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
         featured: true,
       },
       {
         id: 2,
+
         title: 'demo-pdsfsdf',
         date: 'June 23, 2025',
+
+        
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606823/b5cnge3uepaoeoic1dnf.jpg',
       },
       {
         id: 3,
+
         title: 'demo-pdsfsdf',
         date: 'June 23, 2025',
+
         image:
           'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606842/tueh2vcgbdsvnd0tzm98.jpg',
+      },
+      {
+        id: 4,
+        title: 'Infrastructure Development Summit in Kathmandu',
+        date: 'March 8, 2024 - 3:15 PM',
+        image:
+          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
+      },
+      {
+        id: 5,
+        title: 'Healthcare Policy Implementation Review',
+        date: 'March 6, 2024 - 11:45 AM',
+        image:
+          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606823/b5cnge3uepaoeoic1dnf.jpg',
       },
     ]
 
@@ -50,7 +71,7 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
             )
 
             if (newsContent.length > 0) {
-              const convertedContent = newsContent.slice(0, 3).map((item: any, index: number) => ({
+              const convertedContent = newsContent.slice(0, 5).map((item: any, index: number) => ({
                 id: item.id || index + 1,
                 title: item.title,
                 date: item.date || defaultContent[index]?.date,
@@ -123,58 +144,57 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
           <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Featured Article (Left) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Featured Article - Large Left Card */}
           {featuredArticle && (
             <motion.div
-              className="lg:col-span-2 bg-card p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="lg:col-span-1 w-full h-full bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <div className="relative w-full h-96 mb-4">
+              <div className="relative w-full h-full">
                 <Image
                   src={featuredArticle.image}
                   alt={featuredArticle.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-md"
+                  fill
+                  className="object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center text-sm text-gray-200 mb-3">
+                    <CalendarIcon className="w-4 h-4 mr-2" />
+                    <span>{featuredArticle.date}</span>
+                  </div>
+                  <h3 className="text-2xl font-bold leading-tight">{featuredArticle.title}</h3>
+                </div>
               </div>
-              <div className="flex items-center text-sm text-muted-foreground mb-2">
-                <CalendarIcon className="w-4 h-4 mr-2" />
-                <span>{featuredArticle.date}</span>
-              </div>
-              <h3 className="text-2xl font-bold text-card-foreground">{featuredArticle.title}</h3>
             </motion.div>
           )}
 
-          {/* Other Articles (Right) */}
-          <div className="flex flex-col gap-8">
+          {/* Right Column with 4 Smaller Cards */}
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
             {otherArticles.map((article, index) => (
               <motion.div
                 key={article.id}
-                className="bg-card p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden h-48"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 * (index + 1) }}
                 viewport={{ once: true }}
               >
-                <div className="relative w-full h-48 mb-4">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-md"
-                  />
+                <div className="relative w-full h-full">
+                  <Image src={article.image} alt={article.title} fill className="object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <div className="flex items-center text-sm text-gray-200 mb-2">
+                      <CalendarIcon className="w-4 h-4 mr-2" />
+                      <span>{article.date}</span>
+                    </div>
+                    <h4 className="text-base font-semibold leading-tight">{article.title}</h4>
+                  </div>
                 </div>
-                <div className="flex items-center text-sm text-muted-foreground mb-2">
-                  <CalendarIcon className="w-4 h-4 mr-2" />
-                  <span>{article.date}</span>
-                </div>
-                <h4 className="text-lg font-semibold text-card-foreground">{article.title}</h4>
               </motion.div>
             ))}
           </div>

@@ -119,8 +119,8 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
 
     const baseClasses =
       level === 0
-        ? 'flex items-center justify-between px-4 py-2 text-sm text-white transition-colors duration-200'
-        : 'flex items-center justify-between px-4 py-2 text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800'
+        ? 'flex items-center justify-between px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-white/20 hover:backdrop-blur-sm'
+        : 'flex items-center justify-between px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-white/25 w-full'
     const activeClasses = level === 0 ? '' : ''
     const levelClasses = level === 0 ? 'relative' : level === 1 ? 'relative' : 'relative'
 
@@ -166,7 +166,7 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
         {/* Level 1 Dropdown */}
         {hasChildren && level === 0 && isActive && (
           <div
-            className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
+            className="absolute top-full left-0 mt-1 w-64 bg-[#1D40AF] shadow-lg z-50"
             onMouseEnter={() => handleDropdownEnter(item.name)}
             onMouseLeave={() => handleDropdownLeave()}
           >
@@ -177,7 +177,7 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
         {/* Level 2 Dropdown */}
         {hasSubChildren && level === 1 && isSubActive && (
           <div
-            className="absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
+            className="absolute top-0 left-full ml-1 w-64 bg-[#1D40AF] shadow-lg z-50"
             onMouseEnter={() => handleSubDropdownEnter(item.name)}
             onMouseLeave={() => handleSubDropdownLeave()}
           >
@@ -188,7 +188,7 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
         {/* Level 3 Dropdown */}
         {hasSubChildren && level === 2 && isSubSubActive && (
           <div
-            className="absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
+            className="absolute top-0 left-full ml-1 w-64 bg-[#1D40AF] shadow-lg z-50"
             onMouseEnter={() => handleSubSubDropdownEnter(item.name)}
             onMouseLeave={() => handleSubSubDropdownLeave()}
           >

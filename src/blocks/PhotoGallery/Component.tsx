@@ -99,27 +99,23 @@ export const PhotoGalleryBlock: React.FC<PhotoGalleryBlockProps> = ({ links, ric
   const handleImageClick = (index: number, e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    console.log('Image clicked! Index:', index)
     setSelectedImageIndex(index)
     setCurrentSlideIndex(index)
     setIsModalOpen(true)
   }
 
   const openGallery = (index: number) => {
-    console.log('Opening gallery with index:', index)
     setSelectedImageIndex(index)
     setCurrentSlideIndex(index)
     setIsModalOpen(true)
   }
 
   const closeGallery = () => {
-    console.log('Closing gallery')
     setSelectedImageIndex(null)
     setIsModalOpen(false)
   }
 
   const showAllImages = () => {
-    console.log('Show all images clicked')
     setSelectedImageIndex(0)
     setCurrentSlideIndex(0)
     setIsModalOpen(true)

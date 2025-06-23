@@ -141,12 +141,10 @@ const SimpleSliderBlock: React.FC<HeroSliderProps> = ({
   }
 
   const handlePrevSlide = () => {
-    console.log('Previous slide clicked')
     prevSlide()
   }
 
   const handleNextSlide = () => {
-    console.log('Next slide clicked')
     nextSlide()
   }
 
@@ -273,7 +271,6 @@ const SimpleSliderBlock: React.FC<HeroSliderProps> = ({
               <button
                 key={index}
                 onClick={() => {
-                  console.log(`Dot indicator ${index + 1} clicked`)
                   goToSlide(index)
                 }}
                 className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 cursor-pointer ${
