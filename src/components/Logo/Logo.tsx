@@ -23,7 +23,7 @@ export const Logo = (props: Props) => {
         fetchPriority={priority}
         decoding="async"
         className="rounded-full"
-        src="https://nepalvani.com/wp-content/uploads/2025/06/logo-1.jpg"
+        src="https://nepalvani.com/wp-content/uploads/2025/06/chanda3.png"
       />
       <div className="flex items-center">
         <span data-no-translate="true"
