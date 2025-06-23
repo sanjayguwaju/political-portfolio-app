@@ -85,7 +85,7 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
   const otherArticles = articles.slice(1)
 
   return (
-    <section id="latest-articles" className="py-16 lg:py-8 bg-gradient-to-br from-gray-50 to-white">
+    <section id="latest-articles" className="py-8 lg:py-8 bg-gradient-to-br from-gray-50 to-white">
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -213,7 +213,7 @@ export const ArticleSectionBlock: React.FC<ArticleSectionBlockProps> = ({
 
         {/* View More Articles Button */}
         <motion.div
-          className="text-center mt-16"
+          className="text-center mt-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}

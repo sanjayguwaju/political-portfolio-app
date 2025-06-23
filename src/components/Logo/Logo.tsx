@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import React from 'react'
 
 interface Props {
@@ -28,7 +27,7 @@ export const Logo = (props: Props) => {
       />
       <div className="flex items-center">
         <span data-no-translate="true"
-          className="text-lg lg:text-4xl text-secondary font-bold lg:text-black text-white whitespace-nowrap italic"
+          className="text-2xl lg:text-4xl text-secondary font-bold lg:text-black text-white whitespace-nowrap italic"
           style={{ fontFamily: "'Arizonia', cursive" }}
         >
           Chanda Chaudhary

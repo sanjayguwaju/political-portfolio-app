@@ -51,7 +51,7 @@ export const AboutBlock: React.FC<CTABlockProps> = ({ links: _links, richText: _
   }
 
   return (
-    <section id="about" className="py-6 lg:py-10">
+    <section id="about" className="py-2 md:py-6 lg:py-10">
       <div className="container">
         {/* Section Header */}
         <motion.div
