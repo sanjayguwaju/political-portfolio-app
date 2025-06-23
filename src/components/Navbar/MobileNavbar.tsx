@@ -2,8 +2,10 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, ChevronDown, ChevronRight, Search } from 'lucide-react'
+import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
+import { LanguageTranslator } from '@/components/LanguageTranslator'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 // Updated interface to match the Header config structure
 interface NavItem {
@@ -37,6 +39,7 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '', navD
   const [expandedSubItems, setExpandedSubItems] = useState<Set<string>>(new Set())
   const [expandedSubSubItems, setExpandedSubSubItems] = useState<Set<string>>(new Set())
   const menuRef = useRef<HTMLDivElement>(null)
+  const { currentLanguage, setLanguage } = useLanguage()
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -175,7 +178,7 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '', navD
       {/* Hamburger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        className="flex items-center justify-center w-10 h-10 rounded-lg bg-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         aria-label="Toggle mobile menu"
       >
         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -183,7 +186,7 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '', navD
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div className="fixed inset-0 z-50 lg:hidden mobile-menu-overlay">
           {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black bg-opacity-50"
@@ -211,14 +214,13 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({ className = '', navD
 
               {/* Footer */}
               <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-                <Link
-                  href="/search"
-                  className="flex items-center gap-2 px-4 py-2 text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <Search className="w-4 h-4" />
-                  <span>Search</span>
-                </Link>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Language:</span>
+                  <LanguageTranslator
+                    className="ml-2"
+                    variant="mobile"
+                  />
+                </div>
               </div>
             </div>
           </div>

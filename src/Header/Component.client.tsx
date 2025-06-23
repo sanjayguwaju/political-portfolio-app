@@ -52,9 +52,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: _data }) => {
       {/* Navigation Bar - Sticky with smooth background transition */}
       <motion.div className="w-full sticky top-0 z-40 bg-blue-800">
         <div className="container">
-          <div className="py-3 lg:py-4 flex justify-between items-center">
+          <div className="py-3 lg:py-4 flex justify-between items-center w-full">
             {/* Logo - Visible on mobile, hidden on desktop */}
-            <div className="lg:hidden">
+            <div className="lg:hidden pl-4 lg:pl-6">
               <Link href="/">
                 <Logo loading="eager" priority="high" className="invert dark:invert-0" />
               </Link>

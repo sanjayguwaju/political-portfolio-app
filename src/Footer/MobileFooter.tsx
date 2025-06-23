@@ -39,10 +39,12 @@ const MobileFooter: React.FC<MobileFooterProps> = ({
   return (
     <footer className="md:hidden bg-[#1D40AF] text-white">
       {/* Main Footer Content */}
-      <div className="px-4 py-8">
+      <div className="container py-8">
         {/* Company Info */}
         <div className="text-center mb-8">
-          <h3 className="text-xl font-bold mb-3">{companyName}</h3>
+          <h3 className="text-2xl font-extrabold mb-3 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent drop-shadow-lg">
+            {companyName}
+          </h3>
           <p className="text-gray-300 text-sm leading-relaxed">{companyDescription}</p>
         </div>
 

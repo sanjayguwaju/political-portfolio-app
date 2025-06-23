@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { ChevronDown, ChevronRight, Search } from 'lucide-react'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
 
 // Updated interface to match the Header config structure
@@ -152,13 +152,11 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
           </div>
           {(hasChildren || hasSubChildren) && (
             <div className="ml-2 p-1">
-              {level === 0 ? (
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform ${isActive ? 'rotate-180' : ''}`}
-                />
-              ) : (
+              {level > 0 && (
                 <ChevronRight
-                  className={`w-4 h-4 transition-transform ${isSubActive || isSubSubActive ? 'rotate-90' : ''}`}
+                  className={`w-4 h-4 transition-transform ${
+                    isSubActive || isSubSubActive ? 'rotate-90' : ''
+                  }`}
                 />
               )}
             </div>
@@ -203,23 +201,9 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
 
   return (
     <div ref={navbarRef} className={`relative ${className}`}>
-      <nav className="flex items-center justify-between">
+      <nav className="flex items-center justify-start">
         <div className="flex items-center space-x-1">
           {navData.map((item) => renderNavItem(item))}
-        </div>
-
-        <div className="flex items-center">
-          {/* Search Bar */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search"
-              className="py-1 pl-4 pr-10 text-white bg-transparent border border-white rounded-full focus:outline-none focus:ring-1 focus:ring-white"
-            />
-            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-              <Search className="w-5 h-5 text-white" />
-            </div>
-          </div>
         </div>
       </nav>
     </div>
