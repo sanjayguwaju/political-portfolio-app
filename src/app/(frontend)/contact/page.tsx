@@ -82,7 +82,7 @@ const ContactPage = () => {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
           <p className="text-xl text-blue-100">
-            We're here to help and answer any questions you might have.
+            We&apos;re here to help and answer any questions you might have.
           </p>
         </div>
       </div>
@@ -96,8 +96,8 @@ const ContactPage = () => {
               <CardHeader>
                 <CardTitle>Get in Touch</CardTitle>
                 <CardDescription>
-                  We'd love to hear from you. Send us a message and we'll respond as soon as
-                  possible.
+                  We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon
+                  as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -180,7 +180,7 @@ const ContactPage = () => {
               <CardHeader>
                 <CardTitle>Send us a Message</CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  Fill out the form below and we&apos;ll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
