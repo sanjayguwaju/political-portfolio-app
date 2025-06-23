@@ -119,8 +119,8 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
 
     const baseClasses =
       level === 0
-        ? 'flex items-center justify-between px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-white/20 hover:backdrop-blur-sm'
-        : 'flex items-center justify-between px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-white/25 w-full'
+        ? 'flex items-center justify-between px-4 py-2 text-sm text-white transition-colors duration-200 hover:bg-white/10 rounded-md'
+        : 'flex items-center justify-between px-4 py-2 text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800'
     const activeClasses = level === 0 ? '' : ''
     const levelClasses = level === 0 ? 'relative' : level === 1 ? 'relative' : 'relative'
 
@@ -152,7 +152,13 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
           </div>
           {(hasChildren || hasSubChildren) && (
             <div className="ml-2 p-1">
-              {level > 0 && (
+              {level === 0 ? (
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform ${
+                    isActive ? 'rotate-180' : ''
+                  }`}
+                />
+              ) : (
                 <ChevronRight
                   className={`w-4 h-4 transition-transform ${
                     isSubActive || isSubSubActive ? 'rotate-90' : ''
