@@ -10,7 +10,6 @@ interface ResponsiveNavbarProps {
 }
 
 export const ResponsiveNavbar: React.FC<ResponsiveNavbarProps> = ({ className = '', navData }) => {
-  console.log(navData)
   return (
     <div className={`flex items-center ${className}`}>
       {/* Desktop Navbar - Hidden on mobile, centered */}
