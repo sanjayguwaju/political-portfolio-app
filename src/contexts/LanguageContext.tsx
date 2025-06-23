@@ -23,7 +23,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     if (savedLanguage && savedLanguage !== currentLanguage) {
       setCurrentLanguage(savedLanguage)
     }
-  }, [])
+  }, [currentLanguage])
 
   const setLanguage = (language: string) => {
     console.log('Language switching to:', language)
