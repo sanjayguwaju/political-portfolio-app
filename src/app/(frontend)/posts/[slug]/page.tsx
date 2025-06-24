@@ -14,6 +14,10 @@ import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { formatDateTime } from '@/utilities/formatDateTime'
+import { formatAuthors } from '@/utilities/formatAuthors'
+import { Media } from '@/components/Media'
+import { Card } from '@/components/Card'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -49,29 +53,227 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   if (!post) return <PayloadRedirects url={url} />
 
+  const { categories, heroImage, populatedAuthors, publishedAt, title, content } = post
+  const hasAuthors =
+    populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
+  const authorName = hasAuthors ? formatAuthors(populatedAuthors) : 'Anonymous'
+  const authorInitial =
+    authorName && authorName.length > 0 ? authorName.charAt(0).toUpperCase() : 'A'
+
   return (
-    <article className="pt-16 pb-16">
+    <>
       <PageClient />
+
+      {/* Reading Progress Bar */}
+      <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+        <div
+          className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300"
+          style={{ width: '0%' }}
+          id="reading-progress"
+        />
+      </div>
+
+      {/* Main Article Container */}
+      <article className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+        {/* Hero Section */}
+        <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+          {/* Background Image */}
+          {heroImage && typeof heroImage !== 'string' && (
+            <div className="absolute inset-0">
+              <Media fill priority imgClassName="object-cover" resource={heroImage} />
+              <div className="absolute inset-0 bg-black/50" />
+            </div>
+          )}
+
+          {/* Hero Content */}
+          <div className="relative z-10 container mx-auto px-4 py-20 text-center text-white">
+            {/* Categories */}
+            {categories && categories.length > 0 && (
+              <div className="flex justify-center gap-2 mb-6">
+                {categories.map((category, index) => {
+                  if (typeof category === 'object' && category !== null) {
+                    return (
+                      <span
+                        key={index}
+                        className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium border border-white/30"
+                      >
+                        {category.title || 'Uncategorized'}
+                      </span>
+                    )
+                  }
+                  return null
+                })}
+              </div>
+            )}
+
+            {/* Title */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight max-w-4xl mx-auto">
+              {title}
+            </h1>
+
+            {/* Meta Information */}
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-lg">
+              {hasAuthors && (
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <span>{formatAuthors(populatedAuthors)}</span>
+                </div>
+              )}
+
+              {publishedAt && (
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
+                </div>
+              )}
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+              <svg
+                className="w-6 h-6 text-white/70"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        {/* Content Section */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              {/* Article Content */}
+              <div className="prose prose-lg max-w-none dark:prose-invert">
+                <RichText
+                  data={content}
+                  enableGutter={false}
+                  className="text-gray-800 dark:text-gray-200 leading-relaxed"
+                />
+              </div>
+
+              {/* Article Footer */}
+              <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                      {authorInitial}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 dark:text-white">{authorName}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Author</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+                      </svg>
+                      Share
+                    </button>
+
+                    <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          fillRule="evenodd"
+                          d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Related Posts Section */}
+        {post.relatedPosts && post.relatedPosts.length > 0 && (
+          <section className="py-16 bg-gray-50 dark:bg-gray-900">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto">
+                <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+                  Related Articles
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {post.relatedPosts
+                    .filter((post) => typeof post === 'object')
+                    .map((relatedPost, index) => {
+                      if (typeof relatedPost === 'object' && relatedPost !== null) {
+                        return (
+                          <div key={index} className="group">
+                            <Card
+                              doc={relatedPost}
+                              relationTo="posts"
+                              showCategories
+                              className="h-full transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1"
+                            />
+                          </div>
+                        )
+                      }
+                      return null
+                    })}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Newsletter Signup */}
+        <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-white mb-4">Stay Updated</h2>
+              <p className="text-blue-100 mb-8 text-lg">
+                Get the latest articles and insights delivered to your inbox.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-white/50 focus:outline-none"
+                />
+                <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
 
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 
       {draft && <LivePreviewListener />}
-
-      <PostHero post={post} />
-
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
-            <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
-            />
-          )}
-        </div>
-      </div>
-    </article>
+    </>
   )
 }
 

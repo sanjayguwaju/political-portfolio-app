@@ -1,6 +1,7 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -110,4 +111,17 @@ export default buildConfig({
     },
     tasks: [],
   },
+  email: nodemailerAdapter({
+    defaultFromAddress: 'noreply@sanjayguwaju.com.np',
+    defaultFromName: 'Sanjay Guwaju',
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || '587', 10),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    },
+  }),
 })
