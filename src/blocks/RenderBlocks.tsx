@@ -16,8 +16,10 @@ import { NewsMediaBlock } from './NewsMedia/Component'
 import { AboutBlock } from './About/Component'
 import { SimpleSliderBlock } from './SimpleSlider/Component'
 import { SocialBlock } from './Socials/Component'
+import { BannerBlock } from './Banner/Component'
 
 const blockComponents = {
+  banner: BannerBlock,
   archive: ArchiveBlock,
   content: ContentBlock,
   cta: CallToActionBlock,

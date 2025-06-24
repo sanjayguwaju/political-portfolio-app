@@ -29,6 +29,7 @@ import { NewsMedia } from '@/blocks/NewsMedia/config'
 import { About } from '@/blocks/About/config'
 import { Social } from '@/blocks/Socials/config'
 import { SimpleSlider } from '@/blocks/SimpleSlider/config'
+import { Banner } from '@/blocks/Banner/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -99,6 +100,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 NewsMedia,
                 Social,
                 SimpleSlider,
+                Banner,
               ],
               required: true,
               admin: {

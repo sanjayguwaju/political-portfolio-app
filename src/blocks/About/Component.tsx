@@ -1,10 +1,11 @@
 'use client'
 import React from 'react'
-import type { CallToActionBlock as CTABlockProps } from '@/payload-types'
+import type { AboutBlock as AboutBlockProps } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { motion } from 'framer-motion'
+import RichText from '@/components/RichText'
 
-export const AboutBlock: React.FC<CTABlockProps> = ({ links: _links, richText: _richText }) => {
+export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -75,37 +76,57 @@ export const AboutBlock: React.FC<CTABlockProps> = ({ links: _links, richText: _
         >
           {/* Image Column - Full Height */}
           <motion.div className="lg:col-span-1" variants={imageVariants}>
-            <motion.img
-              src="https://res.cloudinary.com/dz3facqgc/image/upload/v1750566131/bdmipa7doxtexyd2jpz4.jpg"
-              alt="Chanda Chaudhary"
-              className="w-full h-full object-cover shadow-lg"
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.3 },
-              }}
-            />
+            {image ? (
+              <motion.img
+                src={typeof image === 'string' ? image : image.url || ''}
+                alt={typeof image === 'string' ? 'About Image' : image.alt || 'About Image'}
+                className="w-full h-full object-cover shadow-lg"
+                whileHover={{
+                  scale: 1.02,
+                  transition: { duration: 0.3 },
+                }}
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200 shadow-lg flex items-center justify-center">
+                <div className="text-gray-500 text-center">
+                  <svg className="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <p className="text-sm">No image uploaded</p>
+                </div>
+              </div>
+            )}
           </motion.div>
 
           {/* Content Column - Full Height */}
           <motion.div className="lg:col-span-1" variants={itemVariants}>
             <div className="about-content h-full flex flex-col">
-              <motion.p className="text-lg text-gray-700 mb-6 font-medium text-justify" variants={itemVariants}>
-                Chanda Chaudhary stands as a beacon of hope and progress in Nepali politics,
-                dedicating her life to advancing women&apos;s rights, social justice, and community
-                development. With years of parliamentary experience and grassroots activism, she
-                continues to champion the causes that matter most to the people of Nepal.
-              </motion.p>
-              <motion.p className="text-gray-600 mb-6 text-justify" variants={itemVariants}>
-                Her remarkable journey in politics has been marked by unwavering commitment to
-                gender equality, social welfare programs, and parliamentary reforms. As a leading
-                advocate for women&apos;s empowerment, she has consistently worked to create
-                opportunities and platforms for marginalized communities.
-              </motion.p>
-              <motion.p className="text-gray-600 mb-8 text-justify" variants={itemVariants}>
-                Through her dedicated service in parliament and active participation in community
-                development initiatives, she has established herself as a trusted leader who bridges
-                the gap between policy-making and grassroots implementation.
-              </motion.p>
+              {richText && (
+                <RichText
+                  className="text-lg text-gray-700 mb-8 font-medium leading-relaxed space-y-6 prose prose-lg max-w-none
+                  [&_.prose-p]:mb-6 [&_.prose-p]:text-justify [&_.prose-p]:leading-7 [&_.prose-p]:tracking-wide [&_.prose-p]:py-2
+                  [&_.prose-strong]:font-semibold [&_.prose-em]:italic [&_.prose-u]:underline [&_.prose-u]:decoration-2 [&_.prose-u]:decoration-current
+                  [&_.prose-h1]:text-4xl [&_.prose-h1]:font-bold [&_.prose-h1]:text-gray-900 [&_.prose-h1]:mb-6 [&_.prose-h1]:mt-8 [&_.prose-h1]:leading-tight [&_.prose-h1]:tracking-tight
+                  [&_.prose-h2]:text-3xl [&_.prose-h2]:font-bold [&_.prose-h2]:text-gray-800 [&_.prose-h2]:mb-5 [&_.prose-h2]:mt-7 [&_.prose-h2]:leading-tight [&_.prose-h2]:tracking-tight
+                  [&_.prose-h3]:text-2xl [&_.prose-h3]:font-semibold [&_.prose-h3]:text-gray-800 [&_.prose-h3]:mb-4 [&_.prose-h3]:mt-6 [&_.prose-h3]:leading-snug [&_.prose-h3]:tracking-tight
+                  [&_.prose-h4]:text-xl [&_.prose-h4]:font-semibold [&_.prose-h4]:text-gray-700 [&_.prose-h4]:mb-3 [&_.prose-h4]:mt-5 [&_.prose-h4]:leading-snug [&_.prose-h4]:tracking-tight
+                  [&_.prose-ul]:list-disc [&_.prose-ul]:pl-6 [&_.prose-ul]:space-y-2 [&_.prose-ul]:mb-6
+                  [&_.prose-ol]:list-decimal [&_.prose-ol]:pl-6 [&_.prose-ol]:space-y-2 [&_.prose-ol]:mb-6
+                  [&_.prose-li]:text-gray-700 [&_.prose-li]:leading-relaxed [&_.prose-li]:mb-1
+                  [&_.prose-blockquote]:border-l-4 [&_.prose-blockquote]:border-blue-500 [&_.prose-blockquote]:pl-4 [&_.prose-blockquote]:italic [&_.prose-blockquote]:text-gray-600 [&_.prose-blockquote]:mb-6
+                  [&_.prose-code]:bg-gray-100 [&_.prose-code]:px-2 [&_.prose-code]:py-1 [&_.prose-code]:rounded [&_.prose-code]:text-sm [&_.prose-code]:font-mono
+                  [&_.prose-pre]:bg-gray-900 [&_.prose-pre]:text-white [&_.prose-pre]:p-4 [&_.prose-pre]:rounded-lg [&_.prose-pre]:overflow-x-auto [&_.prose-pre]:mb-6
+                  [&_.prose-a]:text-blue-600 [&_.prose-a]:underline [&_.prose-a]:hover:text-blue-800 [&_.prose-a]:transition-colors
+                  [&_.prose-hr]:border-gray-300 [&_.prose-hr]:my-8 [&_.prose-hr]:border-t-2"
+                  data={richText}
+                  enableGutter={false}
+                  enableProse={true}
+                />
+              )}
               <motion.div className="flex flex-wrap gap-4 mt-auto" variants={itemVariants}>
                 <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                   <CMSLink
