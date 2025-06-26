@@ -118,21 +118,7 @@ export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image, section
             <div className="about-content h-full flex flex-col">
               {richText && (
                 <RichText
-                  className="text-lg text-gray-700 mb-8 font-medium leading-relaxed space-y-6 prose prose-lg max-w-none
-                  [&_.prose-p]:mb-6 [&_.prose-p]:text-justify [&_.prose-p]:leading-7 [&_.prose-p]:tracking-wide [&_.prose-p]:py-2
-                  [&_.prose-strong]:font-semibold [&_.prose-em]:italic [&_.prose-u]:underline [&_.prose-u]:decoration-2 [&_.prose-u]:decoration-current
-                  [&_.prose-h1]:text-4xl [&_.prose-h1]:font-bold [&_.prose-h1]:text-gray-900 [&_.prose-h1]:mb-6 [&_.prose-h1]:mt-8 [&_.prose-h1]:leading-tight [&_.prose-h1]:tracking-tight
-                  [&_.prose-h2]:text-3xl [&_.prose-h2]:font-bold [&_.prose-h2]:text-gray-800 [&_.prose-h2]:mb-5 [&_.prose-h2]:mt-7 [&_.prose-h2]:leading-tight [&_.prose-h2]:tracking-tight
-                  [&_.prose-h3]:text-2xl [&_.prose-h3]:font-semibold [&_.prose-h3]:text-gray-800 [&_.prose-h3]:mb-4 [&_.prose-h3]:mt-6 [&_.prose-h3]:leading-snug [&_.prose-h3]:tracking-tight
-                  [&_.prose-h4]:text-xl [&_.prose-h4]:font-semibold [&_.prose-h4]:text-gray-700 [&_.prose-h4]:mb-3 [&_.prose-h4]:mt-5 [&_.prose-h4]:leading-snug [&_.prose-h4]:tracking-tight
-                  [&_.prose-ul]:list-disc [&_.prose-ul]:pl-6 [&_.prose-ul]:space-y-2 [&_.prose-ul]:mb-6
-                  [&_.prose-ol]:list-decimal [&_.prose-ol]:pl-6 [&_.prose-ol]:space-y-2 [&_.prose-ol]:mb-6
-                  [&_.prose-li]:text-gray-700 [&_.prose-li]:leading-relaxed [&_.prose-li]:mb-1
-                  [&_.prose-blockquote]:border-l-4 [&_.prose-blockquote]:border-blue-500 [&_.prose-blockquote]:pl-4 [&_.prose-blockquote]:italic [&_.prose-blockquote]:text-gray-600 [&_.prose-blockquote]:mb-6
-                  [&_.prose-code]:bg-gray-100 [&_.prose-code]:px-2 [&_.prose-code]:py-1 [&_.prose-code]:rounded [&_.prose-code]:text-sm [&_.prose-code]:font-mono
-                  [&_.prose-pre]:bg-gray-900 [&_.prose-pre]:text-white [&_.prose-pre]:p-4 [&_.prose-pre]:rounded-lg [&_.prose-pre]:overflow-x-auto [&_.prose-pre]:mb-6
-                  [&_.prose-a]:text-blue-600 [&_.prose-a]:underline [&_.prose-a]:hover:text-blue-800 [&_.prose-a]:transition-colors
-                  [&_.prose-hr]:border-gray-300 [&_.prose-hr]:my-8 [&_.prose-hr]:border-t-2"
+                  className="text-lg text-gray-700 mb-8 font-medium leading-relaxed space-y-6 about_richtext__custom_styles"
                   data={richText}
                   enableGutter={false}
                   enableProse={true}
