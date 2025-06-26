@@ -28,6 +28,11 @@ export const About: Block = {
   interfaceName: 'AboutBlock',
   fields: [
     {
+      name: 'section',
+      type: 'text',
+      label: 'Section',
+    },
+    {
       name: 'richText',
       type: 'richText',
       editor: lexicalEditor({

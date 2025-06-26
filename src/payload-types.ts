@@ -778,6 +778,7 @@ export interface SliderBlock {
  * via the `definition` "AboutBlock".
  */
 export interface AboutBlock {
+  section?: string | null;
   richText?: {
     root: {
       type: string;
@@ -1668,6 +1669,7 @@ export interface SliderBlockSelect<T extends boolean = true> {
  * via the `definition` "AboutBlock_select".
  */
 export interface AboutBlockSelect<T extends boolean = true> {
+  section?: T;
   richText?: T;
   image?: T;
   links?:

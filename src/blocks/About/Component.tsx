@@ -4,8 +4,9 @@ import type { AboutBlock as AboutBlockProps } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { motion } from 'framer-motion'
 import RichText from '@/components/RichText'
+import Image from 'next/image'
 
-export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image }) => {
+export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image, section, links }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -62,7 +63,7 @@ export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image }) => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">About Me</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{section}</h2>
           <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
 
@@ -77,15 +78,25 @@ export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image }) => {
           {/* Image Column - Full Height */}
           <motion.div className="lg:col-span-1" variants={imageVariants}>
             {image ? (
-              <motion.img
-                src={typeof image === 'string' ? image : image.url || ''}
-                alt={typeof image === 'string' ? 'About Image' : image.alt || 'About Image'}
-                className="w-full h-full object-cover shadow-lg"
+              <motion.div
+                className="relative w-full h-full"
                 whileHover={{
                   scale: 1.02,
                   transition: { duration: 0.3 },
                 }}
-              />
+              >
+                <Image
+                  src={typeof image === 'string' ? image : image.url || ''}
+                  alt={typeof image === 'string' ? 'About Image' : image.alt || 'About Image'}
+                  fill
+                  className="object-cover shadow-lg"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={false}
+                  quality={60}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                />
+              </motion.div>
             ) : (
               <div className="w-full h-full bg-gray-200 shadow-lg flex items-center justify-center">
                 <div className="text-gray-500 text-center">
@@ -129,12 +140,16 @@ export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image }) => {
               )}
               <motion.div className="flex flex-wrap gap-4 mt-auto" variants={itemVariants}>
                 <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
-                  <CMSLink
-                    url="/introduction"
-                    className="inline-block px-8 py-4 bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors duration-200"
-                  >
-                    Full Introduction
-                  </CMSLink>
+                  {(links || []).map(({ link }, i) => {
+                    return (
+                      <CMSLink
+                        className="inline-flex items-center justify-center px-10 py-4 bg-blue-600 rounded-none text-white font-semibold text-base tracking-wide hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 border-0 shadow-md"
+                        key={i}
+                        size="lg"
+                        {...link}
+                      />
+                    )
+                  })}
                 </motion.div>
               </motion.div>
             </div>
