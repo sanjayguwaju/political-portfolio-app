@@ -57,7 +57,7 @@ export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image, section
       <div className="container">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-8 lg:mb-12"
+          className="text-center mb-8 mt-4 lg:mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -76,7 +76,7 @@ export const AboutBlock: React.FC<AboutBlockProps> = ({ richText, image, section
           viewport={{ once: true, amount: 0.3 }}
         >
           {/* Image Column - Full Height */}
-          <motion.div className="lg:col-span-1" variants={imageVariants}>
+          <motion.div className="lg:col-span-1 h-64 md:h-80 lg:h-full" variants={imageVariants}>
             {image ? (
               <motion.div
                 className="relative w-full h-full"
