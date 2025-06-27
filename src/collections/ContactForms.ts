@@ -21,7 +21,7 @@ export const ContactForms: CollectionConfig = {
       required: true,
       label: 'Full Name',
       admin: {
-        description: 'The full name of the person submitting the form',
+        readOnly: true,
       },
     },
     {
@@ -30,7 +30,7 @@ export const ContactForms: CollectionConfig = {
       required: true,
       label: 'Email Address',
       admin: {
-        description: 'The email address of the person submitting the form',
+        readOnly: true,
       },
     },
     {
@@ -39,7 +39,7 @@ export const ContactForms: CollectionConfig = {
       required: false,
       label: 'Phone Number',
       admin: {
-        description: 'Optional phone number',
+        readOnly: true,
       },
     },
     {
@@ -48,7 +48,7 @@ export const ContactForms: CollectionConfig = {
       required: true,
       label: 'Subject',
       admin: {
-        description: 'The subject of the inquiry',
+        readOnly: true,
       },
     },
     {
@@ -57,7 +57,7 @@ export const ContactForms: CollectionConfig = {
       required: true,
       label: 'Message',
       admin: {
-        description: 'The message content',
+        readOnly: true,
       },
     },
     {
@@ -83,13 +83,14 @@ export const ContactForms: CollectionConfig = {
         },
       ],
       admin: {
-        description: 'The status of this contact form submission',
+        position: 'sidebar',
       },
     },
     {
       name: 'ipAddress',
       type: 'text',
       admin: {
+        position: 'sidebar',
         description: 'IP address of the form submitter',
         readOnly: true,
       },
@@ -98,6 +99,7 @@ export const ContactForms: CollectionConfig = {
       name: 'userAgent',
       type: 'text',
       admin: {
+        position: 'sidebar',
         description: 'User agent of the form submitter',
         readOnly: true,
       },

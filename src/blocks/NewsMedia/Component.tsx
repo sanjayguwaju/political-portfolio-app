@@ -1,121 +1,34 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import type { NewsMediaBlock as NewsMediaBlockProps } from '@/payload-types'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { CalendarIcon, Newspaper } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
+import { useNewsData } from '@/hooks/useNewsData'
 
-export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
-  links: _links,
-  richText: _richText,
-}) => {
-  const [mediaContent, setMediaContent] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({ section }) => {
+  const { data: mediaContent, isLoading, error } = useNewsData()
 
-  useEffect(() => {
-    const defaultContent = [
-      {
-        id: 1,
-
-        title: 'demo-pdsfsdf',
-        date: 'June 23, 2025',
-
-        image:
-          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
-        featured: true,
-      },
-      {
-        id: 2,
-
-        title: 'demo-pdsfsdf',
-        date: 'June 23, 2025',
-
-        
-        image:
-          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606823/b5cnge3uepaoeoic1dnf.jpg',
-      },
-      {
-        id: 3,
-
-        title: 'demo-pdsfsdf',
-        date: 'June 23, 2025',
-
-        image:
-          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606842/tueh2vcgbdsvnd0tzm98.jpg',
-      },
-      {
-        id: 4,
-        title: 'Infrastructure Development Summit in Kathmandu',
-        date: 'March 8, 2024 - 3:15 PM',
-        image:
-          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606750/ubeqgxdmmaatptx1nikd.jpg',
-      },
-      {
-        id: 5,
-        title: 'Healthcare Policy Implementation Review',
-        date: 'March 6, 2024 - 11:45 AM',
-        image:
-          'https://res.cloudinary.com/dz3facqgc/image/upload/v1750606823/b5cnge3uepaoeoic1dnf.jpg',
-      },
-    ]
-
-    const loadContent = () => {
-      if (typeof window !== 'undefined') {
-        const savedContent = localStorage.getItem('websiteContent')
-        if (savedContent) {
-          try {
-            const allContent = JSON.parse(savedContent)
-            const newsContent = allContent.filter(
-              (item: any) => item.status === 'published' && item.category === 'news',
-            )
-
-            if (newsContent.length > 0) {
-              const convertedContent = newsContent.slice(0, 5).map((item: any, index: number) => ({
-                id: item.id || index + 1,
-                title: item.title,
-                date: item.date || defaultContent[index]?.date,
-                image: item.image || defaultContent[index]?.image,
-                featured: index === 0,
-              }))
-              setMediaContent(convertedContent)
-            } else {
-              setMediaContent(defaultContent)
-            }
-          } catch (error) {
-            console.error('Error loading news content:', error)
-            setMediaContent(defaultContent)
-          }
-        } else {
-          setMediaContent(defaultContent)
-        }
-      } else {
-        setMediaContent(defaultContent)
-      }
-      setLoading(false)
-    }
-
-    loadContent()
-
-    const handleStorageChange = () => loadContent()
-    if (typeof window !== 'undefined') {
-      window.addEventListener('storage', handleStorageChange)
-      window.addEventListener('contentUpdated', handleStorageChange)
-
-      return () => {
-        window.removeEventListener('storage', handleStorageChange)
-        window.removeEventListener('contentUpdated', handleStorageChange)
-      }
-    }
-  }, [])
-
-  if (loading) {
+  if (isLoading) {
     return (
       <section id="news-media" className="py-12 lg:py-20">
         <div className="container">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800 mx-auto"></div>
             <p className="mt-4 text-gray-600">Loading news...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (error) {
+    return (
+      <section id="news-media" className="py-12 lg:py-20">
+        <div className="container">
+          <div className="text-center">
+            <p className="text-red-600">Error loading news content</p>
           </div>
         </div>
       </section>
@@ -140,7 +53,7 @@ export const NewsMediaBlock: React.FC<NewsMediaBlockProps> = ({
           transition={{ duration: 0.6 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">News & Media Coverage</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{section}</h2>
           <div className="section-divider w-24 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
 

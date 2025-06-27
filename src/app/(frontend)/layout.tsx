@@ -15,6 +15,7 @@ import { draftMode } from 'next/headers'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { GoogleTranslate } from '@/components/GoogleTranslate'
 import { BackToTop } from '@/components/BackToTop'
+import { QueryDevtools } from '@/components/ReactQueryDevtools'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -56,6 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {children}
             <Footer />
             <BackToTop />
+            <QueryDevtools />
           </LanguageProvider>
         </Providers>
       </body>
