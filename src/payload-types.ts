@@ -1035,45 +1035,10 @@ export interface VideoGalleryBlock {
  * via the `definition` "NewsMediaBlock".
  */
 export interface NewsMediaBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: string | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * This is the section of the news media it fetch from the 5 latest news media from the collection
+   */
+  section?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'newsMedia';
@@ -1206,29 +1171,11 @@ export interface BannerBlock {
  */
 export interface ContactForm {
   id: string;
-  /**
-   * The full name of the person submitting the form
-   */
   fullName: string;
-  /**
-   * The email address of the person submitting the form
-   */
   email: string;
-  /**
-   * Optional phone number
-   */
   phone?: string | null;
-  /**
-   * The subject of the inquiry
-   */
   subject: string;
-  /**
-   * The message content
-   */
   message: string;
-  /**
-   * The status of this contact form submission
-   */
   status?: ('new' | 'in-progress' | 'replied' | 'closed') | null;
   /**
    * IP address of the form submitter
@@ -1800,22 +1747,7 @@ export interface VideoGalleryBlockSelect<T extends boolean = true> {
  * via the `definition` "NewsMediaBlock_select".
  */
 export interface NewsMediaBlockSelect<T extends boolean = true> {
-  richText?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
+  section?: T;
   id?: T;
   blockName?: T;
 }
