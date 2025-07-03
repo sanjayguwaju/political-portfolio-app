@@ -59,7 +59,7 @@
 - [ ] **NewsletterSignup** - For email list building
 - [ ] **SocialMediaFeed** - For displaying social media posts
 - [ ] **Testimonials** - For constituent testimonials and support
-- [ ] **FAQ** - For frequently asked questions about policies/positions
+- [x] **FAQ** - For frequently asked questions about policies/positions
 - [ ] **PetitionSignup** - For collecting petition signatures
 - [ ] **Survey** - For gathering constituent feedback
 - [ ] **LiveChat** - For real-time constituent communication
@@ -89,15 +89,15 @@
 - [ ] **VideoPlaylist** - For organized video content
 - [ ] **PhotoStory** - For narrative photo sequences
 - [ ] **BeforeAfter** - For showing policy impact comparisons
-- [ ] **QuoteCarousel** - For rotating testimonials and quotes
+- [x] **QuoteCarousel** - For rotating testimonials and quotes
 - [ ] **AchievementBadges** - For highlighting accomplishments
 - [ ] **AwardShowcase** - For displaying awards and recognition
 
 ## Accessibility & Compliance Blocks
 
 - [ ] **AccessibilityStatement** - For ADA compliance information
-- [ ] **PrivacyPolicy** - For data protection information
-- [ ] **TermsOfService** - For website usage terms
+- [x] **PrivacyPolicy** - For data protection information
+- [x] **TermsOfService** - For website usage terms
 - [ ] **LanguageSelector** - For multilingual support
 - [ ] **AccessibilityTools** - For assistive technology features
 

@@ -25,6 +25,10 @@ import type {
   VideoGalleryBlock as VideoGalleryBlockProps,
   NewsMediaBlock as NewsMediaBlockProps,
   SimpleSliderBlock as SimpleSliderBlockProps,
+  PrivacyPolicyBlock as PrivacyPolicyBlockProps,
+  TermsOfServiceBlock as TermsOfServiceBlockProps,
+  QuoteCarouselBlock as QuoteCarouselBlockProps,
+  FAQBlock as FAQBlockProps,
 } from '@/payload-types'
 
 import { BannerBlock } from '@/blocks/Banner/Component'
@@ -39,6 +43,10 @@ import { PhotoGalleryBlock } from '@/blocks/PhotoGallery/Component'
 import { VideoGalleryBlock } from '@/blocks/VideoGallery/Component'
 import { NewsMediaBlock } from '@/blocks/NewsMedia/Component'
 import { SimpleSliderBlock } from '@/blocks/SimpleSlider/Component'
+import { PrivacyPolicyBlock } from '@/blocks/PrivacyPolicy/Component'
+import { TermsOfServiceBlock } from '@/blocks/TermsOfService/Component'
+import { QuoteCarouselBlock } from '@/blocks/QuoteCarousel/Component'
+import { FAQBlock } from '@/blocks/FAQ/Component'
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -55,6 +63,10 @@ type NodeTypes =
       | VideoGalleryBlockProps
       | NewsMediaBlockProps
       | SimpleSliderBlockProps
+      | PrivacyPolicyBlockProps
+      | TermsOfServiceBlockProps
+      | QuoteCarouselBlockProps
+      | FAQBlockProps
     >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -91,6 +103,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     videoGallery: ({ node }: { node: any }) => <VideoGalleryBlock {...node.fields} />,
     newsMedia: ({ node }: { node: any }) => <NewsMediaBlock {...node.fields} />,
     simpleSlider: ({ node }: { node: any }) => <SimpleSliderBlock {...node.fields} />,
+    privacyPolicy: ({ node }: { node: any }) => <PrivacyPolicyBlock {...node.fields} />,
+    termsOfService: ({ node }: { node: any }) => <TermsOfServiceBlock {...node.fields} />,
+    quoteCarousel: ({ node }: { node: any }) => <QuoteCarouselBlock {...node.fields} />,
+    faq: ({ node }: { node: any }) => <FAQBlock {...node.fields} />,
   },
 })
 

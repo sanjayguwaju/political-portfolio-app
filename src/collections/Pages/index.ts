@@ -30,6 +30,10 @@ import { About } from '@/blocks/About/config'
 import { Social } from '@/blocks/Socials/config'
 import { SimpleSlider } from '@/blocks/SimpleSlider/config'
 import { Banner } from '@/blocks/Banner/config'
+import { PrivacyPolicy } from '@/blocks/PrivacyPolicy/config'
+import { TermsOfService } from '@/blocks/TermsOfService/config'
+import { QuoteCarousel } from '@/blocks/QuoteCarousel/config'
+import { FAQ } from '@/blocks/FAQ/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -101,6 +105,10 @@ export const Pages: CollectionConfig<'pages'> = {
                 Social,
                 SimpleSlider,
                 Banner,
+                PrivacyPolicy,
+                TermsOfService,
+                QuoteCarousel,
+                FAQ,
               ],
               required: true,
               admin: {

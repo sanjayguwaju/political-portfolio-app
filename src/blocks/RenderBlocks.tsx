@@ -17,6 +17,10 @@ import { AboutBlock } from './About/Component'
 import { SimpleSliderBlock } from './SimpleSlider/Component'
 import { SocialBlock } from './Socials/Component'
 import { BannerBlock } from './Banner/Component'
+import { PrivacyPolicyBlock } from './PrivacyPolicy/Component'
+import { TermsOfServiceBlock } from './TermsOfService/Component'
+import { QuoteCarouselBlock } from './QuoteCarousel/Component'
+import { FAQBlock } from './FAQ/Component'
 
 const blockComponents = {
   banner: BannerBlock,
@@ -34,6 +38,10 @@ const blockComponents = {
   newsMedia: NewsMediaBlock,
   social: SocialBlock,
   simpleSlider: SimpleSliderBlock,
+  privacyPolicy: PrivacyPolicyBlock,
+  termsOfService: TermsOfServiceBlock,
+  quoteCarousel: QuoteCarouselBlock,
+  faq: FAQBlock,
 }
 
 export const RenderBlocks: React.FC<{

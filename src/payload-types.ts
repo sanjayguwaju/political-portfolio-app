@@ -209,6 +209,10 @@ export interface Page {
     | SocialBlock
     | SimpleSliderBlock
     | BannerBlock
+    | PrivacyPolicyBlock
+    | TermsOfServiceBlock
+    | QuoteCarouselBlock
+    | FAQBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1167,6 +1171,192 @@ export interface BannerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PrivacyPolicyBlock".
+ */
+export interface PrivacyPolicyBlock {
+  /**
+   * The title of the privacy policy page
+   */
+  title?: string | null;
+  /**
+   * Enter the full privacy policy content
+   */
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The date this privacy policy was last updated
+   */
+  lastUpdated?: string | null;
+  /**
+   * Email address for privacy-related inquiries
+   */
+  contactEmail?: string | null;
+  /**
+   * Phone number for privacy-related inquiries
+   */
+  contactPhone?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'privacyPolicy';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TermsOfServiceBlock".
+ */
+export interface TermsOfServiceBlock {
+  /**
+   * The title of the terms of service page
+   */
+  title?: string | null;
+  /**
+   * Enter the full terms of service content
+   */
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The date these terms of service become effective
+   */
+  effectiveDate?: string | null;
+  /**
+   * The date these terms of service were last updated
+   */
+  lastUpdated?: string | null;
+  /**
+   * Email address for terms of service inquiries
+   */
+  contactEmail?: string | null;
+  /**
+   * Phone number for terms of service inquiries
+   */
+  contactPhone?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'termsOfService';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteCarouselBlock".
+ */
+export interface QuoteCarouselBlock {
+  /**
+   * Optional title for the quote carousel section
+   */
+  title?: string | null;
+  /**
+   * Optional subtitle for the quote carousel section
+   */
+  subtitle?: string | null;
+  /**
+   * Add testimonials and quotes to display in the carousel
+   */
+  quotes: {
+    /**
+     * The testimonial or quote text
+     */
+    quote: string;
+    /**
+     * Name of the person who gave the quote
+     */
+    author: string;
+    /**
+     * Professional title or role of the author
+     */
+    title?: string | null;
+    /**
+     * Company, organization, or affiliation of the author
+     */
+    organization?: string | null;
+    /**
+     * Optional profile image of the author
+     */
+    image?: (string | null) | Media;
+    id?: string | null;
+  }[];
+  /**
+   * Automatically rotate through quotes
+   */
+  autoPlay?: boolean | null;
+  /**
+   * Time between quote transitions in milliseconds
+   */
+  interval?: number | null;
+  /**
+   * Show navigation dots at the bottom
+   */
+  showDots?: boolean | null;
+  /**
+   * Show navigation arrows on the sides
+   */
+  showArrows?: boolean | null;
+  /**
+   * Show play/pause control button
+   */
+  showPlayPause?: boolean | null;
+  /**
+   * Layout style for the quote display
+   */
+  layout?: ('centered' | 'left' | 'right') | null;
+  /**
+   * Background color theme for the section
+   */
+  backgroundColor?: ('light' | 'dark' | 'blue' | 'white') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'quoteCarousel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock".
+ */
+export interface FAQBlock {
+  /**
+   * Optional title for the FAQ section
+   */
+  title?: string | null;
+  /**
+   * Optional subtitle for the FAQ section
+   */
+  subtitle?: string | null;
+  /**
+   * Add questions and answers for the FAQ section
+   */
+  faqs: {
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-forms".
  */
 export interface ContactForm {
@@ -1493,6 +1683,10 @@ export interface PagesSelect<T extends boolean = true> {
         social?: T | SocialBlockSelect<T>;
         simpleSlider?: T | SimpleSliderBlockSelect<T>;
         banner?: T | BannerBlockSelect<T>;
+        privacyPolicy?: T | PrivacyPolicyBlockSelect<T>;
+        termsOfService?: T | TermsOfServiceBlockSelect<T>;
+        quoteCarousel?: T | QuoteCarouselBlockSelect<T>;
+        faq?: T | FAQBlockSelect<T>;
       };
   meta?:
     | T
@@ -1824,6 +2018,77 @@ export interface SimpleSliderBlockSelect<T extends boolean = true> {
 export interface BannerBlockSelect<T extends boolean = true> {
   style?: T;
   content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PrivacyPolicyBlock_select".
+ */
+export interface PrivacyPolicyBlockSelect<T extends boolean = true> {
+  title?: T;
+  richText?: T;
+  lastUpdated?: T;
+  contactEmail?: T;
+  contactPhone?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TermsOfServiceBlock_select".
+ */
+export interface TermsOfServiceBlockSelect<T extends boolean = true> {
+  title?: T;
+  richText?: T;
+  effectiveDate?: T;
+  lastUpdated?: T;
+  contactEmail?: T;
+  contactPhone?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteCarouselBlock_select".
+ */
+export interface QuoteCarouselBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  quotes?:
+    | T
+    | {
+        quote?: T;
+        author?: T;
+        title?: T;
+        organization?: T;
+        image?: T;
+        id?: T;
+      };
+  autoPlay?: T;
+  interval?: T;
+  showDots?: T;
+  showArrows?: T;
+  showPlayPause?: T;
+  layout?: T;
+  backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock_select".
+ */
+export interface FAQBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
