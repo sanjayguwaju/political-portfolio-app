@@ -1,7 +1,9 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -19,6 +21,7 @@ import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import brevoAdapter from './utilities/brevoAdapter'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -94,6 +97,21 @@ export default buildConfig({
         acl: 'public-read',
       },
     }),
+    // s3Storage({
+    //   collections: {
+    //     media: true,
+    //   },
+    //   bucket: process.env.MINIO_BUCKET || '', // MinIO Bucket name
+    //   config: {
+    //     credentials: {
+    //       accessKeyId: process.env.MINIO_ACCESS_KEY_ID || '', // MinIO Access Key
+    //       secretAccessKey: process.env.MINIO_SECRET_ACCESS_KEY || '', // MinIO Secret Key
+    //     },
+    //     region: process.env.MINIO_REGION || '', // MinIO Region (optional)
+    //     endpoint: process.env.MINIO_ENDPOINT || '', // MinIO endpoint URL (e.g., http://localhost:9000)
+    //     forcePathStyle: true, // MinIO typically uses path-style addressing
+    //   },
+    // }),
     // storage-adapter-placeholder
   ],
   secret: process.env.PAYLOAD_SECRET,
@@ -116,17 +134,23 @@ export default buildConfig({
     },
     tasks: [],
   },
-  email: nodemailerAdapter({
+  // email: nodemailerAdapter({
+  //   defaultFromAddress: 'noreply@sanjayguwaju.com.np',
+  //   defaultFromName: 'Sanjay Guwaju',
+  //   transportOptions: {
+  //     host: process.env.SMTP_HOST,
+  //     port: parseInt(process.env.SMTP_PORT || '587', 10),
+  //     secure: false,
+  //     auth: {
+  //       user: process.env.SMTP_USER,
+  //       pass: process.env.SMTP_PASS,
+  //     },
+  //   },
+  // }),
+  // email: brevoAdapter(),
+  email: resendAdapter({
     defaultFromAddress: 'noreply@sanjayguwaju.com.np',
     defaultFromName: 'Sanjay Guwaju',
-    transportOptions: {
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587', 10),
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    },
+    apiKey: process.env.RESEND_API_KEY || '',
   }),
 })
