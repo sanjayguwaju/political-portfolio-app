@@ -12,9 +12,8 @@ interface ResponsiveNavbarProps {
 }
 
 export const ResponsiveNavbar: React.FC<ResponsiveNavbarProps> = ({ className = '', navData }) => {
-
   const { currentLanguage, setLanguage } = useLanguage()
- 
+
   return (
     <div className={`flex items-center justify-between w-full ${className}`}>
       {/* Desktop Navbar - Hidden on mobile, left-aligned */}
@@ -24,9 +23,7 @@ export const ResponsiveNavbar: React.FC<ResponsiveNavbarProps> = ({ className = 
 
       {/* Language Translator - Hidden on mobile, positioned on the right */}
       <div className="hidden lg:flex lg:items-center">
-        <LanguageTranslator 
-          className="ml-8"
-        />
+        <LanguageTranslator className="ml-8" />
       </div>
 
       {/* Mobile Navbar - Hidden on desktop, positioned on the right */}

@@ -154,9 +154,7 @@ export const DesktopNavbar: React.FC<DesktopNavbarProps> = ({ className = '', na
             <div className="ml-2 p-1">
               {level === 0 ? (
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform ${
-                    isActive ? 'rotate-180' : ''
-                  }`}
+                  className={`w-4 h-4 transition-transform ${isActive ? 'rotate-180' : ''}`}
                 />
               ) : (
                 <ChevronRight

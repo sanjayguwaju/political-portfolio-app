@@ -41,9 +41,9 @@ export default buildConfig({
     },
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      
+
       beforeLogin: ['@/components/BeforeLogin'],
-    
+
       graphics: {
         Logo: '@/components/Logo/Logo',
       },
@@ -52,6 +52,12 @@ export default buildConfig({
       // graphics: {
       //   Icon: '@/components/Logo/Logo',
       //   Logo: '@/components/Logo/Logo',
+      // },
+      // header: ['@/components/AdminHeader/AdminHeader'],
+      // views: {
+      //   dashboard: {
+      //     Component: '@/components/Dashboard/Dashboard',
+      //   },
       // },
     },
     importMap: {
@@ -136,6 +142,11 @@ export default buildConfig({
       },
     },
     tasks: [],
+  },
+  localization: {
+    locales: ['en', 'ne'],
+    defaultLocale: 'en',
+    fallback: true,
   },
   // email: nodemailerAdapter({
   //   defaultFromAddress: 'noreply@sanjayguwaju.com.np',
