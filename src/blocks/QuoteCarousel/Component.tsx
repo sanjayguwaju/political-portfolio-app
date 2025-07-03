@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import Image from 'next/image'
 import type { QuoteCarouselBlock as QuoteCarouselBlockProps } from '@/payload-types'
 
 type Quote = {
@@ -62,7 +63,7 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
 
   // Autoplay functionality
   useEffect(() => {
-    if (!isPlaying || !autoPlay) return
+    if (!isPlaying || !autoPlay || !interval) return
 
     const intervalId = setInterval(() => {
       if (!isTransitioning) {
@@ -85,14 +86,16 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
   if (!quotes || quotes.length === 0) return null
 
   const currentQuote = quotes[currentIndex]
-  const bgClasses = {
+  if (!currentQuote) return null
+
+  const bgClasses: Record<string, string> = {
     light: 'bg-gray-50',
     dark: 'bg-gray-900 text-white',
     blue: 'bg-blue-50',
     white: 'bg-white',
   }
 
-  const textClasses = {
+  const textClasses: Record<string, string> = {
     light: 'text-gray-900',
     dark: 'text-white',
     blue: 'text-gray-900',
@@ -116,7 +119,7 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
 
   return (
     <section
-      className={`py-12 md:py-16 lg:py-20 ${bgClasses[backgroundColor]}`}
+      className={`py-12 md:py-16 lg:py-20 ${bgClasses[backgroundColor || 'light']}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -131,12 +134,16 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
             viewport={{ once: true }}
           >
             {title && (
-              <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${textClasses[backgroundColor]}`}>
+              <h2
+                className={`text-3xl md:text-4xl font-bold mb-4 ${textClasses[backgroundColor || 'light']}`}
+              >
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className={`text-lg md:text-xl ${textClasses[backgroundColor]} opacity-80`}>
+              <p
+                className={`text-lg md:text-xl ${textClasses[backgroundColor || 'light']} opacity-80`}
+              >
                 {subtitle}
               </p>
             )}
@@ -159,16 +166,16 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
                 {/* Quote Icon */}
                 <div className="mb-6">
                   <Quote
-                    className={`w-12 h-12 mx-auto ${textClasses[backgroundColor]} opacity-30`}
+                    className={`w-12 h-12 mx-auto ${textClasses[backgroundColor || 'light']} opacity-30`}
                   />
                 </div>
 
                 {/* Quote Text */}
                 <blockquote className="mb-8">
                   <p
-                    className={`text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed ${textClasses[backgroundColor]} italic`}
+                    className={`text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed ${textClasses[backgroundColor || 'light']} italic`}
                   >
-                    "{currentQuote.quote}"
+                    &ldquo;{currentQuote.quote}&rdquo;
                   </p>
                 </blockquote>
 
@@ -176,21 +183,33 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
                 <div className="flex items-center justify-center space-x-4">
                   {currentQuote.image && (
                     <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200">
-                      <img
-                        src={currentQuote.image.url}
-                        alt={currentQuote.image.alt || currentQuote.author}
+                      <Image
+                        src={
+                          typeof currentQuote.image === 'string'
+                            ? currentQuote.image
+                            : currentQuote.image.url || ''
+                        }
+                        alt={
+                          typeof currentQuote.image === 'string'
+                            ? currentQuote.author
+                            : currentQuote.image.alt || currentQuote.author
+                        }
+                        width={64}
+                        height={64}
                         className="w-full h-full object-cover"
                       />
                     </div>
                   )}
                   <div className="text-left">
                     <cite
-                      className={`text-lg font-semibold not-italic ${textClasses[backgroundColor]}`}
+                      className={`text-lg font-semibold not-italic ${textClasses[backgroundColor || 'light']}`}
                     >
                       {currentQuote.author}
                     </cite>
                     {(currentQuote.title || currentQuote.organization) && (
-                      <p className={`text-sm ${textClasses[backgroundColor]} opacity-70`}>
+                      <p
+                        className={`text-sm ${textClasses[backgroundColor || 'light']} opacity-70`}
+                      >
                         {currentQuote.title}
                         {currentQuote.title && currentQuote.organization && ', '}
                         {currentQuote.organization}
@@ -208,7 +227,7 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
               <button
                 onClick={prevQuote}
                 disabled={isTransitioning}
-                className={`absolute top-1/2 left-4 md:left-8 -translate-y-1/2 p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${textClasses[backgroundColor]}`}
+                className={`absolute top-1/2 left-4 md:left-8 -translate-y-1/2 p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${textClasses[backgroundColor || 'light']}`}
                 aria-label="Previous quote"
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -216,7 +235,7 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
               <button
                 onClick={nextQuote}
                 disabled={isTransitioning}
-                className={`absolute top-1/2 right-4 md:right-8 -translate-y-1/2 p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${textClasses[backgroundColor]}`}
+                className={`absolute top-1/2 right-4 md:right-8 -translate-y-1/2 p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${textClasses[backgroundColor || 'light']}`}
                 aria-label="Next quote"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -229,7 +248,7 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
             <div className="absolute top-4 right-4">
               <button
                 onClick={togglePlayPause}
-                className={`p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300 ${textClasses[backgroundColor]}`}
+                className={`p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-all duration-300 ${textClasses[backgroundColor || 'light']}`}
                 aria-label={isPlaying ? 'Pause carousel' : 'Play carousel'}
               >
                 {isPlaying ? (
@@ -269,7 +288,7 @@ export const QuoteCarouselBlock: React.FC<QuoteCarouselBlockProps> = ({
         {/* Quote Counter */}
         {quotes.length > 1 && (
           <div className="text-center mt-6">
-            <span className={`text-sm ${textClasses[backgroundColor]} opacity-70`}>
+            <span className={`text-sm ${textClasses[backgroundColor || 'light']} opacity-70`}>
               {currentIndex + 1} of {quotes.length}
             </span>
           </div>
