@@ -1,0 +1,407 @@
+// AdminHeader Variables
+$admin-header-bg: #ffffff;
+$admin-header-border: #e5e7eb;
+$admin-header-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$admin-header-height: 4rem;
+
+$primary-color: #2563eb;
+$primary-hover: #1d4ed8;
+$primary-light: #dbeafe;
+$primary-text: #1e40af;
+
+$text-primary: #111827;
+$text-secondary: #6b7280;
+$text-muted: #9ca3af;
+
+$border-color: #d1d5db;
+$border-focus: #3b82f6;
+
+$hover-bg: #f9fafb;
+$active-bg: #eff6ff;
+
+// AdminHeader Component Styles
+.admin-header {
+  background-color: $admin-header-bg;
+  border-bottom: 1px solid $admin-header-border;
+  box-shadow: $admin-header-shadow;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  &__container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    @media (min-width: 640px) {
+      padding: 0 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 0 2rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: $admin-header-height;
+  }
+
+  // Left side - Logo and Navigation
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+
+  // Mobile menu button
+  &__mobile-menu-btn {
+    @media (min-width: 1024px) {
+      display: none;
+    }
+
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    color: $text-muted;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: $text-secondary;
+      background-color: $hover-bg;
+    }
+
+    &:focus {
+      outline: none;
+      ring: 2px;
+      ring-inset: true;
+      ring-color: $border-focus;
+    }
+  }
+
+  // Logo section
+  &__logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+  }
+
+  &__logo-icon {
+    width: 2rem;
+    height: 2rem;
+    background-color: $primary-color;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      color: white;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__logo-text {
+    margin-left: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+
+    @media (max-width: 639px) {
+      display: none;
+    }
+  }
+
+  &__logo-subtitle {
+    margin-left: 0.5rem;
+    font-size: 0.875rem;
+    color: $text-secondary;
+
+    @media (max-width: 639px) {
+      display: none;
+    }
+  }
+
+  // Desktop Navigation
+  &__nav {
+    display: none;
+    margin-left: 2rem;
+
+    @media (min-width: 1024px) {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+  &__nav-item {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+
+    &--current {
+      background-color: $primary-light;
+      color: $primary-text;
+    }
+
+    &:not(&--current) {
+      color: $text-secondary;
+
+      &:hover {
+        color: $text-primary;
+        background-color: $hover-bg;
+      }
+    }
+  }
+
+  // Right side - Search, Notifications, User menu
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  // Search
+  &__search {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__search-container {
+    position: relative;
+  }
+
+  &__search-icon {
+    position: absolute;
+    inset-y: 0;
+    left: 0;
+    padding-left: 0.75rem;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    color: $text-muted;
+  }
+
+  &__search-input {
+    display: block;
+    width: 100%;
+    padding-left: 2.5rem;
+    padding-right: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: 1px solid $border-color;
+    border-radius: 0.375rem;
+    background-color: white;
+    font-size: 0.875rem;
+    transition: all 0.2s ease-in-out;
+
+    &::placeholder {
+      color: $text-secondary;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $border-focus;
+      box-shadow: 0 0 0 1px $border-focus;
+    }
+  }
+
+  // Action buttons (notifications, settings)
+  &__action-btn {
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    color: $text-muted;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: $text-secondary;
+      background-color: $hover-bg;
+    }
+
+    &:focus {
+      outline: none;
+      ring: 2px;
+      ring-inset: true;
+      ring-color: $border-focus;
+    }
+  }
+
+  // User menu
+  &__user-menu {
+    position: relative;
+  }
+
+  &__user-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    color: $text-muted;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: $text-secondary;
+      background-color: $hover-bg;
+    }
+
+    &:focus {
+      outline: none;
+      ring: 2px;
+      ring-inset: true;
+      ring-color: $border-focus;
+    }
+  }
+
+  &__user-avatar {
+    width: 2rem;
+    height: 2rem;
+    background-color: $primary-color;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: white;
+    }
+  }
+
+  &__user-info {
+    display: none;
+    text-align: left;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__user-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-primary;
+  }
+
+  &__user-email {
+    font-size: 0.75rem;
+    color: $text-secondary;
+  }
+
+  // User dropdown menu
+  &__user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 12rem;
+    border-radius: 0.375rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    border: 1px solid $border-color;
+    z-index: 50;
+  }
+
+  &__dropdown-menu {
+    padding: 0.25rem 0;
+  }
+
+  &__dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: $text-primary;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $hover-bg;
+    }
+
+    svg {
+      margin-right: 0.75rem;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  &__dropdown-divider {
+    margin: 0.25rem 0;
+    border-top: 1px solid $border-color;
+  }
+
+  // Mobile menu
+  &__mobile-menu {
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &__mobile-menu-content {
+    padding: 0.5rem 0.5rem 0.75rem;
+    background-color: white;
+    border-top: 1px solid $border-color;
+
+    @media (min-width: 640px) {
+      padding: 0.5rem 0.75rem 0.75rem;
+    }
+  }
+
+  &__mobile-nav-item {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+
+    &--current {
+      background-color: $primary-light;
+      color: $primary-text;
+    }
+
+    &:not(&--current) {
+      color: $text-secondary;
+
+      &:hover {
+        color: $text-primary;
+        background-color: $hover-bg;
+      }
+    }
+  }
+}
+
+// Utility classes
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+} 

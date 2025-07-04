@@ -54,11 +54,11 @@ export default buildConfig({
       //   Logo: '@/components/Logo/Logo',
       // },
       // header: ['@/components/AdminHeader/AdminHeader'],
-      // views: {
-      //   dashboard: {
-      //     Component: '@/components/Dashboard/Dashboard',
-      //   },
-      // },
+      views: {
+        dashboard: {
+          Component: '@/components/Dashboard/Dashboard',
+        },
+      },
     },
     importMap: {
       baseDir: path.resolve(dirname),

@@ -1,12 +1,27 @@
 import type { CollectionConfig } from 'payload'
 
 import {
+  AlignFeature,
   BlocksFeature,
+  ChecklistFeature,
   FixedToolbarFeature,
   HeadingFeature,
   HorizontalRuleFeature,
+  IndentFeature,
+  InlineCodeFeature,
   InlineToolbarFeature,
+  ItalicFeature,
   lexicalEditor,
+  LinkFeature,
+  OrderedListFeature,
+  ParagraphFeature,
+  RelationshipFeature,
+  StrikethroughFeature,
+  SubscriptFeature,
+  SuperscriptFeature,
+  TextStateFeature,
+  UnderlineFeature,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 
 import { authenticated } from '../../access/authenticated'
@@ -91,11 +106,31 @@ export const Posts: CollectionConfig<'posts'> = {
                 features: ({ rootFeatures }) => {
                   return [
                     ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    AlignFeature(),
                     BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    ChecklistFeature(),
                     FixedToolbarFeature(),
-                    InlineToolbarFeature(),
+                    FixedToolbarFeature(),
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
                     HorizontalRuleFeature(),
+                    HorizontalRuleFeature(),
+                    IndentFeature(),
+                    InlineCodeFeature(),
+                    InlineToolbarFeature(),
+                    InlineToolbarFeature(),
+                    ItalicFeature(),
+                    LinkFeature(),
+                    OrderedListFeature(),
+                    ParagraphFeature(),
+                    RelationshipFeature(),
+                    StrikethroughFeature(),
+                    SubscriptFeature(),
+                    SuperscriptFeature(),
+                    // TableFeature(),
+                    // TableOfContentsFeature(),
+                    TextStateFeature(),
+                    UnderlineFeature(),
+                    UnorderedListFeature(),
                   ]
                 },
               }),
@@ -233,4 +268,25 @@ export const Posts: CollectionConfig<'posts'> = {
     },
     maxPerDoc: 50,
   },
+}
+function TableFeature(): import('@payloadcms/richtext-lexical').FeatureProviderServer<
+  any,
+  any,
+  any
+> {
+  throw new Error('Function not implemented.')
+}
+function TableOfContentsFeature(): import('@payloadcms/richtext-lexical').FeatureProviderServer<
+  any,
+  any,
+  any
+> {
+  throw new Error('Function not implemented.')
+}
+function TextStatsFeature(): import('@payloadcms/richtext-lexical').FeatureProviderServer<
+  any,
+  any,
+  any
+> {
+  throw new Error('Function not implemented.')
 }
