@@ -22,6 +22,7 @@ import {
   TextStateFeature,
   UnderlineFeature,
   UnorderedListFeature,
+  EXPERIMENTAL_TableFeature,
 } from '@payloadcms/richtext-lexical'
 
 import { authenticated } from '../../access/authenticated'
@@ -126,8 +127,7 @@ export const Posts: CollectionConfig<'posts'> = {
                     StrikethroughFeature(),
                     SubscriptFeature(),
                     SuperscriptFeature(),
-                    // TableFeature(),
-                    // TableOfContentsFeature(),
+                    EXPERIMENTAL_TableFeature(),
                     TextStateFeature(),
                     UnderlineFeature(),
                     UnorderedListFeature(),
