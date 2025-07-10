@@ -54,6 +54,7 @@ export default buildConfig({
       //   Logo: '@/components/Logo/Logo',
       // },
       // header: ['@/components/AdminHeader/AdminHeader'],
+      // Nav: '@/components/AdminNav/AdminNav',
       views: {
         dashboard: {
           Component: '@/components/Dashboard/Dashboard',

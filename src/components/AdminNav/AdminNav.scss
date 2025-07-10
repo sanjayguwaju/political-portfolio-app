@@ -1,0 +1,123 @@
+// CSS Variables for theme support
+:root {
+  --nav-text-color: #333;
+  --nav-bg-color: #ffffff;
+  --nav-hover-bg: #f5f5f5;
+  --nav-active-bg: #e3e3e3;
+  --nav-border-color: #e0e0e0;
+  --nav-icon-color: #666;
+}
+
+[data-theme="dark"] {
+  --nav-text-color: #ffffff;
+  --nav-bg-color: #1a1a1a;
+  --nav-hover-bg: #2a2a2a;
+  --nav-active-bg: #3a3a3a;
+  --nav-border-color: #404040;
+  --nav-icon-color: #cccccc;
+}
+
+$border-radius: 6px;
+
+.nav {
+    background-color: var(--nav-bg-color);
+    color: var(--nav-text-color);
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--nav-text-color);
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: var(--nav-hover-bg);
+        }
+
+        &:focus:not(:focus-visible) {
+            box-shadow: none;
+            font-weight: 600;
+        }
+
+        &.active {
+            font-weight: normal;
+            padding-left: 0;
+            font-weight: 600;
+            background-color: var(--nav-active-bg);
+        }
+
+        &.group-toggle {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: $border-radius;
+        }
+
+        &.sub-group-list {
+            padding: 8px 12px 8px 32px;
+            font-size: 13px;
+            border-radius: $border-radius;
+            margin: 2px 0;
+        }
+    }
+
+    &__group-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    &__dropdown-icon {
+        color: var(--nav-icon-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+        transition: transform 0.2s ease;
+    }
+
+    &__submenu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+        opacity: 0;
+
+        &.expanded {
+            max-height: 500px;
+            opacity: 1;
+        }
+    }
+
+    .menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 2px;
+
+            &.group {
+                position: relative;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: var(--nav-hover-bg);
+                    border-radius: $border-radius;
+                }
+
+                &.expanded {
+                    .nav__dropdown-icon {
+                        transform: rotate(0deg);
+                    }
+                }
+
+                &:not(.expanded) {
+                    .nav__dropdown-icon {
+                        transform: rotate(-90deg);
+                    }
+                }
+            }
+        }
+    }
+}
